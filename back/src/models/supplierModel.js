@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 //Esquema de Supplier
 const supplierSchema = new mongoose.Schema({
