@@ -1,23 +1,20 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-/* import userRouter from "./routers/userRouter.js";
-import loginRouter from "./routers/loginRouter.js";
-import storageRouter from "./routers/storageRouter.js";
- */
+import userRouter from "./routers/userRouter.js";
+/* import loginRouter from "./routers/loginRouter.js";
+import storageRouter from "./routers/storageRouter.js"; */
 import supplierRouter from "./routers/supplierRouter.js";
-/*
-import invoiceRouter from "./routers/invoiceRouter.js"; // Todos fuera de corchetes porque está exportado por default
-*/
+/* import invoiceRouter from "./routers/invoiceRouter.js"; // Todos fuera de corchetes porque está exportado por default */
 
 const server = express();
 
 server.use(cors());
 server.use(express.json());
 server.use(morgan("dev"));
-/* server.use("/user", userRouter);
-server.use("/login", loginRouter);
-server.use("/invoice", invoiceRouter); 
+server.use("/users", userRouter);
+/* server.use("/login", loginRouter);
+server.use("/invoices", invoiceRouter);
 server.use("/storage", storageRouter); */
 server.use("/suppliers", supplierRouter);
 
