@@ -3,50 +3,46 @@ import invoiceModel from "../models/invoiceModel.js";
 const Invoice_controller = {
   create_invoice: async (solicitud, respuesta) => {
     try {
-      const Emission = solicitud.body.Emission;
-      const date = solicitud.body.date;
-      const Type_of_invoice = solicitud.body.Type_of_invoice;
-      const Payment_method = solicitud.body.Payment_method;
-      const Invoice = solicitud.body.Invoice;
-      const Thirth_person = solicitud.body.Thirth_person;
-      const Invoice_status = solicitud.body.Invoice_status;
-      const date2 = solicitud.body.date2;
-      const Description = solicitud.body.Description;
-      const Payment_method2 = solicitud.body.Payment_method2;
-      const Paid_value = solicitud.body.Paid_value;
-      const Paid2 = solicitud.body.Paid2;
-      const date4 = solicitud.body.date4;
-      const T_taxes = solicitud.body.T_taxes;
-      const T_Invoice = solicitud.body.T_Invoice;
-      const Rte_Fount = solicitud.body.Rte_Fount;
-      const Rte_IVA = solicitud.body.Rte_IVA;
-      const Rte_ICA = solicitud.body.Rte_ICA;
-      const Observation = solicitud.body.Observation;
-      const Department = solicitud.body.Department;
-      const MunicipioCity = solicitud.body.MunicipioCity;
+      const issue_date = solicitud.body.issue_date;
+      const invoice_type = solicitud.body.invoice_type;
+      const payment_method = solicitud.body.payment_method;
+      const invoice = solicitud.body.invoice;
+      const thirth_party = solicitud.body.thirth_party;
+      const invoice_status = solicitud.body.invoice_status;
+      const due_date = solicitud.body.due_date;
+      const description = solicitud.body.description;
+      const payment_way = solicitud.body.payment_way;
+      const paid_value = solicitud.body.paid_value;
+      const payment_date = solicitud.body.payment_date;
+      const taxes_total = solicitud.body.taxes_total;
+      const invoice_total = solicitud.body.invoice_total;
+      const rte_fuente = solicitud.body.rte_fuente;
+      const rte_iva = solicitud.body.rte_iva;
+      const rte_ica = solicitud.body.rte_ica;
+      const observation = solicitud.body.observation;
+      const department = solicitud.body.department;
+      const city = solicitud.body.city;
 
       const newInvoice = new invoiceModel({
-        Emission,
-        date,
-        Type_of_invoice,
-        Payment_method,
-        Invoice,
-        Thirth_person,
-        Invoice_status,
-        date2,
-        Description,
-        Payment_method2,
-        Paid_value,
-        Paid2,
-        date4,
-        T_taxes,
-        T_Invoice,
-        Rte_Fount,
-        Rte_IVA,
-        Rte_ICA,
-        Observation,
-        Department,
-        MunicipioCity,
+        issue_date,
+        invoice_type,
+        payment_method,
+        invoice,
+        thirth_party,
+        invoice_status,
+        due_date,
+        description,
+        payment_way,
+        paid_value,
+        payment_date,
+        taxes_total,
+        invoice_total,
+        rte_fuente,
+        rte_iva,
+        rte_ica,
+        observation,
+        department,
+        city,
       });
       const Invoice_created = await newInvoice.save();
 
