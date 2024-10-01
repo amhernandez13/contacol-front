@@ -55,13 +55,13 @@ const Invoice_controller = {
       console.log("req body", req.body);
       if (Invoice_created._id) {
         res.json({
-          resultado: "Good",
-          mensaje: "Creating invoice",
-          datos: null,
+          resoult: "Good",
+          message: "Creating invoice",
+          data: null,
         });
       }
     } catch (error) {
-      res.json({ error: true, mensaje: "ha ocurrido un error " });
+      res.json({ error: true, message: "an error has ocurred " });
       console.log(error);
       console.log(typeof req.body.payment.thirt_party);
     }
@@ -72,15 +72,15 @@ const Invoice_controller = {
       const invoice_Found = await invoiceModel.findById(req.params.id);
       if (invoice_Found._id) {
         res.json({
-          resultado: "bien",
-          mensaje: "la factura fue leida correctamente",
+          resoult: "Good",
+          message: "The invoice has been read correctly",
           dato: invoice_Found,
         });
       }
     } catch (error) {
       res.json({
-        resultado: "mal",
-        mensaje: "Hubo un error",
+        resoult: "Ups",
+        message: "An error has ocurred",
       });
     }
   },
@@ -91,13 +91,13 @@ const Invoice_controller = {
 
       if (invoice_Found) {
         res.json({
-          resultado: "bien",
-          mensaje: "Leyendo facturas",
-          datos: null,
+          resoult: "Good",
+          message: "Reading invoices",
+          data: null,
         });
       }
     } catch (error) {
-      res.json({ error: true, mensaje: "ha ocurrido un error " });
+      res.json({ error: true, message: "An error has ocurred " });
     }
   },
 
@@ -106,15 +106,15 @@ const Invoice_controller = {
       const Delete = await invoiceModel.findOneAndDelete(req.params.id);
       if (Delete._id) {
         res.json({
-          resultado: "bien",
-          mensaje: "la factura fue eliminada",
-          dato: null,
+          resoult: "Good",
+          message: "Invoice deleted",
+          data: null,
         });
       }
     } catch (error) {
       res.json({
-        resultado: "mal",
-        mensaje: "Hubo un error",
+        resoult: "Ups",
+        message: "An error has ocurred",
       });
     }
   },
