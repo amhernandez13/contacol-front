@@ -6,11 +6,14 @@ dotenv.config();
 
 console.log(process.env.MONGO_ENDPOINT);
 mongoose
-  .connect(process.env.MONGO_ENDPOINT)
+  .connect(
+    "mongodb+srv://david:1234@cluster0.6pqncbu.mongodb.net/testcloud?retryWrites=true&w=majority&appName=Cluster0"
+  )
   .then((data) => {
     console.log("Success conecting DB");
   })
   .catch((error) => {
+    console.log(error);
     console.log("Error conecting DB");
   });
 
