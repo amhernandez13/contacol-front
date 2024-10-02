@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AlmacenFactComponent } from './almacen-fact.component';
+import { VouchersComponent } from './vouchers.component';
 
-describe('AlmacenFactComponent', () => {
-  let component: AlmacenFactComponent;
-  let fixture: ComponentFixture<AlmacenFactComponent>;
+describe('VouchersComponent', () => {
+  let component: VouchersComponent;
+  let fixture: ComponentFixture<VouchersComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AlmacenFactComponent]
+      imports: [VouchersComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AlmacenFactComponent);
+    fixture = TestBed.createComponent(VouchersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
