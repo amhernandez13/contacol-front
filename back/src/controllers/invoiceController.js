@@ -1,3 +1,4 @@
+import { response } from "express";
 import invoiceModel from "../models/invoiceModel.js";
 
 const Invoice_controller = {
@@ -93,7 +94,7 @@ const Invoice_controller = {
         res.json({
           resoult: "Good",
           message: "Reading invoices",
-          data: null,
+          data: invoice_Found,
         });
       }
     } catch (error) {
@@ -103,7 +104,7 @@ const Invoice_controller = {
 
   delete_Invoice: async (req, res) => {
     try {
-      const Delete = await invoiceModel.findOneAndDelete(req.params.id);
+      const Delete = await invoiceModel.findByIdAndDelete(req.params.id);
       if (Delete._id) {
         res.json({
           resoult: "Good",
@@ -116,6 +117,56 @@ const Invoice_controller = {
         resoult: "Ups",
         message: "An error has ocurred",
       });
+    }
+  },
+
+  upadate_invoice: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const update_invo = {
+        issue_date: req.body.issue_date,
+        invoice_type: req.body.invoice_type,
+        payment_method: req.body.payment_method,
+        invoice: req.body.invoice,
+        thirt_party: req.body.thirt_party,
+        invoice_status: req.body.invoice_status,
+        due_date: req.body.due_date,
+        description: req.body.description,
+        payment_way: req.body.payment_way,
+        paid_value: req.body.paid_value,
+        payment_date: req.body.payment_date,
+        payment: req.body,
+        taxes_total: req.body,
+        invoice_total: req.body,
+        rte_fuente: req.body,
+        rte_iva: req.body,
+        rte_ica: req.body,
+        observation: req.body.observation,
+        department: req.body.department,
+        city: req.body.city,
+      };
+      const invoice_updated = await invoiceModel.findByIdAndUpdate(
+        id,
+        update_invo
+      );
+
+      if (invoice_updated._id) {
+        console.log(req.body);
+        console.log(req.params.id);
+
+        response.json({
+          resoult: "nice",
+          message: "invoice updated",
+          data: invoice_updated._id,
+        });
+      }
+    } catch (error) {
+      res.json({
+        resoult: "ups, an error has ocurred",
+        message: "an error ocurred while updating invoice",
+      });
+      console.log(error);
     }
   },
 };

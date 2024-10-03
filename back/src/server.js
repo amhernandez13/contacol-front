@@ -23,6 +23,7 @@ server.use("/storage", storageRouter); */
 server.use("/suppliers", supplierRouter);
 server.use("/invoice", Router_invoice);
 
+
 server.get("/", (sol, res) => {
   res.status(404).send("Not found, try /login on the URL");
 });
