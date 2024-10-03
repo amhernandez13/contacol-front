@@ -7,6 +7,10 @@ import { InvoicesComponent } from './Componentes/invoices/invoices.component';
 import { SuppliersComponent } from './Componentes/suppliers/suppliers.component';
 import { UsersComponent } from './Componentes/users/users.component';
 import { VouchersComponent } from './Componentes/vouchers/vouchers.component';
+import { InvoicesFormComponent } from './Componentes/invoices-form/invoices-form.component';
+
+
+
 
 export const routes: Routes = [
     {path: 'home', component:HomeComponent},
@@ -18,5 +22,6 @@ export const routes: Routes = [
     {path: 'users', component:UsersComponent},
     {path: 'vouchers', component:VouchersComponent},
     {path: 'login', component:LoginComponent},
-    
+    {path: 'invpoces', component:InvoicesFormComponent}
+
 ];
