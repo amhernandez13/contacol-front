@@ -8,7 +8,7 @@ const Invoice_controller = {
       const invoice_type = req.body.invoice_type;
       const payment_method = req.body.payment_method;
       const invoice = req.body.invoice;
-      const thirt_party = req.body.thirt_party;
+      const third_party = req.body.third_party;
       const invoice_status = req.body.invoice_status;
       const due_date = req.body.due_date;
       const description = req.body.description;
@@ -34,7 +34,7 @@ const Invoice_controller = {
         invoice_type,
         payment_method,
         invoice,
-        thirt_party,
+        third_party,
         invoice_status,
         due_date,
         description,
@@ -64,7 +64,7 @@ const Invoice_controller = {
     } catch (error) {
       res.json({ error: true, message: "an error has ocurred " });
       console.log(error);
-      console.log(typeof req.body.payment.thirt_party);
+      console.log(typeof req.body.payment.third_party);
     }
   },
 
@@ -129,7 +129,7 @@ const Invoice_controller = {
         invoice_type: req.body.invoice_type,
         payment_method: req.body.payment_method,
         invoice: req.body.invoice,
-        thirt_party: req.body.thirt_party,
+        third_party: req.body.third_party,
         invoice_status: req.body.invoice_status,
         due_date: req.body.due_date,
         description: req.body.description,
@@ -152,10 +152,7 @@ const Invoice_controller = {
       );
 
       if (invoice_updated._id) {
-        console.log(req.body);
-        console.log(req.params.id);
-
-        response.json({
+        res.json({
           resoult: "nice",
           message: "invoice updated",
           data: invoice_updated._id,
@@ -166,6 +163,7 @@ const Invoice_controller = {
         resoult: "ups, an error has ocurred",
         message: "an error ocurred while updating invoice",
       });
+
       console.log(error);
     }
   },
