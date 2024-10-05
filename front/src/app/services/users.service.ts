@@ -1,32 +1,24 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
-  private http = inject(HttpClient);
+  API_URL = 'http://localhost:3000/users'; // URL del backend
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  API_URL = 'http://localhost:3000/suppliers'; // URL a donde se harán las peticiones (de crear producto)
-
-  createUser(name: any, email: any, password: any, role: any, state: any) {
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('password', password);
-    formData.append('role', role);
-    formData.append('state', state);
-    return this.http.post(this.API_URL, formData);
+  createUser(userData: any) {
+    return this.http.post(this.API_URL, userData); // Enviar los datos como JSON
   }
 
   getUsers() {
     return this.http.get(this.API_URL);
   }
 
-  getUsersById(id: String) {
-    return this.http.get(this.API_URL + '/' + id);
+  getUsersById(id: string) {
+    return this.http.get(`${this.API_URL}/${id}`);
   }
 
   /* putInvoicesById(id: string, data: {}) {

@@ -1,0 +1,41 @@
+<body>
+  <div id="screenTop">
+    <i class="bi bi-x-square"></i>
+  </div>
+  <div id="screenMiddle">
+    <h2>Registro de usuarios</h2>
+    <form [formGroup]="userRegister" (ngSubmit)="onSubmit()">
+      <div id="formColor">
+        <div class="formDivider">
+          <label for="name">Nombre:</label>
+          <input id="name" formControlName="name" type="text" />
+        </div>
+        <div class="formDivider">
+          <label for="email">Correo electrónico:</label>
+          <input type="email" formControlName="email" id="email" />
+        </div>
+        <div class="formDivider">
+          <label for="password">Contraseña:</label>
+          <input type="password" formControlName="password" id="password" />
+        </div>
+        <div class="formDivider">
+          <label for="confirmPassword">Confirmar contraseña:</label>
+          <input
+            type="confirmPassword"
+            formControlName="confirmPassword"
+            id="confirmPassword"
+            type="password"
+          />
+        </div>
+        <div class="formDivider">
+          <label for="role">Rol:</label>
+          <select formControlName="role" id="role">
+            <option value="admin">Administrador</option>
+            <option value="accountant">Contador</option>
+          </select>
+        </div>
+      </div>
+      <button id="submit" type="submit">Registrar</button>
+    </form>
+  </div>
+</body>
