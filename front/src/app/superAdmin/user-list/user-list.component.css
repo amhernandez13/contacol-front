@@ -1,0 +1,166 @@
+/* Contenedor de la tabla */
+#tableContainer {
+    background-color: #d9d9d9; /* Color de fondo restaurado */
+    padding: 20px;
+    width: 100%;
+    max-width: 1000px; /* Limitar el ancho del contenedor */
+    margin: 0 auto 20px;
+  }
+  
+  /* Contenedor principal */
+  #screenMiddle {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center; /* Centra horizontalmente los elementos dentro */
+    width: 100%;
+  }
+  
+  img {
+    width: 100px;
+    margin: 40px;
+  }
+  
+  /* Alinear barra de búsqueda y botón en una fila */
+  .search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Espaciado entre la fila de búsqueda/botón y la tabla */
+  }
+  
+  /* Barra de búsqueda */
+  .search-bar {
+    width: 300px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Botón "Crear usuario" */
+  .create-user-btn {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .create-user-btn:hover {
+    background-color: #333;
+  }
+  
+  /* Estilos de la tabla */
+  .user-table, .table-responsive {
+    width: 100%;
+    max-width: 1000px; /* Limita el ancho de la tabla a un máximo de 1000px */
+    margin: 20px auto;
+    border-collapse: collapse;
+  }
+  
+  .user-table {
+    border: 2px solid #333;
+  }
+  
+  .user-table th, .user-table td {
+    padding: 10px;
+    border: 1px solid #666;
+    text-align: left;
+  }
+  
+  .user-table th {
+    font-weight: bold;
+  }
+  
+  .user-table td.actions {
+    text-align: center;
+    white-space: nowrap;
+    width: 50px;
+  }
+  
+  /* Responsividad */
+  @media (max-width: 768px) {
+    .user-table th, .user-table td {
+      padding: 8px;
+      font-size: 14px;
+    }
+  
+    .create-user-btn, .search-bar {
+      width: 100%; /* Ocupan todo el ancho en pantallas pequeñas */
+      margin-bottom: 10px;
+    }
+  
+    .search-container {
+      flex-direction: column; /* Cambiamos a columna en pantallas pequeñas */
+      align-items: stretch;
+    }
+  
+    .active-icon, .inactive-icon {
+      font-size: 20px;
+      margin-right: 5px;
+    }
+  }
+  
+  /* Estilos del modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal.show {
+    display: flex;
+  }
+  
+  .modal-content {
+    background-color: #d9d9d9;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 1000px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 600px) {
+    .modal-content {
+      width: 95%;
+    }
+  }
+  
+  /* Iconos activos e inactivos */
+  .active-icon, .inactive-icon {
+    font-size: 24px;
+    margin-right: 10px;
+    color: #000;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  .inactive-icon {
+    color: #ccc;
+  }
+  
+  /* Tabla scrollable horizontalmente */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  

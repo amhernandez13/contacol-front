@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -16,9 +16,11 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [ReactiveFormsModule, HttpClientModule, CommonModule],
   templateUrl: './user-register-form.component.html',
-  styleUrl: './user-register-form.component.css',
+  styleUrls: ['./user-register-form.component.css'],
 })
 export class UserRegisterFormComponent {
+  @Output() userRegistered = new EventEmitter<void>(); // Emitimos evento al registrar
+
   userRegister: FormGroup;
 
   constructor(private usersService: UsersService) {
@@ -30,7 +32,7 @@ export class UserRegisterFormComponent {
         confirmPassword: new FormControl('', Validators.required),
         role: new FormControl('', Validators.required),
       },
-      { validators: this.passwordValidator } // Pasamos el validador
+      { validators: this.passwordValidator } // Validador personalizado de contraseñas
     );
   }
 
@@ -45,31 +47,18 @@ export class UserRegisterFormComponent {
 
   // Método para enviar el formulario
   onSubmit() {
-    // Verificamos si hay campos faltantes
-    if (
-      this.userRegister.hasError('required', 'name') ||
-      this.userRegister.hasError('required', 'email') ||
-      this.userRegister.hasError('required', 'password') ||
-      this.userRegister.hasError('required', 'confirmPassword') ||
-      this.userRegister.hasError('required', 'role')
-    ) {
-      alert('Faltan campos por llenar o hay errores en el formulario');
-    }
-    // Verificamos si las contraseñas no coinciden
-    else if (this.userRegister.errors?.['passwordsMismatch']) {
-      alert('Las contraseñas no coinciden');
-    }
-    // Si todo está bien, enviamos los datos
-    else {
-      // Se elimina el campo confirmPassword para que no se envíe
+    if (this.userRegister.valid) {
+      // Excluir el campo confirmPassword antes de enviar los datos
       const { confirmPassword, ...formValue } = this.userRegister.value;
 
       // Agregamos el campo state, que siempre sera true
       const dataToSend = { ...formValue, state: true };
 
+      // Enviamos el formulario al backend
       this.usersService.createUser(dataToSend).subscribe({
         next: (response) => {
           alert('Usuario registrado');
+          this.userRegistered.emit(); // Emitimos el evento al registrar correctamente
         },
         error: (error) => {
           console.error('Error en el registro', error);
@@ -78,6 +67,10 @@ export class UserRegisterFormComponent {
           );
         },
       });
+    } else if (this.userRegister.errors?.['passwordsMismatch']) {
+      alert('Las contraseñas no coinciden');
+    } else {
+      alert('Faltan campos por llenar o hay errores en el formulario');
     }
   }
 }

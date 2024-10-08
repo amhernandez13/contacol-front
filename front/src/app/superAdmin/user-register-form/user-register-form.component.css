@@ -3,10 +3,6 @@ body {
     max-width: 1000px;
     margin: auto;
 }
-#screenTop {
-    display: flex;
-    justify-content: flex-end;
-}
 
 i {
     margin: 15px;
@@ -73,4 +69,5 @@ form {
     border-radius: 15px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 0;
 }

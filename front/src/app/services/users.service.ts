@@ -17,10 +17,6 @@ export class UsersService {
     return this.http.get(this.API_URL);
   }
 
-  getUsersById(id: string) {
-    return this.http.get(`${this.API_URL}/${id}`);
-  }
-
   /* putInvoicesById(id: string, data: {}) {
     let promise = new Promise((resolve, reject) => {
       this.http
@@ -35,4 +31,15 @@ export class UsersService {
     });
     return promise;
   } */
+
+  // Método para actualizar el estado del usuario (activo/inactivo)
+  updateUserState(userData: any) {
+    return this.http.put(`${this.API_URL}/${userData._id}`, {
+      state: userData.state,
+    });
+  }
+
+  getUsersById(id: string) {
+    return this.http.get(`${this.API_URL}/${id}`);
+  }
 }
