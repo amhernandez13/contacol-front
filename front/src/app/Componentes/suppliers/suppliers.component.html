@@ -1,1 +1,52 @@
-<p>suppliers works!</p>
+<form *ngIf="suppliersForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="thirdParty">Tercero:</label>
+    <input id="thirdParty" formControlName="thirdParty" type="text" />
+    <div *ngIf="suppliersForm.get('thirdParty')?.invalid && suppliersForm.get('thirdParty')?.touched">
+      Este campo es obligatorio.
+    </div>
+  </div>
+
+
+  <div>
+    <label for="nit">NIT:</label>
+    <input id="nit" formControlName="nit" type="text" />
+    <div *ngIf="suppliersForm.get('nit')?.invalid && suppliersForm.get('nit')?.touched">
+      Este campo es obligatorio.
+    </div>
+  </div>
+
+  <div>
+    <label for="department">Departamento:</label>
+    <input id="department" formControlName="department" type="text" />
+    <div *ngIf="suppliersForm.get('department')?.invalid && suppliersForm.get('department')?.touched">
+      Este campo es obligatorio.
+    </div>
+  </div>
+
+  <div>
+    <label for="city">Ciudad:</label>
+    <input id="city" formControlName="city" type="text" />
+    <div *ngIf="suppliersForm.get('city')?.invalid && suppliersForm.get('city')?.touched">
+      Este campo es obligatorio.
+    </div>
+  </div>
+
+  <div>
+    <label for="email">Correo electrónico:</label>
+    <input id="email" formControlName="email" type="email" />
+    <div *ngIf="suppliersForm.get('email')?.invalid && suppliersForm.get('email')?.touched">
+      Introduce un correo electrónico válido.
+    </div>
+  </div>
+
+  <div>
+    <label for="phone">Teléfono:</label>
+    <input id="phone" formControlName="phone" type="text" />
+    <div *ngIf="suppliersForm.get('phone')?.invalid && suppliersForm.get('phone')?.touched">
+      Este campo es obligatorio.
+    </div>
+  </div>
+
+  <button type="submist" [disabled]="suppliersForm.invalid">Crear Proveedor</button>
+</form>

@@ -1,0 +1,18 @@
+Footer {
+    background-color: rgba(168, 167, 165, 0.836);
+    margin-top: 10px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    text-align: center;
+    font-size: medium;
+}
+img {
+    width: 13%;
+    height: 52%;
+    margin-left: 312%;
+}
+.Titulos {
+    margin-left: 313%;
+    font-size: small;
+    color: black;
+}
