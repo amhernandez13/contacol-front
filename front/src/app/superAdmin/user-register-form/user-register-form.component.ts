@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core'; // Añadimos EventEmitter y Output
 import {
   FormControl,
   FormGroup,
@@ -22,39 +22,57 @@ export class UserRegisterFormComponent {
   @Output() userRegistered = new EventEmitter<void>(); // Emitimos evento al registrar
 
   userRegister: FormGroup;
+  showPassword: boolean = false;
 
   constructor(private usersService: UsersService) {
     this.userRegister = new FormGroup(
       {
         name: new FormControl('', Validators.required),
         email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', Validators.required),
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(8),
+          this.passwordStrengthValidator, // Validador personalizado para fuerza de contraseña
+        ]),
         confirmPassword: new FormControl('', Validators.required),
         role: new FormControl('', Validators.required),
       },
-      { validators: this.passwordValidator } // Validador personalizado de contraseñas
+      { validators: this.passwordMatchValidator }
     );
   }
 
-  // Validador personalizado para contraseñas
-  passwordValidator(control: AbstractControl): ValidationErrors | null {
+  // Validador para confirmar que las contraseñas coinciden
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
 
-    // Si las contraseñas no coinciden, devolvemos un error
     return password === confirmPassword ? null : { passwordsMismatch: true };
+  }
+
+  // Validador de fuerza de contraseña
+  passwordStrengthValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.value;
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    return regex.test(password)
+      ? null
+      : {
+          passwordStrength: true, // Si no cumple con la expresión regular, lanzamos este error
+        };
+  }
+
+  // Alternar la visibilidad de las contraseñas
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
   // Método para enviar el formulario
   onSubmit() {
     if (this.userRegister.valid) {
-      // Excluir el campo confirmPassword antes de enviar los datos
       const { confirmPassword, ...formValue } = this.userRegister.value;
-
-      // Agregamos el campo state, que siempre sera true
       const dataToSend = { ...formValue, state: true };
 
-      // Enviamos el formulario al backend
       this.usersService.createUser(dataToSend).subscribe({
         next: (response) => {
           alert('Usuario registrado');
@@ -69,8 +87,14 @@ export class UserRegisterFormComponent {
       });
     } else if (this.userRegister.errors?.['passwordsMismatch']) {
       alert('Las contraseñas no coinciden');
+    } else if (
+      this.userRegister.get('password')?.errors?.['passwordStrength']
+    ) {
+      alert(
+        'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, un número y un carácter especial.'
+      );
     } else {
-      alert('Faltan campos por llenar o hay errores en el formulario');
+      alert('Faltan campos por llenar.');
     }
   }
 }

@@ -127,7 +127,7 @@ img {
 }
 
 .modal-content {
-  background-color: #d9d9d9;
+  background-color: #BEDCFF;
   padding: 20px;
   border-radius: 8px;
   width: 90%;
@@ -142,6 +142,7 @@ img {
   right: 20px;
   font-size: 24px;
   cursor: pointer;
+
 }
 
 @media (max-width: 600px) {
@@ -168,4 +169,21 @@ img {
 .table-responsive {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+/* Barra de búsqueda con el icono en el placeholder */
+.search-bar {
+  width: 300px;
+  padding: 8px 8px 8px 30px; /* Espacio a la izquierda para la lupa */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-image: url('https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/search.svg'); /* Lupa desde Bootstrap Icons */
+  background-position: 8px center; /* Posicionamos la lupa */
+  background-repeat: no-repeat;
+  background-size: 16px; /* Tamaño del icono */
+}
+
+.search-bar::placeholder {
+  font-style: italic;
+  color: #999;
 }

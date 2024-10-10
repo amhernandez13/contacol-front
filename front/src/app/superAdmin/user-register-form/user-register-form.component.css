@@ -1,73 +1,106 @@
 body {
-    background-color: #d9d9d9;
-    max-width: 1000px;
-    margin: auto;
+  background-color: #bedcff;
+  max-width: 1000px;
+  margin: auto;
 }
 
 i {
-    margin: 15px;
-    margin-bottom: 0;
-    font-size: 27px;
-    cursor: pointer;
+  margin: 15px;
+  margin-bottom: 0;
+  font-size: 27px;
+  cursor: pointer;
 }
 
 h2 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 #screenMiddle {
-    display: flex;
-    justify-content: center;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    flex-direction: column;
-    align-items: center;
-   
+  display: flex;
+  justify-content: center;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  flex-direction: column;
+  align-items: center;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 #formColor {
-    background-color: #444444;
-    color: white;
-    
-    display: flex;
-    flex-direction: column;
-    padding: 35px;
-    width: 100%;
+  background-color: #ace4cb;
+  color: #073c7b;
+
+  display: flex;
+  flex-direction: column;
+  padding: 35px;
+  width: 100%;
 }
 
 .formDivider {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .formDivider label {
-    text-align: left;
-    flex-basis: 50%;
+  text-align: left;
+  flex-basis: 50%;
 }
 
 .formDivider input,
 .formDivider select {
-    width: 50%;
-    border-radius: 10px;
-    border: none;
+  width: 50%;
+  border-radius: 10px;
+  border: none;
 }
 
 #submit {
-    margin: 20px;
-    border: none;
-    background-color: #b8b8b8;  
-    padding: 10px 60px 10px 60px;
-    border-radius: 15px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 0;
+  margin: 20px;
+  border: none;
+  background-color: #022c5e;
+  color: white;
+  padding: 10px 60px 10px 60px;
+  border-radius: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
 }
+
+#submit:hover {
+  background-color: #011d3e; /* Color hover del botón */
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .password-container input {
+    width: 100%; /* Aseguramos que el input ocupe todo el ancho disponible */
+    padding-right: 40px; /* Espacio para el ícono de ojo */
+    border-radius: 10px;
+    border: none;
+  }
+  
+  .password-container i {
+    position: absolute;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  /* Para asegurar que todos los inputs tengan el mismo estilo */
+  .formDivider input,
+  .formDivider select {
+    width: 100%; /* Ajustamos todos los campos a ocupar el mismo ancho */
+    border-radius: 10px;
+    border: none;
+  }
+  
