@@ -19,7 +19,7 @@
   <div id="tableContainer" *ngIf="!loading && !error">
     <!-- Contenedor para búsqueda y botón -->
     <div class="search-container">
-      <!-- Barra de búsqueda correctamente cerrada -->
+      <!-- Barra de búsqueda -->
       <input
         class="search-bar"
         type="text"
@@ -45,7 +45,6 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Iterar sobre la lista de usuarios filtrados -->
           <tr *ngFor="let user of filteredUsers">
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
@@ -69,7 +68,12 @@
               ></i>
             </td>
             <td class="actions">
-              <i class="bi bi-pencil-fill" style="cursor: pointer"></i>
+              <!-- Hacer clic en el icono de edición abre el modal de edición -->
+              <i
+                class="bi bi-pencil-fill"
+                style="cursor: pointer"
+                (click)="openEditModal(user)"
+              ></i>
             </td>
           </tr>
         </tbody>
@@ -77,15 +81,16 @@
     </div>
   </div>
 
-  <!-- Modal para el formulario de registro -->
+  <!-- Modal para el formulario de registro/edición -->
   <div *ngIf="isModalOpen" class="modal show">
     <div class="modal-content">
-      <!-- Icono para cerrar el modal -->
       <i class="bi bi-x-square close-icon" (click)="closeModal()"></i>
 
-      <!-- Componente del formulario de registro de usuarios -->
+      <!-- Componente del formulario de registro o edición de usuarios -->
       <app-user-register-form
+        [user]="selectedUser"
         (userRegistered)="onUserRegistered()"
+        (userEdited)="onUserEdited()"
       ></app-user-register-form>
     </div>
   </div>

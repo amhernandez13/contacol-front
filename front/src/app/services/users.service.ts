@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,37 +10,30 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
-  createUser(userData: any) {
+  // Método para crear un nuevo usuario
+  createUser(userData: any): Observable<any> {
     return this.http.post(this.API_URL, userData); // Enviar los datos como JSON
   }
 
-  getUsers() {
+  // Método para obtener todos los usuarios
+  getUsers(): Observable<any> {
     return this.http.get(this.API_URL);
   }
 
-  /* putInvoicesById(id: string, data: {}) {
-    let promise = new Promise((resolve, reject) => {
-      this.http
-        .put(id, data)
-        .toPromise()
-        .then((res: any) => {
-          resolve(res);
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-    return promise;
-  } */
-
   // Método para actualizar el estado del usuario (activo/inactivo)
-  updateUserState(userData: any) {
+  updateUserState(userData: any): Observable<any> {
     return this.http.put(`${this.API_URL}/${userData._id}`, {
       state: userData.state,
     });
   }
 
-  getUsersById(id: string) {
+  // Método para actualizar un usuario (nombre, email, rol, etc.)
+  updateUser(userId: string, updatedUserData: any): Observable<any> {
+    return this.http.put(`${this.API_URL}/${userId}`, updatedUserData);
+  }
+
+  // Método para obtener un usuario por ID
+  getUsersById(id: string): Observable<any> {
     return this.http.get(`${this.API_URL}/${id}`);
   }
 }

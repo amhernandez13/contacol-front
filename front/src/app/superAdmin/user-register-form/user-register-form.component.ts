@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core'; // Añadimos EventEmitter y Output
+import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -18,8 +18,10 @@ import { CommonModule } from '@angular/common';
   templateUrl: './user-register-form.component.html',
   styleUrls: ['./user-register-form.component.css'],
 })
-export class UserRegisterFormComponent {
+export class UserRegisterFormComponent implements OnInit {
+  @Input() user: any = null; // Recibe el usuario a editar
   @Output() userRegistered = new EventEmitter<void>(); // Emitimos evento al registrar
+  @Output() userEdited = new EventEmitter<void>(); // Emitimos evento al editar
 
   userRegister: FormGroup;
   showPassword: boolean = false;
@@ -32,13 +34,19 @@ export class UserRegisterFormComponent {
         password: new FormControl('', [
           Validators.required,
           Validators.minLength(8),
-          this.passwordStrengthValidator, // Validador personalizado para fuerza de contraseña
+          this.passwordStrengthValidator,
         ]),
         confirmPassword: new FormControl('', Validators.required),
         role: new FormControl('', Validators.required),
       },
       { validators: this.passwordMatchValidator }
     );
+  }
+
+  ngOnInit(): void {
+    if (this.user) {
+      this.userRegister.patchValue(this.user); // Cargar los datos del usuario para edición
+    }
   }
 
   // Validador para confirmar que las contraseñas coinciden
@@ -54,15 +62,10 @@ export class UserRegisterFormComponent {
     const password = control.value;
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-    return regex.test(password)
-      ? null
-      : {
-          passwordStrength: true, // Si no cumple con la expresión regular, lanzamos este error
-        };
+    return regex.test(password) ? null : { passwordStrength: true };
   }
 
-  // Alternar la visibilidad de las contraseñas
+  // Alternar visibilidad de la contraseña
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
@@ -73,18 +76,32 @@ export class UserRegisterFormComponent {
       const { confirmPassword, ...formValue } = this.userRegister.value;
       const dataToSend = { ...formValue, state: true };
 
-      this.usersService.createUser(dataToSend).subscribe({
-        next: (response) => {
-          alert('Usuario registrado');
-          this.userRegistered.emit(); // Emitimos el evento al registrar correctamente
-        },
-        error: (error) => {
-          console.error('Error en el registro', error);
-          alert(
-            'Ocurrió un error durante el registro, verifica la información.'
-          );
-        },
-      });
+      if (this.user) {
+        // Actualizamos el usuario si ya existe (modo edición)
+        const userId = this.user._id;
+        this.usersService.updateUser(userId, dataToSend).subscribe({
+          next: (response) => {
+            alert('Usuario actualizado correctamente');
+            this.userEdited.emit(); // Emitimos evento de usuario editado
+          },
+          error: (error) => {
+            console.error('Error al actualizar el usuario', error);
+            alert('Ocurrió un error durante la actualización.');
+          },
+        });
+      } else {
+        // Creamos un nuevo usuario (modo creación)
+        this.usersService.createUser(dataToSend).subscribe({
+          next: (response) => {
+            alert('Usuario registrado correctamente');
+            this.userRegistered.emit(); // Emitimos evento de usuario registrado
+          },
+          error: (error) => {
+            console.error('Error al registrar el usuario', error);
+            alert('Ocurrió un error durante el registro.');
+          },
+        });
+      }
     } else if (this.userRegister.errors?.['passwordsMismatch']) {
       alert('Las contraseñas no coinciden');
     } else if (

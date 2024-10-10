@@ -1,32 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { UserRegisterFormComponent } from '../user-register-form/user-register-form.component';
 import { HederComponent } from '../../Componentes/header/heder.component';
 import { FooterComponent } from '../../Componentes/footer/footer.component';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     UserRegisterFormComponent,
     HederComponent,
     FooterComponent,
-    FormsModule,
   ],
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
 })
 export class UserListComponent implements OnInit {
   users: any[] = [];
-  filteredUsers: any[] = []; // Lista filtrada de usuarios
-  searchTerm: string = ''; // Término de búsqueda
+  filteredUsers: any[] = [];
+  searchTerm: string = '';
   loading: boolean = false;
   error: string | null = null;
 
-  isModalOpen: boolean = false; // Aquí se controla la visibilidad del modal
+  isModalOpen: boolean = false; // Controla la visibilidad del modal
+  selectedUser: any = null; // Usuario seleccionado para editar
 
   constructor(private usersService: UsersService) {}
 
@@ -39,7 +40,7 @@ export class UserListComponent implements OnInit {
     this.usersService.getUsers().subscribe({
       next: (response: any) => {
         this.users = response.data;
-        this.filteredUsers = this.users; // Inicialmente, todos los usuarios se muestran
+        this.filteredUsers = this.users;
         this.loading = false;
       },
       error: (err) => {
@@ -50,7 +51,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  // Filtrar usuarios basado en el término de búsqueda
+  // Función para filtrar usuarios con la barra de búsqueda
   filterUsers(): void {
     const searchTermLower = this.searchTerm.toLowerCase();
     this.filteredUsers = this.users.filter(
@@ -63,10 +64,10 @@ export class UserListComponent implements OnInit {
 
   // Función para cambiar el estado del usuario (activo/inactivo)
   changeUserState(user: any, newState: boolean): void {
-    const updatedUser = { ...user, state: newState }; // Actualizar el estado
+    const updatedUser = { ...user, state: newState }; // Actualiza el estado localmente
     this.usersService.updateUserState(updatedUser).subscribe({
       next: (response) => {
-        user.state = newState; // Actualizamos visualmente el estado del usuario
+        user.state = newState; // Actualiza visualmente el estado del usuario
       },
       error: (error) => {
         console.error('Error al cambiar el estado del usuario', error);
@@ -76,15 +77,25 @@ export class UserListComponent implements OnInit {
   }
 
   openModal(): void {
-    this.isModalOpen = true;
+    this.isModalOpen = true; //Abrimos el modal para crear usuario
+    this.selectedUser = null; // Limpiamos el usuario seleccionado para crear uno nuevo (espacios en blanco)
+  }
+
+  openEditModal(user: any): void {
+    this.selectedUser = user; // Asignamos el usuario seleccionado
+    this.isModalOpen = true; // Abrimos el modal con los datos prellenados
   }
 
   closeModal(): void {
     this.isModalOpen = false;
   }
 
-  // Una vez se registra el usuario, se cierra el modal y se actualiza la lista
   onUserRegistered(): void {
+    this.closeModal();
+    this.fetchUsers(); // Recargamos la lista de usuarios
+  }
+
+  onUserEdited(): void {
     this.closeModal();
     this.fetchUsers();
   }
