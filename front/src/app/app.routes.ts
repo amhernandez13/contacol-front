@@ -8,7 +8,6 @@ import { SuppliersComponent } from './Componentes/suppliers/suppliers.component'
 import { UsersComponent } from './Componentes/users/users.component';
 import { VouchersComponent } from './Componentes/vouchers/vouchers.component';
 import { InvoicesFormComponent } from './Componentes/invoices-form/invoices-form.component';
-import { UserRegisterFormComponent } from './superAdmin/user-register-form/user-register-form.component';
 import { UserListComponent } from './superAdmin/user-list/user-list.component';
 
 export const routes: Routes = [

@@ -1,18 +1,17 @@
 <div id="screenMiddle">
-  <img src="../../../assets/images/logo-ContaCol.png" alt="Logo de ContaCol" />
-
+  <img
+    src="../../../assets/images/logo-ContaCol-letras.png"
+    alt="Logo de ContaCol"
+  />
+  <h2>Usuarios</h2>
   <div id="tableContainer">
-    <h2>Usuarios</h2>
-
     <!-- Contenedor para búsqueda y botón -->
     <div class="search-container">
       <!-- Barra de búsqueda -->
-      <input class="search-bar" type="text" placeholder="Buscar usuario..." />
+      <input class="search-bar" type="text" placeholder="Buscar usuario" />
 
       <!-- Botón de Crear Usuario que muestra el modal -->
-      <button class="create-user-btn" (click)="openModal()">
-        Crear usuario
-      </button>
+      <button class="create-user-btn" (click)="openModal()">Nuevo</button>
     </div>
 
     <!-- Tabla de usuarios -->
@@ -24,7 +23,7 @@
             <th>Email</th>
             <th>Rol</th>
             <th>Status</th>
-            <th>Acciones</th>
+            <th>Edit</th>
           </tr>
         </thead>
         <tbody>
