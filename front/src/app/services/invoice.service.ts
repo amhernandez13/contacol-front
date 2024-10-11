@@ -9,7 +9,7 @@ export class InvoiceService {
 
   constructor() {}
 
-  API_URL = 'http://localhost:3000/invoices'; // URL a donde se harán las peticiones (de crear producto)
+  API_URL = 'http://localhost:3000/invoice/'; // URL a donde se harán las peticiones (de crear producto)
 
   createInvoice(
     issue_date: any,

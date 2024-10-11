@@ -1,1 +1,69 @@
-<p>invoices works!</p>
+<div class="container">
+  <header>
+    <div class="header-icons">
+      <div class="icon-section">
+        <i class="icon-invoice"></i>
+        <p>Comprobantes</p>
+      </div>
+      <div class="icon-section">
+        <i class="icon-providers"></i>
+        <p>Proveedores</p>
+      </div>
+      <div class="icon-section">
+        <i class="icon-storage"></i>
+        <p>Almacén de comprobantes</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="search-section">
+      <input
+        type="text"
+        placeholder="Buscar comprobante"
+        class="search-input"
+      />
+      <button class="add-button">Ingrese comprobante</button>
+    </div>
+
+    <table class="invoice-table">
+      <thead>
+        <tr>
+          <th># Factura</th>
+          <th>Emisión / Vto</th>
+          <th>Terceros</th>
+          <th>Método de pago</th>
+          <th>Tipo de facturación</th>
+          <th>Medio de pago</th>
+          <th>Valor pagado</th>
+          <th>Total</th>
+          <th>Detalle</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (element of alldata; track $index) {
+        <tr>
+          <td>{{ element._id }}</td>
+          <td>{{ element.due_date | date : "shortDate" }}</td>
+          <td>{{ element.third_party }}</td>
+          <td>{{ element.payment_method }}</td>
+          <td>{{ element.invoice_type }}</td>
+          <td>{{ element.payment_way }}</td>
+          <td class="green">{{ element.paid_value }}</td>
+          <td>{{ element.paid_value }}</td>
+          <td><button class="edit-button">Edit</button></td>
+        </tr>
+        }
+      </tbody>
+    </table>
+
+    <button class="back-button">Volver</button>
+  </main>
+
+  <footer>
+    <p>
+      Sistema contable desarrollado para Colombia. Todo los derechos reservados.
+      Propiedad de Foo Talent Group
+    </p>
+  </footer>
+</div>
