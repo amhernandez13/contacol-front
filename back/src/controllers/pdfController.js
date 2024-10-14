@@ -1,4 +1,5 @@
 import fs from "fs";
+import { parse, format } from "date-fns"; // Importamos format para formatear las fechas
 
 const Pdf_controller = {
   extract_pdf_data: async (req, res) => {
@@ -32,8 +33,8 @@ const Pdf_controller = {
       // Extraer los datos clave del PDF
       const text = extractedData.text;
       const resultJson = {
-        issue_date: "", // Fecha de Emisión
-        due_date: "", // Fecha de Vencimiento
+        issue_date: null, // Fecha de Emisión
+        due_date: null, // Fecha de Vencimiento
         invoice: "", // Número de Factura
         third_party: "", // Razón Social (Tercero)
         department: "", // Departamento
@@ -47,16 +48,48 @@ const Pdf_controller = {
         payment_way: "", // Forma de Pago
       };
 
-      // Usamos expresiones regulares para extraer los datos clave del texto del PDF
-      const fechaEmisionRegex = /Fecha\s*de\s*Emisión:\s*([\d\/]+)/i;
-      resultJson.issue_date =
-        text.match(fechaEmisionRegex)?.[1] || "No encontrado";
+      // Función para construir una fecha manualmente a partir del formato colombiano (dd/MM/yyyy)
+      const buildDateFromParts = (dateStr) => {
+        const [day, month, year] = dateStr.split(/[\/-]/).map(Number); // Divide la fecha en partes
+        if (day && month && year) {
+          // Asegurarse de que no sea una fecha inválida
+          return new Date(year, month - 1, day); // month - 1 porque los meses en JavaScript son base 0
+        }
+        return null; // Si no se puede convertir, devolver null
+      };
 
-      const fechaVencimientoRegex = /Fecha\s*de\s*Vencimiento:\s*([\d\/]+)/i;
-      resultJson.due_date =
-        text.match(fechaVencimientoRegex)?.[1] || "No encontrado";
+      // Buscar la Fecha de Emisión y convertirla al formato correcto
+      const fechaEmisionRegex = /Fecha\s*de\s*Emisión:\s*([\d\/-]+)/i;
+      const issueDateMatch = text.match(fechaEmisionRegex);
+      if (issueDateMatch) {
+        const issueDateStr = issueDateMatch[1].trim(); // Limpiar espacios
+        const issueDate = buildDateFromParts(issueDateStr); // Usar la función manual
+        if (issueDate) {
+          resultJson.issue_date = format(issueDate, "dd-MM-yyyy"); // Formatear la fecha al formato requerido
+        } else {
+          resultJson.issue_date = "Fecha inválida";
+        }
+      } else {
+        resultJson.issue_date = null; // Si no se encuentra la fecha
+      }
 
-      const numeroFacturaRegex = /Número\s*de\s*Factura:\s*([A-Za-z0-9\- ]+)/i;
+      // Buscar la Fecha de Vencimiento y convertirla al formato correcto
+      const fechaVencimientoRegex = /Fecha\s*de\s*Vencimiento:\s*([\d\/-]+)/i;
+      const dueDateMatch = text.match(fechaVencimientoRegex);
+      if (dueDateMatch) {
+        const dueDateStr = dueDateMatch[1].trim(); // Limpiar espacios
+        const dueDate = buildDateFromParts(dueDateStr); // Usar la función manual
+        if (dueDate) {
+          resultJson.due_date = format(dueDate, "dd-MM-yyyy"); // Formatear la fecha al formato requerido
+        } else {
+          resultJson.due_date = "Fecha inválida";
+        }
+      } else {
+        resultJson.due_date = null; // Si no se encuentra la fecha
+      }
+
+      // Extraer el resto de los campos como antes
+      const numeroFacturaRegex = /Número\s*de\s*Factura:\s*([A-Za-z0-9\-]+)/i;
       resultJson.invoice =
         text.match(numeroFacturaRegex)?.[1].trim() || "No encontrado";
 
@@ -96,6 +129,9 @@ const Pdf_controller = {
       const formaPagoRegex = /Forma\s*de\s*Pago:\s*(.+)/i;
       resultJson.payment_way =
         text.match(formaPagoRegex)?.[1].trim() || "No encontrado";
+
+      // Imprimir en consola el objeto que se enviará al front
+      console.log("JSON enviado al front:", resultJson);
 
       // Enviar el JSON con los datos extraídos al front-end
       return res.status(200).json({
