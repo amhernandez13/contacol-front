@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { InvoiceService } from '../../services/invoice.service';
+import { PdfService } from '../../services/pdf-service.service'; // Importamos el nuevo servicio para manejar PDFs
 
 @Component({
   selector: 'app-invoices-form',
@@ -11,7 +13,10 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 export class InvoicesFormComponent {
   invoiceForm: FormGroup;
 
-  constructor() {
+  constructor(
+    private invoiceService: InvoiceService,
+    private pdfService: PdfService // Inyectamos el servicio de PDFs
+  ) {
     this.invoiceForm = new FormGroup({
       issue_date: new FormControl(''),
       invoice_type: new FormControl(''),
@@ -37,6 +42,7 @@ export class InvoicesFormComponent {
 
   onSubmit() {
     const formData = this.invoiceForm.value;
+
     const invoiceData = {
       issue_date: formData.issue_date,
       invoice_type: formData.invoice_type,
@@ -47,18 +53,62 @@ export class InvoicesFormComponent {
       due_date: formData.due_date,
       description: formData.description,
       payment_way: formData.payment_way,
-      paid_value: formData.paid_value,
+      paid_value: parseFloat(formData.paid_value),
       payment_date: formData.payment_date,
-      invoice_total: formData.invoice_total,
-      taxes_total: formData.taxes_total,
-      rte_fuente: formData.rte_fuente,
-      rte_iva: formData.rte_iva,
-      rte_ica: formData.rte_ica,
+      payment: {
+        taxes_total: parseFloat(formData.taxes_total),
+        invoice_total: parseFloat(formData.invoice_total),
+        rte_fuente: parseFloat(formData.rte_fuente),
+        rte_iva: parseFloat(formData.rte_iva),
+        rte_ica: parseFloat(formData.rte_ica),
+      },
       observation: formData.observation,
       department: formData.department,
       city: formData.city,
     };
 
-    console.log(JSON.stringify(invoiceData, null, 2));
+    this.invoiceService.createInvoice(invoiceData).subscribe({
+      next: (response) => {
+        console.log('Factura creada exitosamente', response);
+      },
+      error: (error) => {
+        console.error('Error al crear la factura:', error);
+      },
+    });
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.pdfService.uploadPdf(file).subscribe({
+        next: (response) => {
+          console.log('Datos extraídos del PDF:', response);
+
+          // Verificamos que los datos están en response.data
+          const pdfData = response.data;
+
+          // Actualizamos los campos del formulario con los datos extraídos
+          this.invoiceForm.patchValue({
+            issue_date: pdfData.issue_date, // Fecha de emisión
+            due_date: pdfData.due_date, // Fecha de vencimiento
+            invoice: pdfData.invoice, // Nombre de la factura
+            third_party: pdfData.third_party, // Tercero
+            department: pdfData.department, // Departamento
+            city: pdfData.city, // Ciudad
+            taxes_total:
+              pdfData.taxes_total?.replace('.', '').replace(',', '.') || '',
+            invoice_total:
+              pdfData.invoice_total?.replace('.', '').replace(',', '.') || '',
+            rte_fuente:
+              pdfData.rte_fuente?.replace('.', '').replace(',', '.') || '',
+            rte_iva: pdfData.rte_iva?.replace('.', '').replace(',', '.') || '',
+            rte_ica: pdfData.rte_ica?.replace('.', '').replace(',', '.') || '',
+          });
+        },
+        error: (error) => {
+          console.error('Error al cargar el PDF:', error);
+        },
+      });
+    }
   }
 }

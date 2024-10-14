@@ -3,23 +3,23 @@
   <form id="invoiceForm" [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
     <!-- Primera columna -->
     <div class="form-item" style="grid-area: comprobante">
-      <label for="invoice"># de comprobante</label>
-      <input type="text" id="invoice" formControlName="invoice" />
+      <label for="comprobante"># de comprobante</label>
+      <input type="text" id="comprobante" formControlName="invoice" />
     </div>
 
     <div class="form-item" style="grid-area: razonSocial">
-      <label for="third_party">Razón Social</label>
-      <input type="text" id="third_party" formControlName="third_party" />
+      <label for="razonSocial">Razón Social</label>
+      <input type="text" id="razonSocial" formControlName="third_party" />
     </div>
 
     <div class="form-item" style="grid-area: impuestos">
-      <label for="taxes_total">Impuestos</label>
-      <input type="text" id="taxes_total" formControlName="taxes_total" />
+      <label for="impuestos">Impuestos</label>
+      <input type="text" id="impuestos" formControlName="taxes_total" />
     </div>
 
     <div class="form-item" style="grid-area: tipoComprobante">
-      <label for="invoice_type">Tipo de Comprobante</label>
-      <select id="invoice_type" formControlName="invoice_type">
+      <label for="tipoComprobante">Tipo de Comprobante</label>
+      <select id="tipoComprobante" formControlName="invoice_type">
         <option value="Factura electrónica">Factura electrónica</option>
         <option value="Cuenta de cobro">Cuenta de cobro</option>
         <option value="Recibo de caja menor">Recibo de caja menor</option>
@@ -31,29 +31,29 @@
     </div>
 
     <div class="form-item" style="grid-area: monto">
-      <label for="invoice_total">Monto</label>
-      <input type="text" id="invoice_total" formControlName="invoice_total" />
+      <label for="monto">Monto</label>
+      <input type="text" id="monto" formControlName="invoice_total" />
     </div>
 
     <!-- Segunda columna -->
     <div class="form-item" style="grid-area: fechaEmision">
-      <label for="issue_date">Fecha de Emisión</label>
-      <input type="date" id="issue_date" formControlName="issue_date" />
+      <label for="fechaEmision">Fecha de Emisión</label>
+      <input type="date" id="fechaEmision" formControlName="issue_date" />
     </div>
 
     <div class="form-item" style="grid-area: departamento">
-      <label for="department">Departamento</label>
-      <input type="text" id="department" formControlName="department" />
+      <label for="departamento">Departamento</label>
+      <input type="text" id="departamento" formControlName="department" />
     </div>
 
     <div class="form-item" style="grid-area: reteFuente">
-      <label for="rte_fuente">Rete Fuente</label>
-      <input type="text" id="rte_fuente" formControlName="rte_fuente" />
+      <label for="reteFuente">Rete Fuente</label>
+      <input type="text" id="reteFuente" formControlName="rte_fuente" />
     </div>
 
     <div class="form-item" style="grid-area: formaPago">
-      <label for="payment_way">Forma de Pago</label>
-      <select id="payment_way" formControlName="payment_way">
+      <label for="formaPago">Forma de Pago</label>
+      <select id="formaPago" formControlName="payment_way">
         <option value="Cuentas por pagar">Cuentas por pagar (CxP)</option>
         <option value="Reembolsado">Reembolsado (Rembol)</option>
         <option value="Cuentas por cobrar">Cuentas por cobrar (CxC)</option>
@@ -64,8 +64,8 @@
     </div>
 
     <div class="form-item" style="grid-area: estado">
-      <label for="invoice_status">Estado</label>
-      <select id="invoice_status" formControlName="invoice_status">
+      <label for="estado">Estado</label>
+      <select id="estado" formControlName="invoice_status">
         <option value="Pagado">Pagado</option>
         <option value="Por pagar / verificado">Por pagar / verificado</option>
         <option value="Pendiente verificar">Pendiente verificar</option>
@@ -74,30 +74,30 @@
 
     <!-- Tercera columna -->
     <div class="form-item" style="grid-area: fechaVencimiento">
-      <label for="due_date">Fecha de Vencimiento</label>
-      <input type="date" id="due_date" formControlName="due_date" />
+      <label for="fechaVencimiento">Fecha de Vencimiento</label>
+      <input type="date" id="fechaVencimiento" formControlName="due_date" />
     </div>
 
     <div class="form-item" style="grid-area: municipio">
-      <label for="city">Municipio/Ciudad</label>
-      <input type="text" id="city" formControlName="city" />
+      <label for="municipio">Municipio/Ciudad</label>
+      <input type="text" id="municipio" formControlName="city" />
     </div>
 
     <div class="form-item" style="grid-area: reteIVA">
-      <label for="rte_iva">Rete IVA</label>
-      <input type="text" id="rte_iva" formControlName="rte_iva" />
+      <label for="reteIVA">Rete IVA</label>
+      <input type="text" id="reteIVA" formControlName="rte_iva" />
     </div>
 
     <div class="form-item" style="grid-area: medioPago">
-      <label for="payment_method">Medio de Pago</label>
-      <select id="payment_method" formControlName="payment_method">
+      <label for="medioPago">Medio de Pago</label>
+      <select id="medioPago" formControlName="payment_method">
         <option value="Banco (empresa)">Banco (empresa)</option>
         <option value="JMA Cjm">
           JMA Cjm (Caja menor de Juan Manuel Ariza)
         </option>
         <option value="AG Cjm">AG Cjm (Caja menor de A…G…)</option>
         <option value="Indefinido (pendiente)">
-          Indefinido (pendiente) (PDT); se debe averiguar (Func. Alerta)
+          Indefinido (pendiente) (PDT)
         </option>
         <option value="Otro">Otro</option>
       </select>
@@ -105,29 +105,29 @@
 
     <!-- Cuarta columna -->
     <div class="form-item" style="grid-area: valorPagado">
-      <label for="paid_value">Valor Pagado</label>
-      <input type="text" id="paid_value" formControlName="paid_value" />
+      <label for="valorPagado">Valor Pagado</label>
+      <input type="text" id="valorPagado" formControlName="paid_value" />
     </div>
 
     <div class="form-item" style="grid-area: reteICA">
-      <label for="rte_ica">Rete ICA</label>
-      <input type="text" id="rte_ica" formControlName="rte_ica" />
+      <label for="reteICA">Rete ICA</label>
+      <input type="text" id="reteICA" formControlName="rte_ica" />
     </div>
 
     <div class="form-item" style="grid-area: descripcion">
-      <label for="description">Descripción</label>
-      <input type="text" id="description" formControlName="description" />
+      <label for="descripcion">Descripción</label>
+      <input type="text" id="descripcion" formControlName="description" />
     </div>
 
     <div class="form-item" style="grid-area: pago">
-      <label for="payment_date">Fecha de Pago</label>
-      <input type="date" id="payment_date" formControlName="payment_date" />
+      <label for="pago">Fecha de Pago</label>
+      <input type="date" id="pago" formControlName="payment_date" />
     </div>
 
     <div class="form-item" style="grid-area: observaciones">
-      <label for="observation">Observaciones</label>
+      <label for="observaciones">Observaciones</label>
       <textarea
-        id="observation"
+        id="observaciones"
         formControlName="observation"
         rows="4"
       ></textarea>
@@ -135,12 +135,19 @@
 
     <!-- Botones de cargar comprobante y factura -->
     <div class="load-buttons-container">
-      <button type="button" class="load-invoice-btn">
+      <button type="button" class="load-invoice-btn" (click)="pdfInput.click()">
         Cargar comprobante <i class="bi bi-receipt-cutoff"></i>
       </button>
-      <button type="button" class="load-invoice-btn">
+      <button type="button" class="load-invoice-btn" (click)="pdfInput.click()">
         Cargar factura <i class="bi bi-filetype-pdf"></i>
       </button>
+      <input
+        type="file"
+        #pdfInput
+        style="display: none"
+        (change)="onFileSelected($event)"
+        accept=".pdf"
+      />
     </div>
 
     <!-- Botones de enviar el formulario -->
