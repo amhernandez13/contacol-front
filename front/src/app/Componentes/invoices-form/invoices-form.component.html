@@ -1,168 +1,111 @@
-<section class=" container justify-content-center align-items-center" style="min-height: 100vh;
-">
-  <div class="">
-    <div class=" text-center">
-      <div class="row iconos-dv">
-        <div class="col t-icon">
-          <i class=" icono fa-solid fa-file-invoice"></i>
-          <samp>comprobantes</samp>
-        </div>
-        <div class="col t-icon">
-          <i class=" icono fa-solid fa-user-group"></i>
-          <samp>provedores</samp>
-        </div>
-        <div class="col t-icon">
-          <i class="icono fa-solid fa-rectangle-list"></i>
-          <samp >almacen de provedores</samp>
-        </div>
-      </div>
-    </div>
-    <div class="input-group btn1">
-      <div class="">
-        <input type="text" class="form-control" placeholder="Buscar..." aria-label="Buscar" id="searchInput"
-        onkeyup="filterTable()">
-      </div>
-        <div>
-          <button type="button" class="btn-g d-block ms-auto px-3 fw-bold rounded-5" data-bs-toggle="modal"
-        data-bs-target="#modalUsuarios">
-        Ingrese Comprobante </button>
-        </div>
-    </div>
-    <table class="table  align-middle">
-      <thead>
-        <tr>
-          <th scope="col">#Factura</th>
-          <th scope="col">Emisor/Vencimiento</th>
-          <th scope="col">Municipio/Ciudad</th>
-          <th scope="col">Razón Social</th>
-          <th scope="col">Total</th>
-          <th scope="col"></th>
-          <th scope="col" class="text-center">Detalles</th>
-        </tr>
-      </thead>
-      <tbody class=" ">
-        <tr>
-          <td>001</td>
-          <td></td>
-          <td>Ciudad X</td>
-          <td class="d-none d-lg-table-cell">Empresa A</td>
-          <td class="d-none d-lg-table-cell">$1000</td>
-          <td class="text-center">
-            <div class="d-flex justify-content-between">
-              <button type="button" class="btn p-0 border-0">
-                <i class="button edit fa-solid fa-pen  p-2 rounded-5" data-bs-toggle="modal"
-                  data-bs-target="#modalUsuarios"></i>
-              </button>
-              <button type="button" class="btn p-0 border-0">
-                <i class="button delete fa-solid fa-trash  p-2 rounded-5"></i>
-              </button>
-            </div>
-          </td>
-          <td class="text-center">
-            <button type="button" class="btn p-0 border-0">
-              <i class="fa-solid fa-rectangle-list"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>002</td>
-          <td></td>
-          <td>Ciudad Y</td>
-          <td class="d-none d-lg-table-cell">Empresa B</td>
-          <td class="d-none d-lg-table-cell">$1500</td>
-          <td class="text-center">
-            <div class="d-flex justify-content-between">
-              <button type="button" class="btn p-0 border-0">
-                <i class="button edit fa-solid fa-pen p-2 rounded-5" data-bs-toggle="modal"
-                  data-bs-target="#modalUsuarios"></i>
-              </button>
-              <button type="button" class="btn p-0 border-0">
-                <i class="button delete fa-solid fa-trash  p-2 rounded-5"></i>
-              </button>
-            </div>
-          </td>
-          <td class="text-center">
-            <button type="button" class="btn p-0 border-0">
-              <i class="fa-solid fa-rectangle-list"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>003</td>
-          <td></td>
-          <td>Ciudad Z</td>
-          <td class="d-none d-lg-table-cell">Empresa C</td>
-          <td class="d-none d-lg-table-cell">$2000</td>
-          <td class="text-center">
-            <div class="d-flex justify-content-between">
-              <button type="button" class="btn p-0 border-0">
-                <i class="button edit fa-solid fa-pen p-2 rounded-5" data-bs-toggle="modal"
-                  data-bs-target="#modalUsuarios"></i>
-              </button>
-              <button type="button" class="btn p-0 border-0">
-                <i class="button delete fa-solid fa-trash  p-2 rounded-5"></i>
-              </button>
-            </div>
-          </td>
-          <td class="text-center">
-            <button type="button" class="btn p-0 border-0">
-              <i class="fa-solid fa-rectangle-list"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>004</td>
-          <td></td>
-          <td>Ciudad W</td>
-          <td class="d-none d-lg-table-cell">Empresa D</td>
-          <td class="d-none d-lg-table-cell">$2500</td>
-          <td class="text-center">
-            <div class="d-flex justify-content-between">
-              <button type="button" class="btn p-0 border-0">
-                <i class="button edit fa-solid fa-pen p-2 rounded-5" data-bs-toggle="modal"
-                  data-bs-target="#modalUsuarios"></i>
-              </button>
-              <button type="button" class="btn p-0 border-0">
-                <i class="bi bi-pencil-fill"></i>
-              </button>
-              <button type="button" class="btn p-0 border-0">
-                <i class="button delete fa-solid fa-trash  p-2 rounded-5"></i>
-              </button>
-            </div>
-          </td>
-          <td class="text-center">
-            <button type="button" class="btn p-0 border-0">
-              <i class="fa-solid fa-rectangle-list"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>005</td>
-          <td></td>
-          <td>Ciudad V</td>
-          <td class="d-none d-lg-table-cell">Empresa E</td>
-          <td class="d-none d-lg-table-cell">$3000</td>
-          <td class="text-center">
-            <div class="d-flex justify-content-between">
-              <button type="button" class="btn p-0 border-0">
-                <i class="button edit fa-solid fa-pen p-2 rounded-5" data-bs-toggle="modal"
-                  data-bs-target="#modalUsuarios"></i>
-              </button>
-              <button type="button" class="btn p-0 border-0">
-                <i class="button delete fa-solid fa-trash  p-2 rounded-5"></i>
-              </button>
-            </div>
-          </td>
-          <td class="text-center">
-            <button type="button" class="btn p-0 border-0">
-              <i class="fa-solid fa-rectangle-list"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <button type="button" class="btn3 bg-green d-block ms-auto px-3 fw-bold rounded-5" data-bs-toggle="modal"
-      data-bs-target="#modalUsuarios">
-      volver</button>
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+  rel="stylesheet"
+/>
+<div id="invoiceFormContainer">
+  <!-- Título del formulario -->
+  <h2>Nuevo comprobante</h2>
+
+  <!-- Botón de cierre en la esquina superior derecha -->
+  <i class="bi bi-x-square close-icon"></i>
+
+  <!-- Botones debajo del título -->
+  <div class="load-buttons-container">
+    <button class="load-comprobante-btn">
+      Cargar Comprobante <i class="bi bi-receipt-cutoff"></i>
+    </button>
+    <button class="load-invoice-btn">
+      Cargar Factura <i class="bi bi-filetype-pdf"></i>
+    </button>
   </div>
-</section>
+
+  <form id="invoiceForm">
+    <!-- PRIMERA COLUMNA -->
+    <div class="form-item" style="grid-area: comprobante">
+      <label for="comprobante"># de Comprobante:</label>
+      <input type="text" id="comprobante" name="comprobante" />
+    </div>
+    <div class="form-item" style="grid-area: razonSocial">
+      <label for="razonSocial">Razón Social:</label>
+      <input type="text" id="razonSocial" name="razonSocial" />
+    </div>
+    <div class="form-item" style="grid-area: impuestos">
+      <label for="impuestos">Impuestos:</label>
+      <input type="text" id="impuestos" name="impuestos" />
+    </div>
+    <div class="form-item" style="grid-area: tipoComprobante">
+      <label for="tipoComprobante">Tipo de Comprobante:</label>
+      <input type="text" id="tipoComprobante" name="tipoComprobante" />
+    </div>
+    <div class="form-item" style="grid-area: monto">
+      <label for="monto">Monto:</label>
+      <input type="number" id="monto" name="monto" />
+    </div>
+
+    <!-- SEGUNDA COLUMNA -->
+    <div class="form-item" style="grid-area: fechaEmision">
+      <label for="fechaEmision">Fecha de Emisión:</label>
+      <input type="date" id="fechaEmision" name="fechaEmision" />
+    </div>
+    <div class="form-item" style="grid-area: departamento">
+      <label for="departamento">Departamento:</label>
+      <input type="text" id="departamento" name="departamento" />
+    </div>
+    <div class="form-item" style="grid-area: reteFuente">
+      <label for="reteFuente">Rete Fuente:</label>
+      <input type="text" id="reteFuente" name="reteFuente" />
+    </div>
+    <div class="form-item" style="grid-area: formaPago">
+      <label for="formaPago">Forma de Pago:</label>
+      <input type="text" id="formaPago" name="formaPago" />
+    </div>
+    <div class="form-item" style="grid-area: estado">
+      <label for="estado">Estado:</label>
+      <input type="text" id="estado" name="estado" />
+    </div>
+
+    <!-- TERCERA COLUMNA -->
+    <div class="form-item" style="grid-area: fechaVencimiento">
+      <label for="fechaVencimiento">Fecha de Vencimiento:</label>
+      <input type="date" id="fechaVencimiento" name="fechaVencimiento" />
+    </div>
+    <div class="form-item" style="grid-area: municipio">
+      <label for="municipio">Municipio/Ciudad:</label>
+      <input type="text" id="municipio" name="municipio" />
+    </div>
+    <div class="form-item" style="grid-area: reteIVA">
+      <label for="reteIVA">Rete IVA:</label>
+      <input type="text" id="reteIVA" name="reteIVA" />
+    </div>
+    <div class="form-item" style="grid-area: medioPago">
+      <label for="medioPago">Medio de Pago:</label>
+      <input type="text" id="medioPago" name="medioPago" />
+    </div>
+
+    <!-- Observaciones: Ocupa la tercera y cuarta columna -->
+    <div class="form-item form-item-large" style="grid-area: observaciones">
+      <label for="observaciones">Observaciones:</label>
+      <textarea id="observaciones" name="observaciones" rows="5"></textarea>
+    </div>
+
+    <!-- CUARTA COLUMNA -->
+    <div class="form-item" style="grid-area: proveedor">
+      <label for="proveedor">Proveedor:</label>
+      <input type="text" id="proveedor" name="proveedor" />
+    </div>
+    <div class="form-item" style="grid-area: reteICA">
+      <label for="reteICA">Rete ICA:</label>
+      <input type="text" id="reteICA" name="reteICA" />
+    </div>
+    <div class="form-item" style="grid-area: retenciones">
+      <label for="retenciones">Retenciones:</label>
+      <input type="text" id="retenciones" name="retenciones" />
+    </div>
+
+    <!-- Botones de cancelar y aceptar -->
+    <div class="form-item form-submit">
+      <button type="button" class="cancel-btn">Cancelar</button>
+      <button type="submit" class="accept-btn">Aceptar</button>
+    </div>
+  </form>
+</div>

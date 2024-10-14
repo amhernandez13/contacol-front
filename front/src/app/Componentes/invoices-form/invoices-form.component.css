@@ -1,83 +1,161 @@
-.table {
-  background-color: #fff; /* Fondo de la tabla */
+/* Contenedor del formulario de comprobantes */
+#invoiceFormContainer {
+  background-color: #f6f7f9;
+  padding: 20px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 8px; /* Bordes redondeados del contenedor */
 }
 
-.table th,
-.table td {
-  border: 1px solid #030303; /* Color de las líneas */
-  color: rgb(0, 0, 0); /* Color del texto en la tabla */
+/* Grid para el formulario */
+#invoiceForm {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+  grid-template-areas:
+    "comprobante fechaEmision fechaVencimiento proveedor"
+    "razonSocial departamento municipio ."
+    "impuestos reteFuente reteIVA reteICA"
+    "tipoComprobante formaPago medioPago retenciones"
+    "monto estado observaciones observaciones"
+    ". . observaciones observaciones"; /* Observaciones ocupa la columna 3 y 4 */
+  grid-gap: 20px;
+  padding: 20px;
 }
 
-.table th {
-  background-color: #fff; /* Color de fondo para el encabezado */
+/* Estilo general de los inputs */
+.form-item input,
+.form-item select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid black; /* Bordes negros */
+  border-radius: 8px; /* Bordes redondeados */
+  box-sizing: border-box;
 }
 
-.btn-g {
-  background-color: #616161;
-  color: #fff;
-  padding: 6px;
-  border-radius: 10%;
+/* Asegurar que el textarea de observaciones tenga el mismo estilo */
+#observaciones {
+  grid-column: 3 / span 2; /* Observaciones ocupa las columnas 3 y 4 */
+  grid-area: observaciones;
+  width: 100%;
+  padding: 10px;
+  border: 2px solid black; /* Bordes negros */
+  border-radius: 8px; /* Bordes redondeados */
+  box-sizing: border-box; /* Asegura que el padding no afecte el tamaño */
+  resize: none; /* Deshabilita el redimensionamiento del textarea */
 }
 
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.input-group {
-  display: flex;
-  justify-content: space-between;
-}
-
-.btn1 {
+/* Centramos el título */
+h2 {
+  text-align: center;
+  font-size: 24px;
   margin-bottom: 20px;
 }
 
-.btn3 {
-  margin-top: 20px;
-  margin-left: auto; /* Alinea a la derecha */
-  padding: 5px;
-  border-radius: 10px;
-  padding-left: 30px;
+/* Botón de cerrar en la esquina superior derecha */
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+/* Botones de cargar comprobante y factura */
+.load-buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-th, td {
-  padding: 12px;
-  text-align: left;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2; /* Alternar filas */
-}
-
-tr:hover {
-  background-color: #eaeaea; /* Color al pasar el mouse */
-}
-
-@media (max-width: 600px) {
-  table {
-      font-size: 14px;
-  }
-}
-
-.iconos-dv{
-  margin: 100px;
-
-}
-.icono{
-  font-size: 4rem;
-}
-.t-icon{
+.load-buttons-container button {
   display: flex;
   align-items: center;
+  padding: 10px 20px;
+  background-color: #022c5e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.load-buttons-container button i {
+  margin-left: 10px;
+}
+
+.load-buttons-container button:hover {
+  background-color: #011d3e;
+}
+
+/* Botones de cancelar y aceptar alineados a la derecha */
+.form-submit {
+  display: flex;
+  justify-content: flex-end; /* Alineamos los botones a la derecha */
+  gap: 10px; /* Espacio entre los botones */
+  grid-column: span 4;
+}
+
+.cancel-btn {
+  background-color: white;
+  border: 2px solid #022c5e;
+  color: #022c5e;
+  padding: 10px 40px;
+  border-radius: 8px; /* Bordes redondeados */
+}
+
+.cancel-btn:hover {
+  background-color: #f6f7f9;
+}
+
+.accept-btn {
+  background-color: #022c5e;
+  color: white;
+  padding: 10px 40px;
+  border-radius: 8px; /* Bordes redondeados */
+  border: none;
+}
+
+.accept-btn:hover {
+  background-color: #011d3e;
+}
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+  #invoiceForm {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "comprobante"
+      "razonSocial"
+      "impuestos"
+      "tipoComprobante"
+      "monto"
+      "fechaEmision"
+      "departamento"
+      "reteFuente"
+      "formaPago"
+      "estado"
+      "fechaVencimiento"
+      "municipio"
+      "reteIVA"
+      "medioPago"
+      "proveedor"
+      "reteICA"
+      "retenciones"
+      "observaciones";
+  }
+
+  .form-item-large {
+    grid-column: span 1;
+  }
+
+  .form-submit {
+    justify-content: center; /* Alineación centrada en pantallas pequeñas */
+  }
+
+  .button-container {
+    justify-content: center;
+  }
 }
