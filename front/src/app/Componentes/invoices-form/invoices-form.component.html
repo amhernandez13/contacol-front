@@ -1,109 +1,150 @@
-<link
-  href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-  rel="stylesheet"
-/>
+<h2>Nuevo comprobante</h2>
 <div id="invoiceFormContainer">
-  <!-- Título del formulario -->
-  <h2>Nuevo comprobante</h2>
-
-  <!-- Botón de cierre en la esquina superior derecha -->
-  <i class="bi bi-x-square close-icon"></i>
-
-  <!-- Botones debajo del título -->
-  <div class="load-buttons-container">
-    <button class="load-comprobante-btn">
-      Cargar Comprobante <i class="bi bi-receipt-cutoff"></i>
-    </button>
-    <button class="load-invoice-btn">
-      Cargar Factura <i class="bi bi-filetype-pdf"></i>
-    </button>
-  </div>
-
-  <form id="invoiceForm">
-    <!-- PRIMERA COLUMNA -->
+  <form id="invoiceForm" [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+    <!-- Primera columna -->
     <div class="form-item" style="grid-area: comprobante">
-      <label for="comprobante"># de Comprobante:</label>
-      <input type="text" id="comprobante" name="comprobante" />
+      <label for="invoice"># de comprobante</label>
+      <input type="text" id="invoice" formControlName="invoice" />
     </div>
+
     <div class="form-item" style="grid-area: razonSocial">
-      <label for="razonSocial">Razón Social:</label>
-      <input type="text" id="razonSocial" name="razonSocial" />
+      <label for="third_party">Razón Social</label>
+      <input type="text" id="third_party" formControlName="third_party" />
     </div>
+
     <div class="form-item" style="grid-area: impuestos">
-      <label for="impuestos">Impuestos:</label>
-      <input type="text" id="impuestos" name="impuestos" />
+      <label for="taxes_total">Impuestos</label>
+      <input type="text" id="taxes_total" formControlName="taxes_total" />
     </div>
+
     <div class="form-item" style="grid-area: tipoComprobante">
-      <label for="tipoComprobante">Tipo de Comprobante:</label>
-      <input type="text" id="tipoComprobante" name="tipoComprobante" />
+      <label for="invoice_type">Tipo de Comprobante</label>
+      <select id="invoice_type" formControlName="invoice_type">
+        <option value="Factura electrónica">Factura electrónica</option>
+        <option value="Cuenta de cobro">Cuenta de cobro</option>
+        <option value="Recibo de caja menor">Recibo de caja menor</option>
+        <option value="Recaudo">Recaudo</option>
+        <option value="Nota crédito">Nota crédito</option>
+        <option value="Recibo">Recibo</option>
+        <option value="Otro">Otro (anotar en observación)</option>
+      </select>
     </div>
+
     <div class="form-item" style="grid-area: monto">
-      <label for="monto">Monto:</label>
-      <input type="number" id="monto" name="monto" />
+      <label for="invoice_total">Monto</label>
+      <input type="text" id="invoice_total" formControlName="invoice_total" />
     </div>
 
-    <!-- SEGUNDA COLUMNA -->
+    <!-- Segunda columna -->
     <div class="form-item" style="grid-area: fechaEmision">
-      <label for="fechaEmision">Fecha de Emisión:</label>
-      <input type="date" id="fechaEmision" name="fechaEmision" />
+      <label for="issue_date">Fecha de Emisión</label>
+      <input type="date" id="issue_date" formControlName="issue_date" />
     </div>
+
     <div class="form-item" style="grid-area: departamento">
-      <label for="departamento">Departamento:</label>
-      <input type="text" id="departamento" name="departamento" />
+      <label for="department">Departamento</label>
+      <input type="text" id="department" formControlName="department" />
     </div>
+
     <div class="form-item" style="grid-area: reteFuente">
-      <label for="reteFuente">Rete Fuente:</label>
-      <input type="text" id="reteFuente" name="reteFuente" />
+      <label for="rte_fuente">Rete Fuente</label>
+      <input type="text" id="rte_fuente" formControlName="rte_fuente" />
     </div>
+
     <div class="form-item" style="grid-area: formaPago">
-      <label for="formaPago">Forma de Pago:</label>
-      <input type="text" id="formaPago" name="formaPago" />
+      <label for="payment_way">Forma de Pago</label>
+      <select id="payment_way" formControlName="payment_way">
+        <option value="Cuentas por pagar">Cuentas por pagar (CxP)</option>
+        <option value="Reembolsado">Reembolsado (Rembol)</option>
+        <option value="Cuentas por cobrar">Cuentas por cobrar (CxC)</option>
+        <option value="Pendiente verificar origen">
+          Pendiente verificar origen (PVO)
+        </option>
+      </select>
     </div>
+
     <div class="form-item" style="grid-area: estado">
-      <label for="estado">Estado:</label>
-      <input type="text" id="estado" name="estado" />
+      <label for="invoice_status">Estado</label>
+      <select id="invoice_status" formControlName="invoice_status">
+        <option value="Pagado">Pagado</option>
+        <option value="Por pagar / verificado">Por pagar / verificado</option>
+        <option value="Pendiente verificar">Pendiente verificar</option>
+      </select>
     </div>
 
-    <!-- TERCERA COLUMNA -->
+    <!-- Tercera columna -->
     <div class="form-item" style="grid-area: fechaVencimiento">
-      <label for="fechaVencimiento">Fecha de Vencimiento:</label>
-      <input type="date" id="fechaVencimiento" name="fechaVencimiento" />
+      <label for="due_date">Fecha de Vencimiento</label>
+      <input type="date" id="due_date" formControlName="due_date" />
     </div>
+
     <div class="form-item" style="grid-area: municipio">
-      <label for="municipio">Municipio/Ciudad:</label>
-      <input type="text" id="municipio" name="municipio" />
+      <label for="city">Municipio/Ciudad</label>
+      <input type="text" id="city" formControlName="city" />
     </div>
+
     <div class="form-item" style="grid-area: reteIVA">
-      <label for="reteIVA">Rete IVA:</label>
-      <input type="text" id="reteIVA" name="reteIVA" />
+      <label for="rte_iva">Rete IVA</label>
+      <input type="text" id="rte_iva" formControlName="rte_iva" />
     </div>
+
     <div class="form-item" style="grid-area: medioPago">
-      <label for="medioPago">Medio de Pago:</label>
-      <input type="text" id="medioPago" name="medioPago" />
+      <label for="payment_method">Medio de Pago</label>
+      <select id="payment_method" formControlName="payment_method">
+        <option value="Banco (empresa)">Banco (empresa)</option>
+        <option value="JMA Cjm">
+          JMA Cjm (Caja menor de Juan Manuel Ariza)
+        </option>
+        <option value="AG Cjm">AG Cjm (Caja menor de A…G…)</option>
+        <option value="Indefinido (pendiente)">
+          Indefinido (pendiente) (PDT); se debe averiguar (Func. Alerta)
+        </option>
+        <option value="Otro">Otro</option>
+      </select>
     </div>
 
-    <!-- Observaciones: Ocupa la tercera y cuarta columna -->
-    <div class="form-item form-item-large" style="grid-area: observaciones">
-      <label for="observaciones">Observaciones:</label>
-      <textarea id="observaciones" name="observaciones" rows="5"></textarea>
+    <!-- Cuarta columna -->
+    <div class="form-item" style="grid-area: valorPagado">
+      <label for="paid_value">Valor Pagado</label>
+      <input type="text" id="paid_value" formControlName="paid_value" />
     </div>
 
-    <!-- CUARTA COLUMNA -->
-    <div class="form-item" style="grid-area: proveedor">
-      <label for="proveedor">Proveedor:</label>
-      <input type="text" id="proveedor" name="proveedor" />
-    </div>
     <div class="form-item" style="grid-area: reteICA">
-      <label for="reteICA">Rete ICA:</label>
-      <input type="text" id="reteICA" name="reteICA" />
-    </div>
-    <div class="form-item" style="grid-area: retenciones">
-      <label for="retenciones">Retenciones:</label>
-      <input type="text" id="retenciones" name="retenciones" />
+      <label for="rte_ica">Rete ICA</label>
+      <input type="text" id="rte_ica" formControlName="rte_ica" />
     </div>
 
-    <!-- Botones de cancelar y aceptar -->
-    <div class="form-item form-submit">
+    <div class="form-item" style="grid-area: descripcion">
+      <label for="description">Descripción</label>
+      <input type="text" id="description" formControlName="description" />
+    </div>
+
+    <div class="form-item" style="grid-area: pago">
+      <label for="payment_date">Fecha de Pago</label>
+      <input type="date" id="payment_date" formControlName="payment_date" />
+    </div>
+
+    <div class="form-item" style="grid-area: observaciones">
+      <label for="observation">Observaciones</label>
+      <textarea
+        id="observation"
+        formControlName="observation"
+        rows="4"
+      ></textarea>
+    </div>
+
+    <!-- Botones de cargar comprobante y factura -->
+    <div class="load-buttons-container">
+      <button type="button" class="load-invoice-btn">
+        Cargar comprobante <i class="bi bi-receipt-cutoff"></i>
+      </button>
+      <button type="button" class="load-invoice-btn">
+        Cargar factura <i class="bi bi-filetype-pdf"></i>
+      </button>
+    </div>
+
+    <!-- Botones de enviar el formulario -->
+    <div class="form-submit">
       <button type="button" class="cancel-btn">Cancelar</button>
       <button type="submit" class="accept-btn">Aceptar</button>
     </div>
