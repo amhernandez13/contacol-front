@@ -84,17 +84,35 @@ export class InvoicesFormComponent {
         next: (response) => {
           console.log('Datos extraídos del PDF:', response);
 
-          // Verificamos que los datos están en response.data
           const pdfData = response.data;
 
-          // Actualizamos los campos del formulario con los datos extraídos
+          // Función para convertir 'DD-MM-AAAA' a 'YYYY-MM-DD'
+          const convertColombianDateToISO = (colombianDate: string | null) => {
+            if (!colombianDate || colombianDate === 'No encontrado')
+              return null;
+
+            // Separar la fecha colombiana 'DD-MM-AAAA'
+            const [day, month, year] = colombianDate.split('-');
+
+            // Retornar en formato 'YYYY-MM-DD' para el input date
+            return `${year}-${month}-${day}`;
+          };
+
+          // Convertir fechas del formato colombiano 'DD-MM-AAAA' al formato 'YYYY-MM-DD'
+          const issueDate = convertColombianDateToISO(pdfData.issue_date);
+          const dueDate = convertColombianDateToISO(pdfData.due_date);
+
+          console.log('Issue Date:', issueDate);
+          console.log('Due Date:', dueDate);
+
+          // Actualizamos los campos del formulario con los datos extraídos y las fechas convertidas
           this.invoiceForm.patchValue({
-            issue_date: pdfData.issue_date, // Fecha de emisión
-            due_date: pdfData.due_date, // Fecha de vencimiento
-            invoice: pdfData.invoice, // Nombre de la factura
-            third_party: pdfData.third_party, // Tercero
-            department: pdfData.department, // Departamento
-            city: pdfData.city, // Ciudad
+            issue_date: issueDate, // Fecha de emisión convertida
+            due_date: dueDate, // Fecha de vencimiento convertida
+            invoice: pdfData.invoice,
+            third_party: pdfData.third_party,
+            department: pdfData.department,
+            city: pdfData.city,
             taxes_total:
               pdfData.taxes_total?.replace('.', '').replace(',', '.') || '',
             invoice_total:
