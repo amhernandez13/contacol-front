@@ -7,7 +7,9 @@ dotenv.config();
 
 // MongoDB connection
 mongoose
-  .connect(process.env.MONGO_ENDPOINT)
+  .connect(
+    "mongodb+srv://david:1234@cluster0.6pqncbu.mongodb.net/testcloud?retryWrites=true&w=majority&appName=Cluster0"
+  )
   .then((data) => {
     console.log("Success conecting MongoDB");
   })
