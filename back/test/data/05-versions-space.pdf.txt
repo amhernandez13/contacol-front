@@ -1,0 +1,88 @@
+
+
+$$$$$
+FACTURA ELECTRÓNICA DE VENTA
+Representación Gráfica
+ 
+Datos del Documento
+Código Único de Factura - CUFE :
+4534e7134ce5d6cdef98a1772c51726b4218d9fb0f171055528fff3e476b629247a805a4464316ab0ab5b5bdeb8e92d7
+Número de Factura:   X793-1005292Forma de pago:   Contado
+Fecha de Emisión:   08/08/2024Medio de Pago:   Transferencia Débito
+Fecha de Vencimiento:    Orden de pedido:  
+Tipo de Operación:   10 - EstándarFecha de orden de pedido:    
+Datos del Emisor / Vendedor
+Razón Social:   COLOMBIANA DE COMERCIO S.A.
+Nombre Comercial:   COLOMBIANA DE COMERCIO S.A.
+Nit del Emisor:   890900943País:   Colombia
+Tipo de Contribuyente:   Persona JurídicaDepartamento:   Bogota
+Régimen Fiscal:O-13;O-15;O-23Municipio / Ciudad:   BOGOTA
+Responsabilidad tributaria:   ZA - IVA e INCDirección:   AVENIDA CARRERA 68 # 72 - 43
+Actividad Económica:  Teléfono / Móvil:  
+Correo:   facturas_proveedores@colcomercio.com.co
+Datos del Adquiriente / Comprador
+Nombre o Razón Social:   INVERSIONES AGROAMBIENTALES HYR SAS
+Tipo de Documento:   NITPaís:   Colombia
+Número Documento:   900096154Departamento:   Bogota
+Tipo de Contribuyente:   Persona JurídicaMunicipio / Ciudad:   BOGOTA D.C.(BOGOTA)
+Régimen fiscal:   O-23Dirección:   CL 25 G 74 B 50 TO 9 APT 944
+Responsabilidad tributaria:   ZZ - No aplicaTeléfono / Móvil:  
+Correo:  
+juanarizac22@gmail.com,gerencia@inversioneshr.com
+Detalles de Productos
+  
+IMPUESTOS
+Precio
+unitario de
+venta
+Nro.CódigoDescripciónU/MCantidadPrecio unitario
+Descuento
+detalle
+Recargo detalleIVA%INC%
+1097855114976
+Diad Log Alam OnEar
+H111 Ng
+943,0041.932,770,000,0023.901,6819.00  125.798,32
+             
+Notas Finales
+Responsable I.V.A. Somos Grandes ContribuyentesResoluc. 012220 Dic. 26 de 2022 RETENEDORES DE IVA Autorretenedores de RentaRes.No. 00083
+27 Ago. 24 2.010
+Hoja 1 de 2
+
+$
+Datos Totales
+Documento generado el:
+08/08/2024 12:01:16 
+Documento validado por la DIAN:
+08/08/2024 12:01:19 
+XML Generado por:
+Proveedor Tecnológico
+900306823
+PDF Generado por:
+Solución Gratuita DIAN
+Nit:800197268
+ 
+MONEDACOP
+TASA DE CAMBIO
+Subtotal125.798,32
+Descuento detalle0,00
+Recargo detalle0,00
+Total Bruto Factura125.798,32
+IVA23.901,68
+INC0,00
+Bolsas0,00
+Otros impuestos0,00
+Total impuesto (=)23.901,68
+Total neto factura (=)149.700,00
+Descuento Global (-)0,00
+Recargo Global (+)0,00
+Total factura (=) ᅠᅠᅠᅠᅠᅠᅠᅠCOP $149.700,00
+Valores informativos
+ANTICIPOS
+Anticipos
+RETENCIONES
+Rete fuente0,00
+Rete IVA0,00
+Rete ICA0,00
+Numero de Autorización: 18764046430532Rango desde: 1000000Rango hasta: 2500000Vigencia: 2024-09-24
+Hoja 2 de 2
