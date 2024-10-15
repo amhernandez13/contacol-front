@@ -1,201 +1,78 @@
-<section
-  class="container justify-content-center align-items-center"
-  style="min-height: 100vh"
->
-  <div class="">
-    <div class="text-center">
-      <div class="row iconos-dv">
-        <div class="col t-icon">
-          <i class="icono fa-solid fa-file-invoice"></i>
-          <samp>comprobantes</samp>
-        </div>
-        <div class="col t-icon">
-          <i class="icono fa-solid fa-user-group"></i>
-          <samp>provedores</samp>
-        </div>
-        <div class="col t-icon">
-          <i class="icono fa-solid fa-rectangle-list"></i>
-          <samp>almacen de provedores</samp>
-        </div>
+<div class="container">
+  <header>
+    <div class="navbar navbar-expand-lg navbar-light bg-light">
+      <img src="./contactcol.png" />
+    </div>
+    <div class="header-icons">
+      <div class="icon-section">
+        <i class="icon-invoice"></i>
+        <p>Comprobantes</p>
+      </div>
+      <div class="icon-section">
+        <i class="icon-providers"></i>
+        <p>Proveedores</p>
+      </div>
+      <div class="icon-section">
+        <i class="icon-storage"></i>
+        <p>Almacén de comprobantes</p>
       </div>
     </div>
-    <div class="input-group btn1">
-      <div class="">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Buscar..."
-          aria-label="Buscar"
-          id="searchInput"
-          onkeyup="filterTable()"
-        />
-      </div>
-      <div>
-        <button
-          type="button"
-          class="btn-g d-block ms-auto px-3 fw-bold rounded-5"
-          data-bs-toggle="modal"
-          data-bs-target="#modalUsuarios"
-        >
-          Ingrese Comprobante
-        </button>
-      </div>
+  </header>
+
+  <main>
+    <div class="search-section">
+      <input
+        type="text"
+        placeholder="Buscar comprobante"
+        class="search-input"
+      />
+
+      <button class="add-button">Ingrese comprobante</button>
     </div>
-    <table class="table align-middle">
+
+    <table class="invoice-table">
       <thead>
         <tr>
-          <th scope="col">#Factura</th>
-          <th scope="col">Emisor/Vencimiento</th>
-          <th scope="col">Municipio/Ciudad</th>
-          <th scope="col">Razón Social</th>
-          <th scope="col">Total</th>
-          <th scope="col"></th>
-          <th scope="col" class="text-center">Detalles</th>
+          <th>Nro Factura</th>
+          <th>Emisión / Vto</th>
+          <th>Terceros</th>
+          <th>Método de pago</th>
+          <th>Tipo de factura</th>
+          <th>Medio de pago</th>
+          <th>Valor pagado</th>
+          <th>Total</th>
+          <th>Detalle</th>
         </tr>
       </thead>
-      <tbody class=" ">
+      <tbody>
+        @for (element of alldata; track $index) {
         <tr>
-          <td>001</td>
-          <td></td>
-          <td>Ciudad X</td>
-          <td class="d-none d-lg-table-cell">Empresa A</td>
-          <td class="d-none d-lg-table-cell">$1000</td>
-          <td class="text-center">
-            <div class="d-flex justify-content-between">
-              <button type="button" class="btn p-0 border-0">
-                <i
-                  class="button edit fa-solid fa-pen p-2 rounded-5"
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalUsuarios"
-                ></i>
-              </button>
-              <button type="button" class="btn p-0 border-0">
-                <i class="button delete fa-solid fa-trash p-2 rounded-5"></i>
-              </button>
-            </div>
+          <td>{{ element.invoice }}</td>
+          <td>
+            {{ element.issue_date | date : "shortDate" }} |
+
+            {{ element.due_date | date : "shortDate" }}
           </td>
-          <td class="text-center">
-            <button type="button" class="btn p-0 border-0">
-              <i class="fa-solid fa-rectangle-list"></i>
-            </button>
-          </td>
+          <td>{{ element.third_party }}</td>
+          <td>{{ element.payment_method }}</td>
+          <td>{{ element.invoice_type }}</td>
+          <td>{{ element.payment_way }}</td>
+          <td class="green">{{ element.paid_value }}</td>
+          <td>{{ element.paid_value }}</td>
+
+          <td><button class="edit-button">Edit</button></td>
         </tr>
-        <tr>
-          <td>002</td>
-          <td></td>
-          <td>Ciudad Y</td>
-          <td class="d-none d-lg-table-cell">Empresa B</td>
-          <td class="d-none d-lg-table-cell">$1500</td>
-          <td class="text-center">
-            <div class="d-flex justify-content-between">
-              <button type="button" class="btn p-0 border-0">
-                <i
-                  class="button edit fa-solid fa-pen p-2 rounded-5"
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalUsuarios"
-                ></i>
-              </button>
-              <button type="button" class="btn p-0 border-0">
-                <i class="button delete fa-solid fa-trash p-2 rounded-5"></i>
-              </button>
-            </div>
-          </td>
-          <td class="text-center">
-            <button type="button" class="btn p-0 border-0">
-              <i class="fa-solid fa-rectangle-list"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>003</td>
-          <td></td>
-          <td>Ciudad Z</td>
-          <td class="d-none d-lg-table-cell">Empresa C</td>
-          <td class="d-none d-lg-table-cell">$2000</td>
-          <td class="text-center">
-            <div class="d-flex justify-content-between">
-              <button type="button" class="btn p-0 border-0">
-                <i
-                  class="button edit fa-solid fa-pen p-2 rounded-5"
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalUsuarios"
-                ></i>
-              </button>
-              <button type="button" class="btn p-0 border-0">
-                <i class="button delete fa-solid fa-trash p-2 rounded-5"></i>
-              </button>
-            </div>
-          </td>
-          <td class="text-center">
-            <button type="button" class="btn p-0 border-0">
-              <i class="fa-solid fa-rectangle-list"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>004</td>
-          <td></td>
-          <td>Ciudad W</td>
-          <td class="d-none d-lg-table-cell">Empresa D</td>
-          <td class="d-none d-lg-table-cell">$2500</td>
-          <td class="text-center">
-            <div class="d-flex justify-content-between">
-              <button type="button" class="btn p-0 border-0">
-                <i
-                  class="button edit fa-solid fa-pen p-2 rounded-5"
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalUsuarios"
-                ></i>
-              </button>
-              <button type="button" class="btn p-0 border-0">
-                <i class="bi bi-pencil-fill"></i>
-              </button>
-              <button type="button" class="btn p-0 border-0">
-                <i class="button delete fa-solid fa-trash p-2 rounded-5"></i>
-              </button>
-            </div>
-          </td>
-          <td class="text-center">
-            <button type="button" class="btn p-0 border-0">
-              <i class="fa-solid fa-rectangle-list"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>005</td>
-          <td></td>
-          <td>Ciudad V</td>
-          <td class="d-none d-lg-table-cell">Empresa E</td>
-          <td class="d-none d-lg-table-cell">$3000</td>
-          <td class="text-center">
-            <div class="d-flex justify-content-between">
-              <button type="button" class="btn p-0 border-0">
-                <i
-                  class="button edit fa-solid fa-pen p-2 rounded-5"
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalUsuarios"
-                ></i>
-              </button>
-              <button type="button" class="btn p-0 border-0">
-                <i class="button delete fa-solid fa-trash p-2 rounded-5"></i>
-              </button>
-            </div>
-          </td>
-          <td class="text-center">
-            <button type="button" class="btn p-0 border-0">
-              <i class="fa-solid fa-rectangle-list"></i>
-            </button>
-          </td>
-        </tr>
+        }
       </tbody>
     </table>
-    <button
-      type="button"
-      class="btn3 bg-green d-block ms-auto px-3 fw-bold rounded-5"
-      data-bs-toggle="modal"
-      data-bs-target="#modalUsuarios"
-    >
-      volver
-    </button>
-  </div>
-</section>
+
+    <button class="back-button">Volver</button>
+  </main>
+
+  <footer>
+    <p>
+      Sistema contable desarrollado para Colombia. Todo los derechos reservados.
+      Propiedad de Foo Talent Group
+    </p>
+  </footer>
+</div>
