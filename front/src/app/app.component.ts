@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { InvoicesComponent } from './Componentes/invoices/invoices.component';
+
 @Component({
   selector: 'app-root',
   standalone: true,

@@ -1,5 +1,8 @@
 <div class="container">
   <header>
+    <div class="navbar navbar-expand-lg navbar-light bg-light">
+      <img src="./contactcol.png" />
+    </div>
     <div class="header-icons">
       <div class="icon-section">
         <i class="icon-invoice"></i>
@@ -23,17 +26,18 @@
         placeholder="Buscar comprobante"
         class="search-input"
       />
+
       <button class="add-button">Ingrese comprobante</button>
     </div>
 
     <table class="invoice-table">
       <thead>
         <tr>
-          <th># Factura</th>
+          <th>Nro Factura</th>
           <th>Emisión / Vto</th>
           <th>Terceros</th>
           <th>Método de pago</th>
-          <th>Tipo de facturación</th>
+          <th>Tipo de factura</th>
           <th>Medio de pago</th>
           <th>Valor pagado</th>
           <th>Total</th>
@@ -43,14 +47,19 @@
       <tbody>
         @for (element of alldata; track $index) {
         <tr>
-          <td>{{ element._id }}</td>
-          <td>{{ element.due_date | date : "shortDate" }}</td>
+          <td>{{ element.invoice }}</td>
+          <td>
+            {{ element.issue_date | date : "shortDate" }} |
+
+            {{ element.due_date | date : "shortDate" }}
+          </td>
           <td>{{ element.third_party }}</td>
           <td>{{ element.payment_method }}</td>
           <td>{{ element.invoice_type }}</td>
           <td>{{ element.payment_way }}</td>
           <td class="green">{{ element.paid_value }}</td>
           <td>{{ element.paid_value }}</td>
+
           <td><button class="edit-button">Edit</button></td>
         </tr>
         }
