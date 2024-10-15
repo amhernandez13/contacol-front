@@ -11,6 +11,7 @@
     "valorPagado . observaciones observaciones";
   grid-gap: 20px;
   padding: 20px;
+  padding-top: 10px;
   position: relative;
 }
 
@@ -23,6 +24,14 @@ textarea {
   border: 2px solid black;
   border-radius: 8px;
   box-sizing: border-box;
+  
+}
+
+/*Ocultar las flechas de los campos de tipo numer */
+.form-item input[type=number]::-webkit-inner-spin-button,
+.form-item input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Estilo del campo de observaciones */
@@ -81,6 +90,15 @@ h2 {
   background-color: #011d3e;
 }
 
+/* Texto de factura/comprobante cargado */
+.file-names {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-bottom: 0px;
+}
+
 /* Botones de cancelar y aceptar alineados a la derecha */
 .form-submit {
   display: flex;
@@ -112,6 +130,19 @@ h2 {
 .accept-btn:hover {
   background-color: #011d3e;
 }
+
+/* Estilo de los botones cuando están deshabilitados */
+.load-buttons-container button:disabled {
+  background-color: #d3d3d3; /* Color de fondo más claro */
+  color: #808080; /* Color del texto más claro */
+  cursor: not-allowed; /* Cambia el cursor para indicar que no es clicable */
+  opacity: 0.6; /* Hace el botón más opaco */
+}
+
+.load-buttons-container button:disabled:hover {
+  background-color: #d3d3d3; /* Mantén el color cuando esté deshabilitado y se pase el mouse por encima */
+}
+
 
 /* Estilos responsive */
 @media (max-width: 768px) {

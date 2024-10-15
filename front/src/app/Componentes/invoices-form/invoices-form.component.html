@@ -5,10 +5,30 @@
 <h2>Nuevo comprobante</h2>
 <!-- Botones de cargar comprobante y factura -->
 <div class="load-buttons-container">
-  <button type="button" class="load-invoice-btn" (click)="pdfInput.click()">
+  <!-- Botón de cargar comprobante -->
+  <button
+    type="button"
+    class="load-invoice-btn"
+    (click)="comprobanteInput.click()"
+    [disabled]="!!selectedInvoiceFile"
+  >
     Cargar comprobante <i class="bi bi-receipt-cutoff"></i>
   </button>
-  <button type="button" class="load-invoice-btn" (click)="pdfInput.click()">
+  <input
+    type="file"
+    #comprobanteInput
+    style="display: none"
+    (change)="onComprobanteFileSelected($event)"
+    accept=".pdf"
+  />
+
+  <!-- Botón de cargar factura -->
+  <button
+    type="button"
+    class="load-invoice-btn"
+    (click)="pdfInput.click()"
+    [disabled]="!!selectedComprobanteFile"
+  >
     Cargar factura <i class="bi bi-filetype-pdf"></i>
   </button>
   <input
@@ -18,6 +38,19 @@
     (change)="onFileSelected($event)"
     accept=".pdf"
   />
+</div>
+
+<!-- Mostrar el nombre del archivo seleccionado -->
+<div
+  *ngIf="selectedInvoiceFileName || selectedComprobanteFileName"
+  class="file-names"
+>
+  <p *ngIf="selectedInvoiceFileName">
+    Factura seleccionada: {{ selectedInvoiceFileName }}
+  </p>
+  <p *ngIf="selectedComprobanteFileName">
+    Comprobante seleccionado: {{ selectedComprobanteFileName }}
+  </p>
 </div>
 
 <div id="invoiceFormContainer">
@@ -35,7 +68,7 @@
 
     <div class="form-item" style="grid-area: impuestos">
       <label for="impuestos">Impuestos</label>
-      <input type="text" id="impuestos" formControlName="taxes_total" />
+      <input type="number" id="impuestos" formControlName="taxes_total" />
     </div>
 
     <div class="form-item" style="grid-area: tipoComprobante">
@@ -53,7 +86,7 @@
 
     <div class="form-item" style="grid-area: monto">
       <label for="monto">Monto</label>
-      <input type="text" id="monto" formControlName="invoice_total" />
+      <input type="number" id="monto" formControlName="invoice_total" />
     </div>
 
     <!-- Segunda columna -->
@@ -69,7 +102,7 @@
 
     <div class="form-item" style="grid-area: reteFuente">
       <label for="reteFuente">Rete Fuente</label>
-      <input type="text" id="reteFuente" formControlName="rte_fuente" />
+      <input type="number" id="reteFuente" formControlName="rte_fuente" />
     </div>
 
     <div class="form-item" style="grid-area: formaPago">
@@ -106,7 +139,7 @@
 
     <div class="form-item" style="grid-area: reteIVA">
       <label for="reteIVA">Rete IVA</label>
-      <input type="text" id="reteIVA" formControlName="rte_iva" />
+      <input type="number" id="reteIVA" formControlName="rte_iva" />
     </div>
 
     <div class="form-item" style="grid-area: medioPago">
@@ -127,12 +160,12 @@
     <!-- Cuarta columna -->
     <div class="form-item" style="grid-area: valorPagado">
       <label for="valorPagado">Valor Pagado</label>
-      <input type="text" id="valorPagado" formControlName="paid_value" />
+      <input type="number" id="valorPagado" formControlName="paid_value" />
     </div>
 
     <div class="form-item" style="grid-area: reteICA">
       <label for="reteICA">Rete ICA</label>
-      <input type="text" id="reteICA" formControlName="rte_ica" />
+      <input type="number" id="reteICA" formControlName="rte_ica" />
     </div>
 
     <div class="form-item" style="grid-area: descripcion">
