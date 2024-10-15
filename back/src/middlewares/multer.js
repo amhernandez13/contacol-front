@@ -1,15 +1,15 @@
+// middlewares/multer.js
 import multer from "multer";
 import path from "path";
 
 // Configuración de almacenamiento de Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    // Guardar el archivo en la carpeta especificada
-    cb(null, "D:\\Equipo-25\\back\\test\\data\\");
+    console.log("Archivo recibido para almacenamiento:", file.originalname); // Log adicional
+    cb(null, "D:\\Equipo-25\\back\\test\\data\\"); // Carpeta donde se guarda el archivo
   },
   filename: (req, file, cb) => {
-    // Guardar siempre con el nombre específico "05-versions-space.pdf"
-    cb(null, "05-versions-space.pdf");
+    cb(null, file.originalname); // Usamos el nombre original del archivo PDF
   },
 });
 

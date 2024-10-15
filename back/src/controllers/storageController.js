@@ -1,6 +1,44 @@
+// controllers/storageController.js
 import storage from "../models/storageModel.js";
+import cloudinary from "../connectionDB.js"; // Configuración de Cloudinary
+import fs from "fs"; // Para eliminar archivos después de subirlos a Cloudinary
 
-// Solicitar la lista de todos los PDF
+// Crear un nuevo documento con subida a Cloudinary
+async function createStorage(req, res) {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+
+    console.log("Archivo recibido desde el front:", req.file);
+
+    const filePath = req.file.path;
+
+    const uploadResult = await cloudinary.uploader.upload(filePath, {
+      resource_type: "raw",
+      folder: "facturas",
+    });
+
+    const newDocument = await storage.create({
+      thirdParty: req.body.thirdParty,
+      invoiceName: req.body.invoiceName,
+      url: uploadResult.secure_url,
+    });
+
+    fs.unlinkSync(filePath);
+
+    res.json({
+      message: "File uploaded successfully",
+      document: newDocument,
+      url: uploadResult.secure_url,
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Server Error", message: err.message });
+    console.error("Error al subir el archivo a Cloudinary:", err);
+  }
+}
+
+// Obtener todos los documentos almacenados
 async function listStorage(req, res) {
   try {
     const documents = await storage.find();
@@ -10,7 +48,7 @@ async function listStorage(req, res) {
   }
 }
 
-// Solicitar un documento por ID
+// Obtener un documento por ID
 async function listStorageByID(req, res) {
   try {
     const documentID = req.params.id;
@@ -21,25 +59,15 @@ async function listStorageByID(req, res) {
   }
 }
 
-// Crear un nuevo documento
-async function createStorage(req, res) {
-  try {
-    const newDocument = await storage.create({
-      thirdParty: req.body.thirdParty,
-      invoiceName: req.body.invoiceName,
-      url: req.body.url, // la url debe venir o desde multer o desde cloudinary
-    });
-    res.json(newDocument);
-  } catch (err) {
-    res.status(500).json({ error: "Server Error", message: err.message });
-    console.error("Error al crear el documento:", err);
-  }
-}
-
-// Modificar parcialmente un documento (si lo deseas)
+// **Asegúrate de tener esta función definida**
 async function updateStorage(req, res) {
   try {
     const documentModified = await storage.findById(req.params.id);
+
+    if (!documentModified) {
+      return res.status(404).json({ error: "Documento no encontrado" });
+    }
+
     documentModified.thirdParty =
       req.body.thirdParty || documentModified.thirdParty;
     documentModified.invoiceName =
@@ -54,7 +82,7 @@ async function updateStorage(req, res) {
   }
 }
 
-// Eliminar un documento
+// Eliminar un documento por ID
 async function deleteStorage(req, res) {
   try {
     await storage.findByIdAndDelete(req.params.id);
@@ -66,9 +94,9 @@ async function deleteStorage(req, res) {
 }
 
 export default {
+  createStorage,
   listStorage,
   listStorageByID,
-  createStorage,
-  updateStorage,
+  updateStorage, // Asegúrate de exportar la función `updateStorage`
   deleteStorage,
 };

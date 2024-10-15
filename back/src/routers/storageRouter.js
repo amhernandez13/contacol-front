@@ -1,24 +1,23 @@
+// routers/storageRouter.js
 import express from "express";
-import storageController from "../controllers/storageController.js";
+import storageController from "../controllers/storageController.js"; // Asegúrate de importar todas las funciones del controlador
+import upload from "../middlewares/multer.js"; // Middleware de Multer para manejar la subida de archivos
 
 const router = express.Router();
 
-//Obtener todas las facturas
+// Ruta para subir un archivo PDF
+router.post("/", upload.single("file"), storageController.createStorage);
+
+// Obtener todas las facturas (PDFs)
 router.get("/", storageController.listStorage);
 
-//Obtener una factura por ID
+// Obtener una factura por ID
 router.get("/:id", storageController.listStorageByID);
 
-//Crear una nueva factura
-router.post("/", storageController.createStorage);
-
-//Modificar una factura
+// Asegúrate de tener definida la función `updateStorage` en el controlador
 router.put("/:id", storageController.updateStorage);
 
-//Eliminar una factura
+// Eliminar una factura por ID
 router.delete("/:id", storageController.deleteStorage);
-
-// Subir un archivo PDF y crear el documento
-router.post("/", upload.single("file"), storageController.createStorage); // Usamos el middleware de Multer
 
 export default router;

@@ -4,15 +4,15 @@ import mongoose from "mongoose";
 const storageSchema = new mongoose.Schema({
   thirdParty: {
     type: String,
-    required: true,
+    required: false,
   },
   invoiceName: {
     type: String,
-    required: true,
+    required: false,
   },
   url: {
     type: String,
-    required: true,
+    required: false,
   },
   uploadDate: {
     type: Date,

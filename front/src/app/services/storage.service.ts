@@ -26,6 +26,9 @@ export class StorageService {
     const formData = new FormData();
     formData.append('file', file); // Enviamos el archivo
 
+    // Log para verificar qué archivo se está enviando
+    console.log('Archivo a subir:', file);
+
     // Añadimos el nombre original del archivo
     formData.append('filename', file.name);
 
