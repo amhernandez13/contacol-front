@@ -88,11 +88,24 @@ const Pdf_controller = {
         resultJson.due_date = null; // Si no se encuentra la fecha
       }
 
-      // Extraer el resto de los campos como antes
-      const numeroFacturaRegex = /Número\s*de\s*Factura:\s*([A-Za-z0-9\-]+)/i;
-      resultJson.invoice =
-        text.match(numeroFacturaRegex)?.[1].trim() || "No encontrado";
+      // Buscar el Número de Factura (capturamos inicialmente todo)
+      const numeroFacturaRegex = /Número\s*de\s*Factura:\s*([A-Za-z0-9\- ]+)/i;
+      const numeroFacturaMatch = text.match(numeroFacturaRegex);
 
+      if (numeroFacturaMatch) {
+        // Capturar inicialmente el número de factura
+        let numeroFactura = numeroFacturaMatch[1].trim();
+
+        // Limpiar manualmente la palabra "Forma" si aparece
+        numeroFactura = numeroFactura.replace(/Forma.*$/, "").trim();
+
+        // Guardar el resultado limpio en el JSON
+        resultJson.invoice = numeroFactura;
+      } else {
+        resultJson.invoice = "No encontrado";
+      }
+
+      // Continuar con la extracción de los otros datos
       const razonSocialRegex = /Razón\s*Social:\s*(.+)/i;
       resultJson.third_party =
         text.match(razonSocialRegex)?.[1].trim() || "No encontrado";

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InvoiceService } from '../../services/invoice.service';
-import { PdfService } from '../../services/pdf-service.service'; // Importamos el nuevo servicio para manejar PDFs
+import { PdfService } from '../../services/pdf-service.service';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-invoices-form',
@@ -12,10 +13,12 @@ import { PdfService } from '../../services/pdf-service.service'; // Importamos e
 })
 export class InvoicesFormComponent {
   invoiceForm: FormGroup;
+  selectedFile: File | null = null; // Para almacenar el archivo seleccionado
 
   constructor(
     private invoiceService: InvoiceService,
-    private pdfService: PdfService // Inyectamos el servicio de PDFs
+    private pdfService: PdfService,
+    private storageService: StorageService
   ) {
     this.invoiceForm = new FormGroup({
       issue_date: new FormControl(''),
@@ -37,49 +40,52 @@ export class InvoicesFormComponent {
       observation: new FormControl(''),
       department: new FormControl(''),
       city: new FormControl(''),
+      supplier: new FormControl(''),
     });
   }
 
   onSubmit() {
     const formData = this.invoiceForm.value;
 
-    const invoiceData = {
-      issue_date: formData.issue_date,
-      invoice_type: formData.invoice_type,
-      payment_method: formData.payment_method,
-      invoice: formData.invoice,
-      third_party: formData.third_party,
-      invoice_status: formData.invoice_status,
-      due_date: formData.due_date,
-      description: formData.description,
-      payment_way: formData.payment_way,
-      paid_value: parseFloat(formData.paid_value),
-      payment_date: formData.payment_date,
-      payment: {
-        taxes_total: parseFloat(formData.taxes_total),
-        invoice_total: parseFloat(formData.invoice_total),
-        rte_fuente: parseFloat(formData.rte_fuente),
-        rte_iva: parseFloat(formData.rte_iva),
-        rte_ica: parseFloat(formData.rte_ica),
-      },
-      observation: formData.observation,
-      department: formData.department,
-      city: formData.city,
-    };
+    if (this.selectedFile) {
+      this.storageService.uploadFile(this.selectedFile).subscribe({
+        next: (response) => {
+          const fileUrl = response.url;
 
-    this.invoiceService.createInvoice(invoiceData).subscribe({
-      next: (response) => {
-        console.log('Factura creada exitosamente', response);
-      },
-      error: (error) => {
-        console.error('Error al crear la factura:', error);
-      },
-    });
+          const invoiceData = {
+            ...formData,
+            file_url: fileUrl,
+            payment: {
+              taxes_total: parseFloat(formData.taxes_total),
+              invoice_total: parseFloat(formData.invoice_total),
+              rte_fuente: parseFloat(formData.rte_fuente),
+              rte_iva: parseFloat(formData.rte_iva),
+              rte_ica: parseFloat(formData.rte_ica),
+            },
+          };
+
+          this.invoiceService.createInvoice(invoiceData).subscribe({
+            next: (response) => {
+              console.log('Factura creada exitosamente', response);
+            },
+            error: (error) => {
+              console.error('Error al crear la factura:', error);
+            },
+          });
+        },
+        error: (error) => {
+          console.error('Error al subir el archivo:', error);
+        },
+      });
+    } else {
+      console.error('Debe cargar un archivo antes de enviar el formulario.');
+    }
   }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
+      this.selectedFile = file;
       this.pdfService.uploadPdf(file).subscribe({
         next: (response) => {
           console.log('Datos extraídos del PDF:', response);
@@ -88,17 +94,22 @@ export class InvoicesFormComponent {
 
           // Función para convertir 'DD-MM-AAAA' a 'YYYY-MM-DD'
           const convertColombianDateToISO = (colombianDate: string | null) => {
-            if (!colombianDate || colombianDate === 'No encontrado')
+            if (!colombianDate || colombianDate === 'No encontrado') {
               return null;
+            }
 
             // Separar la fecha colombiana 'DD-MM-AAAA'
             const [day, month, year] = colombianDate.split('-');
+
+            if (!day || !month || !year) {
+              return null;
+            }
 
             // Retornar en formato 'YYYY-MM-DD' para el input date
             return `${year}-${month}-${day}`;
           };
 
-          // Convertir fechas del formato colombiano 'DD-MM-AAAA' al formato 'YYYY-MM-DD'
+          // Convertimos las fechas del PDF usando la función
           const issueDate = convertColombianDateToISO(pdfData.issue_date);
           const dueDate = convertColombianDateToISO(pdfData.due_date);
 
@@ -107,8 +118,8 @@ export class InvoicesFormComponent {
 
           // Actualizamos los campos del formulario con los datos extraídos y las fechas convertidas
           this.invoiceForm.patchValue({
-            issue_date: issueDate, // Fecha de emisión convertida
-            due_date: dueDate, // Fecha de vencimiento convertida
+            issue_date: issueDate,
+            due_date: dueDate,
             invoice: pdfData.invoice,
             third_party: pdfData.third_party,
             department: pdfData.department,

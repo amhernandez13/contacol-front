@@ -4,11 +4,11 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-areas:
     "comprobante fechaEmision fechaVencimiento pago"
-    "razonSocial departamento municipio descripcion"
+    "tercero departamento municipio proveedor"
     "impuestos reteFuente reteIVA reteICA"
     "tipoComprobante formaPago medioPago estado"
-    "monto valorPagado observaciones observaciones"
-    ". . observaciones observaciones";
+    "monto descripcion observaciones observaciones"
+    "valorPagado . observaciones observaciones";
   grid-gap: 20px;
   padding: 20px;
   position: relative;
@@ -42,6 +42,7 @@ h2 {
   text-align: center;
   font-size: 24px;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 /* Botón de cerrar en la esquina superior derecha */
@@ -55,11 +56,9 @@ h2 {
 
 /* Botones de cargar comprobante y factura alineados a la derecha */
 .load-buttons-container {
-  position: absolute;
-  top: 10px;
-  right: 0;
   display: flex;
-  gap: 10px;
+  justify-content: flex-end;
+  margin-right: 20px;
 }
 
 .load-buttons-container button {
@@ -69,8 +68,9 @@ h2 {
   background-color: #022c5e;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 25px;
   cursor: pointer;
+  margin-left: 20px;
 }
 
 .load-buttons-container button i {

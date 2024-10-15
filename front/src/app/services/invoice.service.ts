@@ -11,6 +11,11 @@ export class InvoiceService {
 
   constructor() {}
 
+  // Crear una factura con PDF adjunto
+  createInvoiceWithPdf(invoiceData: FormData): Observable<any> {
+    return this.http.post(this.API_URL, invoiceData);
+  }
+
   createInvoice(invoiceData: any): Observable<any> {
     return this.http.post(this.API_URL, invoiceData); // Enviar el JSON directamente
   }
