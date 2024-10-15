@@ -4,12 +4,9 @@ import dotenv from "dotenv";
 
 // Carga las variables de entorno desde .env
 dotenv.config();
-
 // MongoDB connection
 mongoose
-  .connect(
-    "mongodb+srv://david:1234@cluster0.6pqncbu.mongodb.net/testcloud?retryWrites=true&w=majority&appName=Cluster0"
-  )
+  .connect(process.env.MONGO_ENDPOINT)
   .then((data) => {
     console.log("Success conecting MongoDB");
   })
