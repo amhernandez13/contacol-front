@@ -1,10 +1,10 @@
-import { response } from "express";
+// controllers/invoiceController.js
 import invoiceModel from "../models/invoiceModel.js";
 
 const Invoice_controller = {
   create_invoice: async (req, res) => {
     try {
-      const issue_date = req.body.issue_date || null; // Si no se envía, lo dejamos como null
+      const issue_date = req.body.issue_date || null;
       const invoice_type = req.body.invoice_type || "";
       const payment_method = req.body.payment_method || "";
       const invoice = req.body.invoice || "";
@@ -20,10 +20,9 @@ const Invoice_controller = {
       const city = req.body.city || "";
       const supplier = req.body.supplier || "";
 
-      // Campo adicional para la URL desde Cloudinary
-      const url = req.body.url || ""; // Aquí debe llegar la URL de Cloudinary
+      // Aquí recibimos la URL del archivo PDF desde Cloudinary
+      const url = req.body.url || ""; // Verificamos si la URL se está enviando correctamente
 
-      // Descomponemos los datos de pago
       const {
         payment,
         invoice_total = 0,
@@ -57,7 +56,7 @@ const Invoice_controller = {
         department,
         city,
         supplier,
-        url, // Guardamos la URL de Cloudinary
+        url, // Guardamos la URL de Cloudinary aquí
       });
 
       // Guardamos la factura en la base de datos
@@ -79,6 +78,7 @@ const Invoice_controller = {
     }
   },
 
+  // Obtener una factura por ID
   read_Invoice: async (req, res) => {
     try {
       const invoice_Found = await invoiceModel.findById(req.params.id);
@@ -97,6 +97,7 @@ const Invoice_controller = {
     }
   },
 
+  // Obtener todas las facturas
   read_invoices: async (req, res) => {
     try {
       const invoices = await invoiceModel.find();
@@ -115,6 +116,7 @@ const Invoice_controller = {
     }
   },
 
+  // Eliminar una factura por ID
   delete_Invoice: async (req, res) => {
     try {
       const Delete = await invoiceModel.findByIdAndDelete(req.params.id);
@@ -132,6 +134,7 @@ const Invoice_controller = {
     }
   },
 
+  // Actualizar una factura por ID
   update_invoice: async (req, res) => {
     try {
       const { id } = req.params;

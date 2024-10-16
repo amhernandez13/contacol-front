@@ -18,7 +18,7 @@ export class InvoicesFormComponent {
   selectedComprobanteFileName: string | null = null;
   selectedComprobanteFile: File | null = null;
   selectedInvoiceFile: File | null = null;
-  facturaUrl: string | null = null; // Variable para almacenar la URL de Cloudinary para la factura
+  fileUrl: string | null = null; // Variable para almacenar la URL del archivo (factura o comprobante)
 
   constructor(
     private invoiceService: InvoiceService,
@@ -76,8 +76,7 @@ export class InvoicesFormComponent {
       department: any;
       city: any;
       supplier: any;
-      comprobante_url?: string;
-      factura_url?: string; // Agregamos el campo para la URL de la factura
+      url?: string; // Usamos siempre 'url'
     } = {
       issue_date: formData.issue_date,
       invoice_type: formData.invoice_type,
@@ -103,35 +102,36 @@ export class InvoicesFormComponent {
       supplier: formData.supplier,
     };
 
-    // Verificamos si hay un archivo de comprobante seleccionado
+    // Subir archivo de comprobante si existe
     if (this.selectedComprobanteFile) {
       this.storageService.uploadFile(this.selectedComprobanteFile).subscribe({
         next: (response) => {
           console.log('Comprobante subido exitosamente:', response);
-          invoiceData.comprobante_url = response.url;
-          this.sendInvoice(invoiceData); // Enviamos los datos de la factura con la URL del comprobante
+          invoiceData.url = response.url; // Asignamos la URL del comprobante
+          this.sendInvoice(invoiceData); // Enviamos el JSON con la URL del archivo
         },
         error: (error) => {
           console.error('Error al subir el comprobante:', error);
         },
       });
     } else if (this.selectedInvoiceFile) {
-      // Si hay un archivo de factura seleccionado, subimos el PDF de la factura
+      // Subir archivo de factura si existe
       this.storageService.uploadFile(this.selectedInvoiceFile).subscribe({
         next: (response) => {
           console.log('Factura subida exitosamente:', response);
-          invoiceData.factura_url = response.url; // Agregamos la URL del archivo en Cloudinary
-          this.sendInvoice(invoiceData); // Enviamos los datos de la factura con la URL de la factura
+          invoiceData.url = response.url; // Asignamos la URL de la factura
+          this.sendInvoice(invoiceData); // Enviamos el JSON con la URL del archivo
         },
         error: (error) => {
           console.error('Error al subir la factura:', error);
         },
       });
     } else {
-      this.sendInvoice(invoiceData);
+      this.sendInvoice(invoiceData); // Si no hay archivo, enviamos solo el formulario
     }
   }
 
+  // Método para enviar el JSON de la factura al backend
   sendInvoice(invoiceData: any) {
     this.invoiceService.createInvoice(invoiceData).subscribe({
       next: (response) => {

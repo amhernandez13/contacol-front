@@ -1,4 +1,3 @@
-// controllers/storageController.js
 import storage from "../models/storageModel.js";
 import cloudinary from "../connectionDB.js"; // Configuración de Cloudinary
 import fs from "fs"; // Para eliminar archivos después de subirlos a Cloudinary
@@ -62,11 +61,10 @@ async function createStorage(req, res) {
     // Eliminamos el archivo local después de subirlo a Cloudinary
     fs.unlinkSync(filePath);
 
-    // Respondemos con el documento creado y la URL del PDF
+    // Respondemos con la URL al frontend
     res.json({
       message: "File uploaded successfully",
-      document: newDocument,
-      url: pdfUrl,
+      url: pdfUrl, // Enviamos la URL al frontend para que se use después
     });
   } catch (err) {
     res.status(500).json({ error: "Server Error", message: err.message });
@@ -133,11 +131,6 @@ async function deleteStorage(req, res) {
     if (!documentToDelete) {
       return res.status(404).json({ error: "Documento no encontrado" });
     }
-
-    // Opcional: Eliminar el archivo de Cloudinary si es necesario
-    // await cloudinary.uploader.destroy(documentToDelete.public_id, {
-    //   resource_type: "raw",
-    // });
 
     await storage.findByIdAndDelete(req.params.id);
     res.json({ message: "Documento eliminado" });
