@@ -45,6 +45,7 @@ export class InvoicesFormComponent {
       observation: new FormControl(''),
       department: new FormControl(''),
       city: new FormControl(''),
+      supplier: new FormControl(''),
     });
   }
 
@@ -74,6 +75,7 @@ export class InvoicesFormComponent {
       observation: any;
       department: any;
       city: any;
+      supplier: any;
       comprobante_url?: string;
       factura_url?: string; // Agregamos el campo para la URL de la factura
     } = {
@@ -98,6 +100,7 @@ export class InvoicesFormComponent {
       observation: formData.observation,
       department: formData.department,
       city: formData.city,
+      supplier: formData.supplier,
     };
 
     // Verificamos si hay un archivo de comprobante seleccionado

@@ -1,10 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { InvoiceService } from '../../services/invoice.service';
 import { DatePipe } from '@angular/common';
+import { HederComponent } from '../header/heder.component';
+import { FooterComponent } from '../footer/footer.component';
 @Component({
   selector: 'app-invoices',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe, HederComponent, FooterComponent],
   templateUrl: './invoices.component.html',
   styleUrl: './invoices.component.css',
 })
