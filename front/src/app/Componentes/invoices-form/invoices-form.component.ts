@@ -1,4 +1,11 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  Input,
+  SimpleChanges,
+  OnChanges,
+} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InvoiceService } from '../../services/invoice.service';
 import { PdfService } from '../../services/pdf-service.service';
@@ -10,9 +17,9 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './invoices-form.component.html',
-  styleUrl: './invoices-form.component.css',
+  styleUrls: ['./invoices-form.component.css'],
 })
-export class InvoicesFormComponent {
+export class InvoicesFormComponent implements OnChanges {
   invoiceForm: FormGroup;
   selectedInvoiceFileName: string | null = null;
   selectedComprobanteFileName: string | null = null;
@@ -51,19 +58,83 @@ export class InvoicesFormComponent {
     });
   }
 
-  ngOnInit() {
-    if (this.invoice) {
-      // Si recibimos un invoice, rellenamos el formulario con los datos existentes
-      this.invoiceForm.patchValue(this.invoice);
+  // Detectar los cambios en @Input (factura) y rellenar el formulario
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['invoice'] && this.invoice) {
+      console.log('Factura recibida para edición:', this.invoice);
+      this.patchFormWithInvoiceData(this.invoice); // Llenamos el formulario con la factura seleccionada
     }
   }
 
+  // Rellenar el formulario con los datos recibidos
+  patchFormWithInvoiceData(invoice: any) {
+    if (!invoice) return;
+
+    this.invoiceForm.patchValue({
+      issue_date: invoice.issue_date || '',
+      invoice_type: invoice.invoice_type || '',
+      payment_method: invoice.payment_method || '',
+      invoice: invoice.invoice || '',
+      third_party: invoice.third_party || '',
+      invoice_status: invoice.invoice_status || '',
+      due_date: invoice.due_date || '',
+      description: invoice.description || '',
+      payment_way: invoice.payment_way || '',
+      paid_value: invoice.paid_value || '',
+      payment_date: invoice.payment_date || '',
+      invoice_total: invoice.payment?.invoice_total || 0, // Acceder correctamente a invoice_total
+      taxes_total: invoice.payment?.taxes_total || '',
+      rte_fuente: invoice.payment?.rte_fuente || 0, // Acceder correctamente a rte_fuente
+      rte_iva: invoice.payment?.rte_iva || 0, // Acceder correctamente a rte_iva
+      rte_ica: invoice.payment?.rte_ica || 0, // Acceder correctamente a rte_ica
+      observation: invoice.observation || '',
+      department: invoice.department || '',
+      city: invoice.city || '',
+      supplier: invoice.supplier || '',
+    });
+
+    console.log(
+      'Formulario rellenado con los datos de la factura:',
+      this.invoiceForm.value
+    );
+  }
+
+  // Método para manejar el envío del formulario
+  // Método para manejar el envío del formulario
+  // Método para manejar el envío del formulario
   // Método para manejar el envío del formulario
   onSubmit() {
+    // Verificar si el formulario es válido antes de enviar
+    if (this.invoiceForm.invalid) {
+      console.error('El formulario contiene errores o está incompleto.');
+      return; // No enviar si el formulario no es válido
+    }
+
+    // Asegurarse de que 'paid_value' y 'invoice_total' se manejen por separado
+    const updatedInvoiceData = {
+      ...this.invoiceForm.value, // Copia los valores básicos del formulario
+      payment: {
+        // Reagrupar los valores relacionados con el pago en un objeto 'payment'
+        invoice_total: this.invoiceForm.value.invoice_total, // Monto total de la factura
+        taxes_total: this.invoiceForm.value.taxes_total,
+        rte_fuente: this.invoiceForm.value.rte_fuente,
+        rte_iva: this.invoiceForm.value.rte_iva,
+        rte_ica: this.invoiceForm.value.rte_ica,
+      },
+      paid_value: this.invoiceForm.get('paid_value')?.value || 0, // Valor pagado se maneja por separado y validamos su valor
+    };
+
+    // Verificar si estamos en modo de edición (actualización)
     if (this.invoice) {
-      // Si estamos editando, hacemos un PUT
+      const updatedInvoice = {
+        ...updatedInvoiceData,
+        id: this.invoice._id, // Asegurarse de que el ID de la factura esté presente
+      };
+
+      console.log('Enviando PUT para actualizar la factura:', updatedInvoice);
+
       this.invoiceService
-        .updateInvoice(this.invoiceForm.value, this.invoice.id)
+        .updateInvoice(updatedInvoice, this.invoice._id)
         .subscribe({
           next: (response) => {
             console.log('Factura actualizada exitosamente', response);
@@ -75,7 +146,12 @@ export class InvoicesFormComponent {
         });
     } else {
       // Si es una nueva factura, hacemos un POST
-      this.invoiceService.createInvoice(this.invoiceForm.value).subscribe({
+      console.log(
+        'Enviando POST para crear una nueva factura:',
+        updatedInvoiceData
+      );
+
+      this.invoiceService.createInvoice(updatedInvoiceData).subscribe({
         next: (response) => {
           console.log('Factura creada exitosamente', response);
           this.formClosed.emit(); // Cerramos el formulario al terminar
@@ -85,21 +161,6 @@ export class InvoicesFormComponent {
         },
       });
     }
-  }
-
-  // Método para enviar el JSON de la factura al backend
-  sendInvoice(invoiceData: any) {
-    this.invoiceService.createInvoice(invoiceData).subscribe({
-      next: (response) => {
-        console.log('Factura creada exitosamente', response);
-        console.log(invoiceData);
-        // Emitimos el evento cuando el formulario se ha enviado correctamente
-        this.formClosed.emit(); // Notificamos que el formulario debe cerrarse
-      },
-      error: (error) => {
-        console.error('Error al crear la factura:', error);
-      },
-    });
   }
 
   // Método para manejar la carga de comprobante
@@ -161,6 +222,7 @@ export class InvoicesFormComponent {
       });
     }
   }
+
   // Método para manejar el cierre del formulario
   closeForm() {
     this.formClosed.emit(); // Emitimos el evento para cerrar el formulario

@@ -23,7 +23,10 @@
     <div class="form-container">
       <button class="close-btn" (click)="toggleForm()">&times;</button>
       <!-- Botón para cerrar el formulario -->
-      <app-invoices-form (formClosed)="handleFormClosed()"></app-invoices-form>
+      <app-invoices-form
+        [invoice]="selectedInvoice"
+        (formClosed)="handleFormClosed()"
+      ></app-invoices-form>
     </div>
   </div>
 
@@ -54,8 +57,9 @@
         <td>{{ element.invoice_type }}</td>
         <td>{{ element.payment_way }}</td>
         <td class="green">{{ element.paid_value }}</td>
-        <td>{{ element.paid_value }}</td>
+        <td>{{ element.payment.invoice_total }}</td>
         <td>
+          <!-- Botón de editar para abrir el formulario con los datos de la factura -->
           <button class="edit-button" (click)="openForm(element)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +74,7 @@
               />
               <path
                 fill-rule="evenodd"
-                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5.5 a.5 0 0 0.5-1.5v-6.5z"
+                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
               />
             </svg>
           </button>
