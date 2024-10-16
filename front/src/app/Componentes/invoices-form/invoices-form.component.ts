@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InvoiceService } from '../../services/invoice.service';
 import { PdfService } from '../../services/pdf-service.service';
@@ -19,6 +19,8 @@ export class InvoicesFormComponent {
   selectedComprobanteFile: File | null = null;
   selectedInvoiceFile: File | null = null;
   fileUrl: string | null = null; // Variable para almacenar la URL del archivo (factura o comprobante)
+  @Input() invoice: any = null; // Recibimos la factura si es para editar
+  @Output() formClosed = new EventEmitter<void>(); // Emitimos un evento para cerrar el formulario
 
   constructor(
     private invoiceService: InvoiceService,
@@ -49,85 +51,39 @@ export class InvoicesFormComponent {
     });
   }
 
+  ngOnInit() {
+    if (this.invoice) {
+      // Si recibimos un invoice, rellenamos el formulario con los datos existentes
+      this.invoiceForm.patchValue(this.invoice);
+    }
+  }
+
   // Método para manejar el envío del formulario
   onSubmit() {
-    const formData = this.invoiceForm.value;
-
-    const invoiceData: {
-      issue_date: any;
-      invoice_type: any;
-      payment_method: any;
-      invoice: any;
-      third_party: any;
-      invoice_status: any;
-      due_date: any;
-      description: any;
-      payment_way: any;
-      paid_value: number;
-      payment_date: any;
-      payment: {
-        taxes_total: number;
-        invoice_total: number;
-        rte_fuente: number;
-        rte_iva: number;
-        rte_ica: number;
-      };
-      observation: any;
-      department: any;
-      city: any;
-      supplier: any;
-      url?: string; // Usamos siempre 'url'
-    } = {
-      issue_date: formData.issue_date,
-      invoice_type: formData.invoice_type,
-      payment_method: formData.payment_method,
-      invoice: formData.invoice,
-      third_party: formData.third_party,
-      invoice_status: formData.invoice_status,
-      due_date: formData.due_date,
-      description: formData.description,
-      payment_way: formData.payment_way,
-      paid_value: parseFloat(formData.paid_value),
-      payment_date: formData.payment_date,
-      payment: {
-        taxes_total: parseFloat(formData.taxes_total),
-        invoice_total: parseFloat(formData.invoice_total),
-        rte_fuente: parseFloat(formData.rte_fuente),
-        rte_iva: parseFloat(formData.rte_iva),
-        rte_ica: parseFloat(formData.rte_ica),
-      },
-      observation: formData.observation,
-      department: formData.department,
-      city: formData.city,
-      supplier: formData.supplier,
-    };
-
-    // Subir archivo de comprobante si existe
-    if (this.selectedComprobanteFile) {
-      this.storageService.uploadFile(this.selectedComprobanteFile).subscribe({
-        next: (response) => {
-          console.log('Comprobante subido exitosamente:', response);
-          invoiceData.url = response.url; // Asignamos la URL del comprobante
-          this.sendInvoice(invoiceData); // Enviamos el JSON con la URL del archivo
-        },
-        error: (error) => {
-          console.error('Error al subir el comprobante:', error);
-        },
-      });
-    } else if (this.selectedInvoiceFile) {
-      // Subir archivo de factura si existe
-      this.storageService.uploadFile(this.selectedInvoiceFile).subscribe({
-        next: (response) => {
-          console.log('Factura subida exitosamente:', response);
-          invoiceData.url = response.url; // Asignamos la URL de la factura
-          this.sendInvoice(invoiceData); // Enviamos el JSON con la URL del archivo
-        },
-        error: (error) => {
-          console.error('Error al subir la factura:', error);
-        },
-      });
+    if (this.invoice) {
+      // Si estamos editando, hacemos un PUT
+      this.invoiceService
+        .updateInvoice(this.invoiceForm.value, this.invoice.id)
+        .subscribe({
+          next: (response) => {
+            console.log('Factura actualizada exitosamente', response);
+            this.formClosed.emit(); // Cerramos el formulario al terminar
+          },
+          error: (error) => {
+            console.error('Error al actualizar la factura:', error);
+          },
+        });
     } else {
-      this.sendInvoice(invoiceData); // Si no hay archivo, enviamos solo el formulario
+      // Si es una nueva factura, hacemos un POST
+      this.invoiceService.createInvoice(this.invoiceForm.value).subscribe({
+        next: (response) => {
+          console.log('Factura creada exitosamente', response);
+          this.formClosed.emit(); // Cerramos el formulario al terminar
+        },
+        error: (error) => {
+          console.error('Error al crear la factura:', error);
+        },
+      });
     }
   }
 
@@ -136,6 +92,9 @@ export class InvoicesFormComponent {
     this.invoiceService.createInvoice(invoiceData).subscribe({
       next: (response) => {
         console.log('Factura creada exitosamente', response);
+        console.log(invoiceData);
+        // Emitimos el evento cuando el formulario se ha enviado correctamente
+        this.formClosed.emit(); // Notificamos que el formulario debe cerrarse
       },
       error: (error) => {
         console.error('Error al crear la factura:', error);
@@ -201,5 +160,9 @@ export class InvoicesFormComponent {
         },
       });
     }
+  }
+  // Método para manejar el cierre del formulario
+  closeForm() {
+    this.formClosed.emit(); // Emitimos el evento para cerrar el formulario
   }
 }

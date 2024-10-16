@@ -1,4 +1,3 @@
-// controllers/invoiceController.js
 import invoiceModel from "../models/invoiceModel.js";
 
 const Invoice_controller = {
@@ -21,16 +20,16 @@ const Invoice_controller = {
       const supplier = req.body.supplier || "";
 
       // Aquí recibimos la URL del archivo PDF desde Cloudinary
-      const url = req.body.url || ""; // Verificamos si la URL se está enviando correctamente
+      const url = req.body.url || "";
 
+      // Aseguramos que los valores de payment estén bien extraídos
       const {
-        payment,
-        invoice_total = 0,
         taxes_total = 0,
+        invoice_total = 0,
         rte_fuente = 0,
         rte_ica = 0,
         rte_iva = 0,
-      } = req.body;
+      } = req.body.payment || {}; // Accedemos a req.body.payment directamente
 
       // Creamos el nuevo objeto para la factura
       const newInvoice = new invoiceModel({
@@ -51,7 +50,7 @@ const Invoice_controller = {
           rte_fuente,
           rte_iva,
           rte_ica,
-        },
+        }, // Aseguramos que estos valores se guarden correctamente en la base de datos
         observation,
         department,
         city,
@@ -151,7 +150,7 @@ const Invoice_controller = {
         payment_way: req.body.payment_way,
         paid_value: req.body.paid_value,
         payment_date: req.body.payment_date,
-        payment: req.body.payment,
+        payment: req.body.payment, // Actualizamos el objeto payment completo
         taxes_total: req.body.taxes_total,
         invoice_total: req.body.invoice_total,
         rte_fuente: req.body.rte_fuente,

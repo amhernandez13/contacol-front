@@ -28,6 +28,11 @@ export class InvoiceService {
     return this.http.get(`${this.API_URL}/${id}`);
   }
 
+  // Método para actualizar una factura existente (PUT)
+  updateInvoice(invoiceData: any, id: number) {
+    return this.http.put(`/api/invoices/${id}`, invoiceData);
+  }
+
   /* putInvoicesById(id: string, data: {}) {
     let promise = new Promise((resolve, reject) => {
       this.http

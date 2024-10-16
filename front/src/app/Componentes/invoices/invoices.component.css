@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+#invoice-list-container {
+  background-color: #c6c6c6;
+  padding: 20px;
+}
+
 .container {
   width: 100%;
   padding: 20px;
@@ -50,7 +55,7 @@ header {
 
 .add-button {
   padding: 5px 20px;
-  background-color: gray;
+  background-color: #022c5e;
   border-radius: 20px;
   color: white;
   border: none;
@@ -66,9 +71,10 @@ header {
 
 .invoice-table th,
 .invoice-table td {
-  border: 1px solid #ddd;
+  border: 3px solid #c6c6c6;
   padding: 10px;
   text-align: center;
+  background-color: white;
 }
 
 .invoice-table th {
@@ -108,4 +114,49 @@ img {
   width: 250px;
   height: 66px;
   margin-left: 16px;
+}
+
+/* Overlay que cubre el fondo, pero no afecta al formulario */
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+  z-index: 999; /* Aseguramos que el overlay quede detrás del formulario */
+}
+
+/* Formulario centrado y por encima de todo */
+.form-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 1400px; /* Tamaño máximo */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1001; /* Mayor z-index que el overlay */
+  pointer-events: auto; /* Asegura que el formulario sea interactivo */
+}
+
+/* Botón de cierre */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Aquí está la clave: Aplica opacidad y deshabilitación SOLO al contenido de fondo */
+#invoice-list-container.container-disabled {
+  
+  pointer-events: none; /* Deshabilita la interacción solo con el fondo */
 }
