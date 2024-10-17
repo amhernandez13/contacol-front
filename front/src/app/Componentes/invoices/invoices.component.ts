@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { InvoiceService } from '../../services/invoice.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HederComponent } from '../header/heder.component';
@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./invoices.component.css'],
 })
 export class InvoicesComponent {
+  toast = inject(ToastrService);
   invoice_service = inject(InvoiceService);
   alldata: any[] = [];
   showForm = false; // Controla la visibilidad del formulario

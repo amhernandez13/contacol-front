@@ -1,1 +1,41 @@
-<p>suppliers works!</p>
+<div class="container">
+  <div class="header">
+    <h2>LISTA DE PROVEEDORES</h2>
+    <input type="text" placeholder="Buscar proveedor" class="search-input" />
+    <button class="add-button">Agregar Proveedor</button>
+  </div>
+
+  <table class="providers-table">
+    <thead>
+      <tr>
+        <th>TERCERO</th>
+        <th>NIT</th>
+        <th>TELÉFONO</th>
+        <th>E-MAIL</th>
+        <th>CIUDAD/MUNICIPIO</th>
+        <th>DEPARTAMENTO</th>
+        <th>ACCIONES</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for(element of adata; track $index ){
+      <tr>
+        <td>{{ element.thirdParty }}</td>
+        <td>{{ element.nit }}</td>
+        <td>{{ element.phone }}</td>
+        <td>{{ element.email }}</td>
+        <td>{{ element.city }}</td>
+        <td>{{ element.department }}</td>
+        <td>
+          <button class="edit-button">✏️</button>
+          <button class="delete-button">🗑️</button>
+        </td>
+      </tr>
+      }
+      <!-- Agregar más filas según sea necesario -->
+    </tbody>
+  </table>
+
+  <button class="back-button">Volver</button>
+</div>

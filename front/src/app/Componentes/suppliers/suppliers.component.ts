@@ -1,22 +1,29 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Necesario para standalone components
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  Validators,
-} from '@angular/forms'; // Para trabajar con ngModel
-import Swal from 'sweetalert2'; // SweetAlert importación correcta
+import { Component, inject } from '@angular/core';
 import { SuppliersService } from '../../services/suppliers.service';
-import { HttpClientModule } from '@angular/common/http';
-
-declare var $: any;
-
 @Component({
   selector: 'app-suppliers',
   standalone: true,
   imports: [CommonModule, FormsModule, HttpClientModule], // Importando CommonModule y FormsModule para standalone components
   templateUrl: './suppliers.component.html',
-  styleUrls: ['./suppliers.component.css'],
+  styleUrl: './suppliers.component.css',
 })
-export class SuppliersComponent {}
+export class SuppliersComponent {
+  suplier = inject(SuppliersService);
+  adata: any[] = [];
+
+  getallSuppliers() {
+    this.suplier.getSuppliers().subscribe((answer: any) => {
+      console.log('ans: ', answer);
+      if (answer) {
+        this.adata = answer;
+        console.log('Suppliers read correctly');
+      } else {
+        console.log('ups an error has ocurred');
+      }
+      this.adata = answer;
+    });
+  }
+  ngOnInit() {
+    this.getallSuppliers();
+  }
+}
