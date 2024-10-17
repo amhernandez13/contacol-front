@@ -68,10 +68,19 @@ const userController = {
 
   updateUser: async (sol, req) => {
     try {
+      const { password, ...updateData } = sol.body;
+
+      if (password) {
+        const protectedPassword = await bcrypt.hash(password, 10);
+        updateData.password = protectedPassword;
+      }
+
       const updatingUser = await userModel.findByIdAndUpdate(
         sol.params.id,
-        sol.body
+        updateData,
+        { new: true } // Esto devuelve el usuario actualizado
       );
+
       if (updatingUser._id) {
         req.json({
           state: "Success",

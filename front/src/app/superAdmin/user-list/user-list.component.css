@@ -1,0 +1,179 @@
+/* Contenedor de la tabla de usuarios */
+#tableContainer {
+  background-color: #f6f7f9;
+  padding: 20px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto 20px;
+}
+
+/* Contenedor principal de la página */
+#screenMiddle {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Estilo de la imagen del logo */
+img {
+  width: 250px;
+  margin: 40px;
+}
+
+/* Contenedor para la barra de búsqueda y el botón de crear usuario */
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Botón para crear nuevo usuario */
+.create-user-btn {
+  background-color: #022c5e;
+  color: white;
+  padding: 5px 45px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.create-user-btn:hover {
+  background-color: #011d3e;
+}
+
+/* Barra de búsqueda con ícono de lupa */
+.search-bar {
+  width: 300px;
+  padding: 8px 8px 8px 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-image: url('https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/search.svg');
+  background-position: 8px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+
+.search-bar::placeholder {
+  font-style: italic;
+  color: #999;
+}
+
+/* Tabla de usuarios */
+.user-table, .table-responsive {
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+.user-table {
+  border: 2px solid #333;
+}
+
+.user-table th, .user-table td {
+  padding: 10px;
+  border: 1px solid #666;
+  text-align: left;
+}
+
+.user-table th {
+  font-weight: bold;
+  color: #073C7B;
+}
+
+/* Columna para acciones (iconos de edición) */
+.user-table td.actions {
+  text-align: center;
+  white-space: nowrap;
+  width: 50px;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .user-table th, .user-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .create-user-btn, .search-bar {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .search-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .active-icon, .inactive-icon {
+    font-size: 20px;
+    margin-right: 5px;
+  }
+}
+
+/* Modal para el formulario de crear o editar usuario */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background-color: #BEDCFF;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 1000px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Icono para cerrar el modal */
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Ajustes para el modal en pantallas pequeñas */
+@media (max-width: 600px) {
+  .modal-content {
+    width: 95%;
+  }
+}
+
+/* Iconos para activar/desactivar usuarios */
+.active-icon, .inactive-icon {
+  font-size: 24px;
+  margin-right: 10px;
+  color: #000;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.inactive-icon {
+  color: #ccc;
+}
+
+/* Tabla scrollable horizontalmente en pantallas pequeñas */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}

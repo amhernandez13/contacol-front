@@ -1,0 +1,58 @@
+<body>
+  <div id="screenMiddle">
+    <h2>Registro de usuarios</h2>
+    <form [formGroup]="userRegister" (ngSubmit)="onSubmit()">
+      <div id="formColor">
+        <div class="formDivider">
+          <label for="name">Nombre:</label>
+          <input id="name" formControlName="name" type="text" />
+        </div>
+        <div class="formDivider">
+          <label for="email">Correo electrónico:</label>
+          <input type="email" formControlName="email" id="email" />
+        </div>
+
+        <div class="formDivider">
+          <label for="password">Contraseña:</label>
+          <div class="password-container">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              id="password"
+            />
+            <i
+              class="bi"
+              [ngClass]="showPassword ? 'bi-eye-slash-fill' : 'bi-eye-fill'"
+              (click)="togglePasswordVisibility()"
+            ></i>
+          </div>
+        </div>
+
+        <div class="formDivider">
+          <label for="confirmPassword">Confirmar contraseña:</label>
+          <div class="password-container">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="confirmPassword"
+              id="confirmPassword"
+            />
+            <i
+              class="bi"
+              [ngClass]="showPassword ? 'bi-eye-slash-fill' : 'bi-eye-fill'"
+              (click)="togglePasswordVisibility()"
+            ></i>
+          </div>
+        </div>
+
+        <div class="formDivider">
+          <label for="role">Rol:</label>
+          <select formControlName="role" id="role">
+            <option value="admin">Administrador</option>
+            <option value="accountant">Contador</option>
+          </select>
+        </div>
+      </div>
+      <button id="submit" type="submit">Registrar</button>
+    </form>
+  </div>
+</body>
