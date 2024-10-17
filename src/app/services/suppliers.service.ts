@@ -9,7 +9,7 @@ export class SuppliersService {
 
   constructor() {}
 
-  API_URL = 'http://localhost:3000/suppliers'; // URL a donde se harán las peticiones (de crear producto)
+  API_URL = 'https://equipo-25.onrender.com/suppliers'; // URL a donde se harán las peticiones (de crear producto)
 
   createSupplier(
     thirdParty: any,

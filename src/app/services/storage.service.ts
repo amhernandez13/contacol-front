@@ -7,18 +7,18 @@ import { Observable } from 'rxjs';
 })
 export class StorageService {
   private http = inject(HttpClient);
-  API_URL = 'http://localhost:3000/storage';
+  API_URL = 'https://equipo-25.onrender.com/storage';
 
   constructor() {}
 
   // Método para obtener el almacenamiento (si lo necesitas)
   getStorage(): Observable<any> {
-    return this.http.get('http://localhost:3000/storage');
+    return this.http.get('https://equipo-25.onrender.com/storage');
   }
 
   // Método para obtener un archivo específico por ID (si lo necesitas)
   getStorageById(id: string): Observable<any> {
-    return this.http.get('http://localhost:3000/storage/' + id);
+    return this.http.get('https://equipo-25.onrender.com/storage/' + id);
   }
 
   // Función para subir el archivo con el nombre original

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class PdfService {
   private http = inject(HttpClient);
-  API_URL = 'http://localhost:3000/pdf'; // Ruta que maneja la subida de PDFs
+  API_URL = 'https://equipo-25.onrender.com/pdf'; // Ruta que maneja la subida de PDFs
 
   constructor() {}
 

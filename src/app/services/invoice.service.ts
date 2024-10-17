@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class InvoiceService {
   private http = inject(HttpClient);
-  API_URL = 'http://localhost:3000/invoice'; // URL base de la API
+  API_URL = 'https://equipo-25.onrender.com/invoice'; // URL base de la API
 
   constructor() {}
 

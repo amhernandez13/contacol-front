@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UsersService {
-  API_URL = 'http://localhost:3000/users'; // URL del backend
+  API_URL = 'https://equipo-25.onrender.com/users'; // URL del backend
 
   constructor(private http: HttpClient) {}
 

@@ -16,7 +16,7 @@ export class LoginService {
 
   /* API_URL = "http://18.118.115.16:3000/login"; */
   // BACKEND AWS URL a donde se harán las peticiones (del login)
-  API_URL = 'http://localhost:3000/login';
+  API_URL = 'https://equipo-25.onrender.com/login';
 
   login(userCredentials: LoginCredentials) {
     return this.http.post(this.API_URL, userCredentials);
