@@ -1,1 +1,88 @@
-<p>home works!</p>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+/>
+<app-heder></app-heder>
+<div id="home-container">
+  <div id="function-container">
+    <div
+      class="function-selector"
+      [class.active]="currentComponent === 'invoices'"
+      [class.disabled]="
+        currentComponent !== 'invoices' && currentComponent !== 'table'
+      "
+      (click)="showComponent('invoices')"
+    >
+      <h2><i class="bi bi-receipt-cutoff"></i>Comprobantes</h2>
+    </div>
+
+    <div
+      class="function-selector"
+      [class.active]="currentComponent === 'suppliers'"
+      [class.disabled]="
+        currentComponent !== 'suppliers' && currentComponent !== 'table'
+      "
+      (click)="showComponent('suppliers')"
+    >
+      <h2><i class="bi bi-person-lines-fill"></i>Proveedores</h2>
+    </div>
+
+    <div
+      class="function-selector"
+      [class.active]="currentComponent === 'warehouse'"
+      [class.disabled]="
+        currentComponent !== 'warehouse' && currentComponent !== 'table'
+      "
+      (click)="redirectToWarehouse()"
+    >
+      <h2><i class="bi bi-database"></i>Almacén de comprobantes</h2>
+    </div>
+  </div>
+
+  <!-- Tabla de facturas a vencer -->
+  <div id="table-container">
+    <ng-container *ngIf="currentComponent === 'table'">
+      <table>
+        <thead>
+          <tr>
+            <th>Nro. Factura</th>
+            <th>Tercero</th>
+            <th>Emisión / Vencimiento</th>
+
+            <th>Total</th>
+            <th>Estado de pago</th>
+            <th>Detalle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Iteramos sobre las facturas -->
+          <tr *ngFor="let invoice of invoices">
+            <td>{{ invoice.invoice }}</td>
+            <td>{{ invoice.third_party }}</td>
+            <td class="date-center">
+              {{ invoice.issue_date | date : "dd-MM-yyyy" }} /
+              {{ invoice.due_date | date : "dd-MM-yyyy" }}
+            </td>
+            <td>
+              {{
+                invoice.payment.invoice_total
+                  | currency : "$" : "symbol" : "1.0-0"
+              }}
+            </td>
+            <td>{{ invoice.invoice_status }}</td>
+            <td class="icon-center"><i class="bi bi-file-text"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+
+    <!-- Renderizado dinámico de componentes -->
+    <ng-container *ngIf="currentComponent === 'invoices'">
+      <app-invoices></app-invoices>
+    </ng-container>
+    <ng-container *ngIf="currentComponent === 'suppliers'">
+      <app-suppliers></app-suppliers>
+    </ng-container>
+  </div>
+</div>
+<app-footer></app-footer>

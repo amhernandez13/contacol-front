@@ -1,70 +1,42 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InvoiceService {
   private http = inject(HttpClient);
+  API_URL = 'http://localhost:3000/invoice'; // URL base de la API
 
   constructor() {}
 
-  API_URL = 'http://localhost:3000/invoices'; // URL a donde se harán las peticiones (de crear producto)
-
-  createInvoice(
-    issue_date: any,
-    invoice_type: any,
-    payment_method: any,
-    invoice: any,
-    thirth_party: any,
-    invoice_status: any,
-    due_date: any,
-    description: any,
-    payment_way: any,
-    paid_value: any,
-    payment_date: any,
-    payment: {
-      taxes_total: any;
-      invoice_total: any;
-      rte_fuente: any;
-      rte_iva: any;
-      rte_ica: any;
-    },
-    observation: any,
-    department: any,
-    city: any
-  ) {
-    const formData = new FormData();
-    formData.append('issue_date', issue_date);
-    formData.append('invoice_type', invoice_type);
-    formData.append('payment_method', payment_method);
-    formData.append('invoice', invoice);
-    formData.append('thirth_party', thirth_party);
-    formData.append('invoice_status', invoice_status);
-    formData.append('due_date', due_date);
-    formData.append('description', description);
-    formData.append('payment_way', payment_way);
-    formData.append('paid_value', paid_value);
-    formData.append('payment_date', payment_date);
-    formData.append('taxes_total', payment.taxes_total);
-    formData.append('invoice_total', payment.invoice_total);
-    formData.append('rte_fuente', payment.rte_fuente);
-    formData.append('rte_iva', payment.rte_iva);
-    formData.append('rte_ica', payment.rte_ica);
-    formData.append('observation', observation);
-    formData.append('department', department);
-    formData.append('city', city);
-    return this.http.post(this.API_URL, formData);
+  // Crear una factura con PDF adjunto
+  createInvoiceWithPdf(invoiceData: FormData): Observable<any> {
+    return this.http.post(this.API_URL, invoiceData);
   }
 
-  getInvoices() {
+  // Crear una factura sin PDF adjunto (solo JSON)
+  createInvoice(invoiceData: any): Observable<any> {
+    return this.http.post(this.API_URL, invoiceData); // Enviar el JSON directamente
+  }
+
+  // Obtener todas las facturas
+  getInvoices(): Observable<any> {
     return this.http.get(this.API_URL);
   }
 
-  getInvoicesById(id: String) {
-    return this.http.get(this.API_URL + '/' + id);
+  // Obtener una factura por ID
+  getInvoicesById(id: string): Observable<any> {
+    return this.http.get(`${this.API_URL}/${id}`);
   }
 
+  // Método para actualizar una factura existente (PUT)
+  updateInvoice(invoiceData: any, id: number): Observable<any> {
+    return this.http.put(`${this.API_URL}/${id}`, invoiceData); // Corregir la URL usando API_URL
+  }
+
+  // Comentado: otra opción para actualizar facturas
   /* putInvoicesById(id: string, data: {}) {
     let promise = new Promise((resolve, reject) => {
       this.http
