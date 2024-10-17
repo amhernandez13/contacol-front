@@ -1,83 +1,176 @@
-.table {
-  background-color: #fff; /* Fondo de la tabla */
+/* Grid para el formulario */
+#invoiceForm {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+    "comprobante fechaEmision fechaVencimiento pago"
+    "tercero departamento municipio proveedor"
+    "impuestos reteFuente reteIVA reteICA"
+    "tipoComprobante formaPago medioPago estado"
+    "monto descripcion observaciones observaciones"
+    "valorPagado . observaciones observaciones";
+  grid-gap: 20px;
+  padding: 20px;
+  padding-top: 10px;
+  position: relative;
 }
 
-.table th,
-.table td {
-  border: 1px solid #030303; /* Color de las líneas */
-  color: rgb(0, 0, 0); /* Color del texto en la tabla */
-}
-
-.table th {
-  background-color: #fff; /* Color de fondo para el encabezado */
-}
-
-.btn-g {
-  background-color: #616161;
-  color: #fff;
-  padding: 6px;
-  border-radius: 10%;
-}
-
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.input-group {
-  display: flex;
-  justify-content: space-between;
-}
-
-.btn1 {
-  margin-bottom: 20px;
-}
-
-.btn3 {
-  margin-top: 20px;
-  margin-left: auto; /* Alinea a la derecha */
-  padding: 5px;
-  border-radius: 10px;
-  padding-left: 30px;
-}
-
-table {
+/* Estilo general de los inputs */
+.form-item input,
+.form-item select,
+textarea {
   width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 8px;
+  box-sizing: border-box;
+  
 }
 
-th, td {
-  padding: 12px;
-  text-align: left;
+/*Ocultar las flechas de los campos de tipo numer */
+.form-item input[type=number]::-webkit-inner-spin-button,
+.form-item input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
-tr:nth-child(even) {
-  background-color: #f2f2f2; /* Alternar filas */
+/* Estilo del campo de observaciones */
+#observaciones {
+  grid-column: 3 / span 2;
+  grid-area: observaciones;
+  width: 100%;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 8px;
+  box-sizing: border-box;
+  resize: none;
 }
 
-tr:hover {
-  background-color: #eaeaea; /* Color al pasar el mouse */
+/* Centramos el título */
+h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
-@media (max-width: 600px) {
-  table {
-      font-size: 14px;
-  }
+/* Botón de cerrar en la esquina superior derecha */
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
 }
 
-.iconos-dv{
-  margin: 100px;
+/* Botones de cargar comprobante y factura alineados a la derecha */
+.load-buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
 
-}
-.icono{
-  font-size: 4rem;
-}
-.t-icon{
+.load-buttons-container button {
   display: flex;
   align-items: center;
+  padding: 10px 20px;
+  background-color: #022c5e;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.load-buttons-container button i {
+  margin-left: 10px;
+}
+
+.load-buttons-container button:hover {
+  background-color: #011d3e;
+}
+
+/* Texto de factura/comprobante cargado */
+.file-names {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-bottom: 0px;
+}
+
+/* Botones de cancelar y aceptar alineados a la derecha */
+.form-submit {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  grid-column: span 4;
+}
+
+.cancel-btn {
+  background-color: white;
+  border: 2px solid #022c5e;
+  color: #022c5e;
+  padding: 10px 40px;
+  border-radius: 8px;
+}
+
+.cancel-btn:hover {
+  background-color: #f6f7f9;
+}
+
+.accept-btn {
+  background-color: #022c5e;
+  color: white;
+  padding: 10px 40px;
+  border-radius: 8px;
+  border: none;
+}
+
+.accept-btn:hover {
+  background-color: #011d3e;
+}
+
+/* Estilo de los botones cuando están deshabilitados */
+.load-buttons-container button:disabled {
+  background-color: #d3d3d3; /* Color de fondo más claro */
+  color: #808080; /* Color del texto más claro */
+  cursor: not-allowed; /* Cambia el cursor para indicar que no es clicable */
+  opacity: 0.6; /* Hace el botón más opaco */
+}
+
+.load-buttons-container button:disabled:hover {
+  background-color: #d3d3d3; /* Mantén el color cuando esté deshabilitado y se pase el mouse por encima */
+}
+
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+  #invoiceForm {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "comprobante"
+      "razonSocial"
+      "impuestos"
+      "tipoComprobante"
+      "monto"
+      "fechaEmision"
+      "departamento"
+      "reteFuente"
+      "formaPago"
+      "estado"
+      "fechaVencimiento"
+      "municipio"
+      "reteIVA"
+      "medioPago"
+      "valorPagado"
+      "reteICA"
+      "pago"
+      "descripcion"
+      "observaciones";
+  }
+
+  .form-submit {
+    justify-content: center;
+  }
 }

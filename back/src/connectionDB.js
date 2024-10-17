@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 
 // Carga las variables de entorno desde .env
 dotenv.config();
-
 // MongoDB connection
 mongoose
   .connect(process.env.MONGO_ENDPOINT)
