@@ -7,6 +7,8 @@
 #invoice-list-container {
   background-color: #c6c6c6;
   padding: 20px;
+  max-width: 1500px;
+  margin: 0 auto 70px auto;
 }
 
 .container {
@@ -116,15 +118,15 @@ img {
   margin-left: 16px;
 }
 
-/* Overlay que cubre el fondo, pero no afecta al formulario */
+/* Overlay que cubre el fondo */
 .form-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
-  z-index: 999; /* Aseguramos que el overlay quede detrás del formulario */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
 }
 
 /* Formulario centrado y por encima de todo */
@@ -137,10 +139,10 @@ img {
   padding: 20px;
   border-radius: 8px;
   width: 100%;
-  max-width: 1400px; /* Tamaño máximo */
+  max-width: 1400px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1001; /* Mayor z-index que el overlay */
-  pointer-events: auto; /* Asegura que el formulario sea interactivo */
+  z-index: 1001;
+  pointer-events: auto;
 }
 
 /* Botón de cierre */
@@ -155,8 +157,6 @@ img {
   color: #333;
 }
 
-/* Aquí está la clave: Aplica opacidad y deshabilitación SOLO al contenido de fondo */
 #invoice-list-container.container-disabled {
-  
-  pointer-events: none; /* Deshabilita la interacción solo con el fondo */
+  pointer-events: none;
 }
