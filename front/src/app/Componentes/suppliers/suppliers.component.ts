@@ -3,7 +3,7 @@ import { SuppliersService } from '../../services/suppliers.service';
 @Component({
   selector: 'app-suppliers',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule], // Importando CommonModule y FormsModule para standalone components
+  imports: [],
   templateUrl: './suppliers.component.html',
   styleUrl: './suppliers.component.css',
 })
