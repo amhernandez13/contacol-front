@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="header">
+    <div class="logo">
+      <h1>CONTACTACOL</h1>
+      <p>Tu apoyo contable</p>
+    </div>
+    <div class="user-controls">
+      <input type="text" placeholder="Buscar proveedor" class="search-bar" />
+      <button class="logout-button">Logout</button>
+    </div>
+  </div>
+
+  <div class="title">
+    <h2>Almacen de comprobantes</h2>
+  </div>
+  @for (element of alls; track $index){
+  <div class="comprobantes-grid">
+    <div class="comprobante-item">
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYxms68hyLV1WhAKeX-azENbc_pK_yjJ8Kbg&s"
+        alt="Comprobante Icon"
+        class="comprobante-icon"
+      />
+      <p>{{ element.uploadDate | date : "shortDate" }}</p>
+      <a class="download-button" href="{{element.url}}">
+        <img src="../../../assets/download-solid-24.png" alt="downland icon">
+      </a>
+    </div>
+  </div>
+  }
+  <div class="footer">
+    <p>
+      Sistema contable desarrollado para Colombia, Todos los derechos
+      reservados. Propiedad de equipo 25 - Foo Talent Group
+    </p>
+    <button class="help-button">Ayuda</button>
+  </div>
+</div>
