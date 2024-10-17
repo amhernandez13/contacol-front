@@ -1,6 +1,6 @@
 import express from "express";
 import Pdf_controller from "../controllers/pdfController.js";
-import upload from "../middlewares/multer.js"; // Importamos Multer
+import upload from "../middlewares/multer.js";
 
 const router = express.Router();
 

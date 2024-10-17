@@ -1,6 +1,6 @@
 // routers/storageRouter.js
 import express from "express";
-import storageController from "../controllers/storageController.js"; // Asegúrate de importar todas las funciones del controlador
+import storageController from "../controllers/storageController.js";
 import upload from "../middlewares/multer.js"; // Middleware de Multer para manejar la subida de archivos
 
 const router = express.Router();
