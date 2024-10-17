@@ -100,67 +100,123 @@ export class InvoicesFormComponent implements OnChanges {
   }
 
   // Método para manejar el envío del formulario
-  // Método para manejar el envío del formulario
-  // Método para manejar el envío del formulario
-  // Método para manejar el envío del formulario
   onSubmit() {
     // Verificar si el formulario es válido antes de enviar
     if (this.invoiceForm.invalid) {
+      alert('El formulario contiene errores o está incompleto.');
       console.error('El formulario contiene errores o está incompleto.');
       return; // No enviar si el formulario no es válido
     }
 
-    // Asegurarse de que 'paid_value' y 'invoice_total' se manejen por separado
-    const updatedInvoiceData = {
-      ...this.invoiceForm.value, // Copia los valores básicos del formulario
+    const formData = this.invoiceForm.value;
+
+    // Reagrupar los valores relacionados con el pago en un objeto 'payment'
+    const invoiceData = {
+      ...formData, // Copia los valores básicos del formulario
       payment: {
-        // Reagrupar los valores relacionados con el pago en un objeto 'payment'
-        invoice_total: this.invoiceForm.value.invoice_total, // Monto total de la factura
-        taxes_total: this.invoiceForm.value.taxes_total,
-        rte_fuente: this.invoiceForm.value.rte_fuente,
-        rte_iva: this.invoiceForm.value.rte_iva,
-        rte_ica: this.invoiceForm.value.rte_ica,
+        invoice_total: parseFloat(formData.invoice_total),
+        taxes_total: parseFloat(formData.taxes_total),
+        rte_fuente: parseFloat(formData.rte_fuente),
+        rte_iva: parseFloat(formData.rte_iva),
+        rte_ica: parseFloat(formData.rte_ica),
       },
-      paid_value: this.invoiceForm.get('paid_value')?.value || 0, // Valor pagado se maneja por separado y validamos su valor
+      url: formData.url || '', // Manejar el caso en que `url` esté vacía
     };
 
-    // Verificar si estamos en modo de edición (actualización)
-    if (this.invoice) {
-      const updatedInvoice = {
-        ...updatedInvoiceData,
-        id: this.invoice._id, // Asegurarse de que el ID de la factura esté presente
-      };
-
-      console.log('Enviando PUT para actualizar la factura:', updatedInvoice);
-
-      this.invoiceService
-        .updateInvoice(updatedInvoice, this.invoice._id)
-        .subscribe({
-          next: (response) => {
-            console.log('Factura actualizada exitosamente', response);
-            this.formClosed.emit(); // Cerramos el formulario al terminar
-          },
-          error: (error) => {
-            console.error('Error al actualizar la factura:', error);
-          },
-        });
-    } else {
-      // Si es una nueva factura, hacemos un POST
-      console.log(
-        'Enviando POST para crear una nueva factura:',
-        updatedInvoiceData
-      );
-
-      this.invoiceService.createInvoice(updatedInvoiceData).subscribe({
+    // Subir archivo de comprobante si existe
+    if (this.selectedComprobanteFile) {
+      this.storageService.uploadFile(this.selectedComprobanteFile).subscribe({
         next: (response) => {
-          console.log('Factura creada exitosamente', response);
-          this.formClosed.emit(); // Cerramos el formulario al terminar
+          console.log('Comprobante subido exitosamente:', response);
+          invoiceData.url = response.url; // Asignamos la URL del comprobante
+          this.processInvoiceSubmission(invoiceData); // Llamar al método para enviar el JSON con la URL del archivo
         },
         error: (error) => {
+          alert('Error al subir el comprobante.'); // Alerta en caso de error
+          console.error('Error al subir el comprobante:', error);
+        },
+      });
+    } else if (this.selectedInvoiceFile) {
+      // Subir archivo de factura si existe
+      this.storageService.uploadFile(this.selectedInvoiceFile).subscribe({
+        next: (response) => {
+          console.log('Factura subida exitosamente:', response);
+          invoiceData.url = response.url; // Asignamos la URL de la factura
+          this.processInvoiceSubmission(invoiceData); // Llamar al método para enviar el JSON con la URL del archivo
+        },
+        error: (error) => {
+          alert('Error al subir la factura.'); // Alerta en caso de error
+          console.error('Error al subir la factura:', error);
+        },
+      });
+    } else {
+      this.processInvoiceSubmission(invoiceData); // Si no hay archivo, enviamos solo el formulario
+    }
+  }
+
+  // Método separado para procesar la creación o actualización de la factura
+  processInvoiceSubmission(invoiceData: any) {
+    if (this.invoice) {
+      // Si estamos editando, hacemos un PUT
+      console.log('Enviando PUT para actualizar la factura:', invoiceData);
+
+      // Verificar que el ID de la factura esté presente y que no sea nulo
+      const invoiceId = this.invoice._id || this.invoice.id;
+      if (!invoiceId) {
+        console.error('Error: ID de la factura no encontrado.');
+        alert('Error: No se pudo identificar la factura para actualizar.');
+        return;
+      }
+
+      this.invoiceService.updateInvoice(invoiceData, invoiceId).subscribe({
+        next: (response) => {
+          if (response.result === 'error') {
+            console.error('Error al actualizar la factura:', response.message);
+            alert('Error al actualizar la factura: ' + response.message);
+          } else {
+            alert('Factura actualizada exitosamente.');
+            console.log('Factura actualizada exitosamente', response);
+            this.formClosed.emit(); // Cerramos el formulario al terminar
+          }
+        },
+        error: (error) => {
+          alert('Error al actualizar la factura.'); // Alerta en caso de error
+          console.error('Error al actualizar la factura:', error);
+        },
+      });
+    } else {
+      // Si es una nueva factura, hacemos un POST
+      console.log('Enviando POST para crear una nueva factura:', invoiceData);
+
+      this.invoiceService.createInvoice(invoiceData).subscribe({
+        next: (response) => {
+          if (response.result === 'error') {
+            console.error('Error al crear la factura:', response.message);
+            alert('Error al crear la factura: ' + response.message);
+          } else {
+            alert('Factura creada exitosamente.');
+            console.log('Factura creada exitosamente', response);
+            this.formClosed.emit(); // Cerramos el formulario al terminar
+          }
+        },
+        error: (error) => {
+          alert('Error al crear la factura.'); // Alerta en caso de error
           console.error('Error al crear la factura:', error);
         },
       });
     }
+  }
+
+  // Método para enviar el JSON de la factura al backend
+  sendInvoice(invoiceData: any) {
+    this.invoiceService.createInvoice(invoiceData).subscribe({
+      next: (response) => {
+        console.log('Factura creada exitosamente', response);
+      },
+      error: (error) => {
+        console.error('Error al crear la factura:', error);
+      },
+    });
   }
 
   // Método para manejar la carga de comprobante
