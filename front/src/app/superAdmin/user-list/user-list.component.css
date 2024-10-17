@@ -47,10 +47,10 @@ img {
 /* Barra de búsqueda con ícono de lupa */
 .search-bar {
   width: 300px;
-  padding: 8px 8px 8px 30px; /* Espacio para la lupa */
+  padding: 8px 8px 8px 30px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-image: url('https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/search.svg'); /* Lupa como fondo */
+  background-image: url('https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/search.svg');
   background-position: 8px center;
   background-repeat: no-repeat;
   background-size: 16px;
@@ -99,7 +99,7 @@ img {
   }
 
   .create-user-btn, .search-bar {
-    width: 100%; /* Ocupan todo el ancho en pantallas pequeñas */
+    width: 100%;
     margin-bottom: 10px;
   }
 

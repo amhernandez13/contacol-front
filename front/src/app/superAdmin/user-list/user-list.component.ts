@@ -77,12 +77,12 @@ export class UserListComponent implements OnInit {
   }
 
   openModal(): void {
-    this.isModalOpen = true; //Abrimos el modal para crear usuario
-    this.selectedUser = null; // Limpiamos el usuario seleccionado para crear uno nuevo (espacios en blanco)
+    this.isModalOpen = true;
+    this.selectedUser = null;
   }
 
   openEditModal(user: any): void {
-    this.selectedUser = user; // Asignamos el usuario seleccionado
+    this.selectedUser = user;
     this.isModalOpen = true; // Abrimos el modal con los datos prellenados
   }
 
@@ -92,7 +92,7 @@ export class UserListComponent implements OnInit {
 
   onUserRegistered(): void {
     this.closeModal();
-    this.fetchUsers(); // Recargamos la lista de usuarios
+    this.fetchUsers();
   }
 
   onUserEdited(): void {
