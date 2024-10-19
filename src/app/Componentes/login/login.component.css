@@ -1,83 +1,89 @@
-.table {
-    background-color: #fff; /* Fondo de la tabla */
-}
-  
-
-.table td {
-    border: 1px solid #030303; /* Color de las líneas */
-    color: rgb(0, 0, 0); /* Color del texto en la tabla */
-}
-  
-.table th {
-    background-color: #fff; /* Color de fondo para el encabezado */
-}
-  
-.btn-g {
-    background-color: #616161;
-    color: #fff;
-    padding: 6px;
-    border-radius: 10%;
-}
-  
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: space-around;
-    align-items: center;
-}
-  
-.input-group {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-.btn1 {
-    margin-bottom: 20px;
-}
-  
-.btn3 {
-    margin-top: 20px;
-    margin-left: auto; /* Alinea a la derecha */
-    padding: 5px;
-    border-radius: 10px;
-    padding-left: 30px;
-}
-  
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-  
-th, td {
-    padding: 12px;
-    text-align: left;
-}
-  
-tr:nth-child(even) {
-    background-color: #f2f2f2; /* Alternar filas */
-}
-  
-tr:hover {
-    background-color: #eaeaea; /* Color al pasar el mouse */
+#background {
+  background-image: url("/assets/images/background-login.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 0.5);
+  background-blend-mode: overlay;
+  padding-bottom: 35px;
 }
 
-@media (max-width: 600px) {
-    table {
-        font-size: 14px;
-    }
+.login-grid {
+  max-width: 1400px;
+  margin: auto;
+  display: grid;
+  padding-top: 50px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  grid-template-areas: 
+    "primerh2 loginform ."
+    ". loginform ."
+    ". loginform segundoh2";
+  gap: 20px;
 }
-  
-.iconos-dv{
-    margin: 100px;
-  
+
+.login-grid h2:first-of-type {
+  grid-area: primerh2;
+  text-align: center;
 }
-.icono{
-    font-size: 4rem;
+
+#login-form {
+  grid-area: loginform;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-.t-icon{
-    display: flex;
-    align-items: center;
+
+.login-grid h2:last-of-type {
+  grid-area: segundoh2;
+  text-align: center;
+}
+
+/* Estilos adicionales para ajustar el formulario */
+#login-form input[type="text"],
+#login-form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+#login-form input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #022C5E;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#login-form input[type="submit"]:hover {
+  background-color: #03488F;
+}
+
+.login-grid h5, .login-grid h6 {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+form {
+  background: linear-gradient(
+    to bottom,
+    rgba(2, 44, 94, 0.76),
+    rgba(38, 191, 115, 0.75)
+  );
+  padding: 30px 30px 60px 30px;
+  border-radius: 5px;
+}
+
+#last-text {
+  background-color: rgba(255, 255, 255, 0.75);
+  max-width: 1400px;
+  margin: auto;
+  margin-top: 20px;
+  color: #022C5E;
+  padding: 40px;
+  border-radius: 35px;
 }

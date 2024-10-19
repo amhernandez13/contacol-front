@@ -1,4 +1,19 @@
-<div id="invoice-list-container" [class.container-disabled]="showForm">
+<div class="go-back-container">
+  <button class="go-back" (click)="reloadPage()">
+    <i class="bi bi-arrow-left"></i> Volver
+  </button>
+</div>
+<div
+  id="invoice-list-container"
+  [class.container-disabled]="showForm || isLoading"
+>
+  <!-- Agregar el loader al inicio -->
+  <div *ngIf="isLoading" class="loader-overlay">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
   <div class="search-section">
     <input
       type="text"
@@ -6,6 +21,19 @@
       class="search-input"
       [(ngModel)]="searchQuery"
       (input)="filterInvoices()"
+    />
+    <!-- Selector de fechas para filtrar -->
+    <input
+      type="date"
+      class="date-input"
+      [(ngModel)]="startDate"
+      (change)="filterInvoices()"
+    />
+    <input
+      type="date"
+      class="date-input"
+      [(ngModel)]="endDate"
+      (change)="filterInvoices()"
     />
 
     <!-- Botón para mostrar el formulario -->
@@ -16,13 +44,9 @@
 
   <!-- Mostrar el componente del formulario solo si showForm es true -->
   <div *ngIf="showForm">
-    <!-- Overlay que oscurece solo el fondo -->
     <div class="form-overlay"></div>
-
-    <!-- Formulario flotante que no se ve afectado por el overlay -->
     <div class="form-container">
       <button class="close-btn" (click)="toggleForm()">&times;</button>
-      <!-- Botón para cerrar el formulario -->
       <app-invoices-form
         [invoice]="selectedInvoice"
         (formClosed)="handleFormClosed()"
@@ -56,7 +80,7 @@
         <td>{{ element.payment_method }}</td>
         <td>{{ element.invoice_type }}</td>
         <td>{{ element.payment_way }}</td>
-        <td class="green">{{ element.paid_value }}</td>
+        <td>{{ element.paid_value }}</td>
         <td>{{ element.payment.invoice_total }}</td>
         <td>
           <!-- Botón de editar para abrir el formulario con los datos de la factura -->
@@ -82,4 +106,10 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<div class="go-back-container">
+  <button class="go-back" (click)="reloadPage()">
+    <i class="bi bi-arrow-left"></i> Volver
+  </button>
 </div>

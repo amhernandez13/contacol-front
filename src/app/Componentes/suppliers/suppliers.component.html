@@ -1,8 +1,21 @@
-<div class="container">
+<div class="go-back-container">
+  <button class="go-back" (click)="reloadPage()">
+    <i class="bi bi-arrow-left"></i> Volver
+  </button>
+</div>
+<div class="container" [class.container-disabled]="showForm">
   <div class="header">
     <h2>LISTA DE PROVEEDORES</h2>
-    <input type="text" placeholder="Buscar proveedor" class="search-input" />
-    <button class="add-button">Agregar Proveedor</button>
+    <input
+      type="text"
+      placeholder="Buscar proveedor"
+      class="search-input"
+      [(ngModel)]="searchQuery"
+      (input)="filterSuppliers()"
+    />
+    <div></div>
+    <!-- esto es una div vacia para que ocupe el espacio de la tercera columna en el CSS grid -->
+    <button class="add-button" (click)="toggleForm()">Agregar Proveedor</button>
   </div>
 
   <table class="providers-table">
@@ -19,8 +32,7 @@
     </thead>
 
     <tbody>
-      @for(element of adata; track $index ){
-      <tr>
+      <tr *ngFor="let element of filteredSuppliers; let i = index">
         <td>{{ element.thirdParty }}</td>
         <td>{{ element.nit }}</td>
         <td>{{ element.phone }}</td>
@@ -28,14 +40,40 @@
         <td>{{ element.city }}</td>
         <td>{{ element.department }}</td>
         <td>
-          <button class="edit-button">✏️</button>
-          <button class="delete-button">🗑️</button>
+          <button class="edit-button" (click)="openForm(element)">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+          <button class="delete-button" (click)="confirmDelete(element)">
+            <i class="bi bi-trash3-fill"></i>
+          </button>
         </td>
       </tr>
-      }
-      <!-- Agregar más filas según sea necesario -->
     </tbody>
   </table>
 
-  <button class="back-button">Volver</button>
+  <!-- Popup de formulario -->
+  <div *ngIf="showForm">
+    <div class="form-overlay"></div>
+    <div class="form-container">
+      <button class="close-btn" (click)="toggleForm()">&times;</button>
+      <app-supplier-form
+        [supplier]="selectedSupplier"
+        (formClosed)="handleFormClosed()"
+      ></app-supplier-form>
+    </div>
+  </div>
+
+  <!-- Diálogo de confirmación de eliminación -->
+  <div *ngIf="showConfirmDelete" class="confirm-dialog">
+    <p>
+      ¿Estás seguro de eliminar al proveedor {{ supplierToDelete?.thirdParty }}?
+    </p>
+    <button (click)="deleteSupplier()">Sí</button>
+    <button (click)="cancelDelete()">No</button>
+  </div>
+</div>
+<div class="go-back-container">
+  <button class="go-back" (click)="reloadPage()">
+    <i class="bi bi-arrow-left"></i> Volver
+  </button>
 </div>

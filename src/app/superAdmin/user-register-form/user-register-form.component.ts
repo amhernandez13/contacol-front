@@ -1,4 +1,11 @@
-import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  EventEmitter,
+  Output,
+  OnInit,
+  inject,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -10,6 +17,7 @@ import {
 import { UsersService } from '../../services/users.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-register-form',
@@ -42,6 +50,8 @@ export class UserRegisterFormComponent implements OnInit {
       { validators: this.passwordMatchValidator }
     );
   }
+
+  toastrService = inject(ToastrService);
 
   ngOnInit(): void {
     if (this.user) {
@@ -81,37 +91,39 @@ export class UserRegisterFormComponent implements OnInit {
         const userId = this.user._id;
         this.usersService.updateUser(userId, dataToSend).subscribe({
           next: (response) => {
-            alert('Usuario actualizado correctamente');
+            this.toastrService.success('Usuario actualizado correctamente');
             this.userEdited.emit(); // Emitimos evento de usuario editado
           },
           error: (error) => {
             console.error('Error al actualizar el usuario', error);
-            alert('Ocurrió un error durante la actualización.');
+            this.toastrService.error(
+              'Ocurrió un error durante la actualización.'
+            );
           },
         });
       } else {
         // Creamos un nuevo usuario (modo creación)
         this.usersService.createUser(dataToSend).subscribe({
           next: (response) => {
-            alert('Usuario registrado correctamente');
+            this.toastrService.success('Usuario registrado correctamente');
             this.userRegistered.emit(); // Emitimos evento de usuario registrado
           },
           error: (error) => {
             console.error('Error al registrar el usuario', error);
-            alert('Ocurrió un error durante el registro.');
+            this.toastrService.error('Ocurrió un error durante el registro.');
           },
         });
       }
     } else if (this.userRegister.errors?.['passwordsMismatch']) {
-      alert('Las contraseñas no coinciden');
+      this.toastrService.warning('Las contraseñas no coinciden');
     } else if (
       this.userRegister.get('password')?.errors?.['passwordStrength']
     ) {
-      alert(
+      this.toastrService.warning(
         'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, un número y un carácter especial.'
       );
     } else {
-      alert('Faltan campos por llenar.');
+      this.toastrService.warning('Faltan campos por llenar.');
     }
   }
 }

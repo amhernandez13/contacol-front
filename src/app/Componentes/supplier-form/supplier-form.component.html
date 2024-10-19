@@ -1,0 +1,39 @@
+<body>
+  <div id="screenMiddle">
+    <h2>AGREGAR PROVEEDORES</h2>
+    <form [formGroup]="newSupplierData" (ngSubmit)="handleNewSupplierSubmit()">
+      <div id="formColor">
+        <div class="formDivider">
+          <label for="thirdParty">Tercero</label>
+          <input id="thirdParty" formControlName="thirdPartyData" type="text" />
+        </div>
+
+        <div class="formDivider">
+          <label for="nit">NIT</label>
+          <input id="nit" formControlName="nitData" type="number" />
+        </div>
+
+        <div class="formDivider">
+          <label for="phone">Teléfono</label>
+          <input id="phone" formControlName="phoneData" type="number" />
+        </div>
+
+        <div class="formDivider">
+          <label for="email">Correo</label>
+          <input id="email" formControlName="emailData" type="email" />
+        </div>
+
+        <div class="formDivider">
+          <label for="city">Ciudad / Municipio</label>
+          <input id="city" formControlName="cityData" type="text" />
+        </div>
+
+        <div class="formDivider">
+          <label for="department">Departamento</label>
+          <input id="department" formControlName="departmentData" type="text" />
+        </div>
+      </div>
+      <button id="submit" type="submit">Agregar proveedor</button>
+    </form>
+  </div>
+</body>

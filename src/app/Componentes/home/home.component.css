@@ -3,84 +3,100 @@
     justify-content: space-around;
     max-width: 1500px;
     margin: 20px auto;
-}
-
-.function-selector {
+  }
+  
+  .function-selector {
     cursor: pointer;
-    color: black; 
-    transition: color 0.3s ease; 
-}
-
-/* Estilo cuando el cursor está por encima */
-.function-selector:hover {
-    cursor: pointer;
-}
-
-/* Estilo cuando el selector está activo */
-.function-selector.active {
     color: black;
-}
-
-/* Estilo para selectores deshabilitados */
-.function-selector.disabled {
+    transition: color 0.3s ease;
+  }
+  
+  /* Estilo cuando el cursor está por encima */
+  .function-selector:hover {
+    cursor: pointer;
+  }
+  
+  /* Estilo cuando el selector está activo */
+  .function-selector.active {
+    color: black;
+  }
+  
+  /* Estilo para selectores deshabilitados */
+  .function-selector.disabled {
     color: gray;
-}
-
-/* Estilo para h2 e íconos */
-h2 {
+  }
+  
+  /* Estilo para h2 e íconos */
+  h2 {
     display: flex;
     align-items: center;
-}
-
-h2 i {
+  }
+  
+  h2 i {
     font-size: 100px;
-}
-
-/* Estilos para la tabla */
-#table-container {
+  }
+  
+  /* Estilos para la tabla */
+  #table-container {
     padding: 0 20px;
-}
-
-table {
+  }
+  
+  table {
     width: 100%;
     max-width: 1500px;
-    margin: 0 auto 70px auto; 
-    border-collapse: collapse; 
-}
-
-/* Bordes y estilo de las celdas */
-th, td {
+    margin: 0 auto 70px auto;
+    border-collapse: collapse;
+  }
+  
+  /* Bordes y estilo de las celdas */
+  th, td {
     padding: 10px;
     text-align: left;
     border: 5px solid #c6c6c6;
-}
-
-/* Color del encabezado de la tabla */
-th {
+  }
+  
+  /* Color del encabezado de la tabla */
+  th {
     background-color: #c6c6c6;
     color: #022C5E;
-}
-
-td {
+  }
+  
+  td {
     background-color: white;
-}
-
-/* Efecto hover para las filas */
-tr:hover {
+  }
+  
+  /* Efecto hover para las filas */
+  tr:hover {
     background-color: #f5f5f5;
-}
-
-/* Estilo del icono en la columna de detalle */
-i.bi-file-text {
+  }
+  
+  /* Estilo del icono en la columna de detalle */
+  i.bi-file-text {
     cursor: pointer;
-}
-
-/* Centrar el contenido de las celdas específicas */
-td.icon-center, td.date-center {
+  }
+  
+  /* Centrar el contenido de las celdas específicas */
+  td.icon-center, td.date-center {
     text-align: center;
     vertical-align: middle;
-}
-
-td.icon-center i {
+  }
+  
+  td.icon-center i {
     font-size: 22px;
-}
+  }
+  
+  /* Estilos para el loader */
+  .loader-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    height: 100%;
+  }
+  

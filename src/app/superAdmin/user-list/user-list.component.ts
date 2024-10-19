@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserRegisterFormComponent } from '../user-register-form/user-register-form.component';
 import { HederComponent } from '../../Componentes/header/heder.component';
 import { FooterComponent } from '../../Componentes/footer/footer.component';
+import { ToastrService } from 'ngx-toastr';
+import { HeaderSuperadminComponent } from '../../Componentes/header-superadmin/header-superadmin.component';
 
 @Component({
   selector: 'app-user-list',
@@ -15,6 +17,7 @@ import { FooterComponent } from '../../Componentes/footer/footer.component';
     UserRegisterFormComponent,
     HederComponent,
     FooterComponent,
+    HeaderSuperadminComponent,
   ],
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
@@ -26,10 +29,12 @@ export class UserListComponent implements OnInit {
   loading: boolean = false;
   error: string | null = null;
 
-  isModalOpen: boolean = false; // Controla la visibilidad del modal
-  selectedUser: any = null; // Usuario seleccionado para editar
+  isModalOpen: boolean = false;
+  selectedUser: any = null;
 
   constructor(private usersService: UsersService) {}
+
+  toastrService = inject(ToastrService);
 
   ngOnInit(): void {
     this.fetchUsers();
@@ -39,7 +44,10 @@ export class UserListComponent implements OnInit {
     this.loading = true;
     this.usersService.getUsers().subscribe({
       next: (response: any) => {
-        this.users = response.data;
+        // Filtrar usuarios que no sean superAdmin
+        this.users = response.data.filter(
+          (user: any) => user.role !== 'superAdmin'
+        );
         this.filteredUsers = this.users;
         this.loading = false;
       },
@@ -64,14 +72,16 @@ export class UserListComponent implements OnInit {
 
   // Función para cambiar el estado del usuario (activo/inactivo)
   changeUserState(user: any, newState: boolean): void {
-    const updatedUser = { ...user, state: newState }; // Actualiza el estado localmente
+    const updatedUser = { ...user, state: newState };
     this.usersService.updateUserState(updatedUser).subscribe({
       next: (response) => {
-        user.state = newState; // Actualiza visualmente el estado del usuario
+        user.state = newState;
       },
       error: (error) => {
         console.error('Error al cambiar el estado del usuario', error);
-        alert('Hubo un problema al cambiar el estado del usuario.');
+        this.toastrService.error(
+          'Hubo un problema al cambiar el estado del usuario.'
+        );
       },
     });
   }
@@ -83,7 +93,7 @@ export class UserListComponent implements OnInit {
 
   openEditModal(user: any): void {
     this.selectedUser = user;
-    this.isModalOpen = true; // Abrimos el modal con los datos prellenados
+    this.isModalOpen = true;
   }
 
   closeModal(): void {

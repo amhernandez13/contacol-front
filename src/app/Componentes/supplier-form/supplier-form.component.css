@@ -1,0 +1,118 @@
+/* Fondo de la página */
+body {
+  background-color: #bedcff;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Estilo de los iconos */
+i {
+  margin: 15px;
+  margin-bottom: 0;
+  font-size: 27px;
+  cursor: pointer;
+}
+
+/* Título principal */
+h2 {
+  margin-bottom: 20px;
+}
+
+/* Contenedor principal del formulario */
+#screenMiddle {
+  display: flex;
+  justify-content: center;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Estilo general del formulario */
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Estilos de fondo y color del formulario */
+#formColor {
+  background-color: #ace4cb;
+  color: #073c7b;
+  display: flex;
+  flex-direction: column;
+  padding: 35px;
+  width: 100%;
+}
+
+/* Contenedor de cada campo del formulario */
+.formDivider {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Estilo de las etiquetas y campos */
+.formDivider label {
+  text-align: left;
+  flex-basis: 50%;
+}
+
+/* Ajuste para que los inputs y selects tengan el mismo estilo */
+.formDivider input,
+.formDivider select {
+  width: 50%;
+  border-radius: 10px;
+  border: none;
+}
+
+/* Botón de envío */
+#submit {
+  margin: 20px;
+  border: none;
+  background-color: #022c5e;
+  color: white;
+  padding: 10px 60px;
+  border-radius: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+}
+
+/* Efecto hover en el botón de envío */
+#submit:hover {
+  background-color: #011d3e;
+}
+
+/* Contenedor del input de contraseña */
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+/* Input de contraseña con espacio para el icono del ojo */
+.password-container input {
+  width: 100%;
+  padding-right: 40px;
+  border-radius: 10px;
+  border: none;
+}
+
+/* Icono del ojo dentro del campo de contraseña */
+.password-container i {
+  position: absolute;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Asegurar estilo uniforme en inputs y selects */
+.formDivider input,
+.formDivider select {
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+}

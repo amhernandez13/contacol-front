@@ -1,0 +1,46 @@
+.faq-container {
+  display: flex;
+  flex-direction: column; /* Organiza los elementos en columna */
+  justify-content: center; /* Centra verticalmente */
+  align-items: center; /* Centra horizontalmente */
+}
+
+.faq-title {
+  width: 40%;
+  text-align: center;
+  margin-top: 40px; /* Margen con Header */
+}
+
+.faq-title h1 {
+  color: #022c5e;
+  text-decoration: underline 2.2px; /* Grosor de línea */
+  text-underline-offset: 6.5px; /* Distancia línea del texto */
+}
+
+.faq-title span {
+  display: block;
+  font-size: 18px;
+  font-weight: 200;
+  color: black;
+}
+
+.faq-questions-grill {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: auto;
+  margin-top: 70px; /* Margen con Title */
+  margin-bottom: 40px; /* Margen con Footer */
+  padding-left: 5%;
+  padding-right: 5%;
+  gap: 40px; /* Espacio entre los elementos de la grilla */
+  width: 100%; /* Asegura que ocupe el ancho completo */
+}
+
+.faq-question-item {
+  margin: -3px;
+}
+.faq-question-item h5 {
+  color: #022c5e;
+
+  margin: 0 0 18px; /* Espacio abajo del título */
+}

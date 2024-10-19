@@ -1,6 +1,23 @@
 img {
-    border-color: #181b1c;
-    width: 250px;
-    height: 66px;
+    height: 140px;
     margin-left: 16px;
-}
+    margin-top: -15px;
+    margin-bottom: -15px;
+    cursor: pointer;
+    object-fit: contain;
+  }
+  
+  .logout-btn {
+    background: none;
+    border: none;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: auto;
+    padding-right: 80px;
+  }
+  
+  .logout-btn:hover {
+    text-decoration: underline;
+  }
+  

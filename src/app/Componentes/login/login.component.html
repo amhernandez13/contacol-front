@@ -1,60 +1,59 @@
 <app-heder></app-heder>
-
-<section class=" container justify-content-center align-items-center" style="min-height: 100vh;
-">
-  <div class="">
-    <div class=" text-center">
-      <div class="row iconos-dv">
-        <div class="col t-icon">
-          <i class=" icono fa-solid fa-file-invoice"></i>
-          <samp>Comprobantes</samp>
-        </div>
-        <div class="col t-icon">
-          <i class=" icono fa-solid fa-user-group"></i>
-          <samp>Proveedores</samp>
-        </div>
-        <div class="col t-icon">
-          <i class="icono fa-solid fa-rectangle-list"></i>
-          <samp >Almacen de proveedores</samp>
-        </div>
+<!-- METER UN DIV -->
+<div id="background">
+  <div class="login-grid">
+    <h2>Facturación online</h2>
+    <div id="login-form">
+      <div>
+        <h2>
+          <img
+            src="../../../assets/images/logo-ContaCol.png"
+            alt="Logo de ContaCol"
+            height="100px"
+          />Login
+        </h2>
       </div>
+      <form [formGroup]="loginCredentialsData" (ngSubmit)="handleLoginSubmit()">
+        <div class="row py-4">
+          <div class="col">
+            <input
+              type="text"
+              class="form-control my-border-radius d-flex justify-content-evenly max-width pading-login"
+              formControlName="email"
+              placeholder="Ingrese su usuario"
+            />
+            <br />
+          </div>
+          <div>
+            <div class="col">
+              <input
+                type="password"
+                class="form-control my-border-radius d-flex justify-content-evenly max-width pading-login"
+                formControlName="password"
+                placeholder="Ingrese contraseña"
+              />
+              <br />
+            </div>
+          </div>
+          <div class="d-grid gap-2 d-flex justify-content-evenly">
+            <input
+              type="submit"
+              value="Inicie sesión"
+              class="my-color-black my-bg-color-main-light my-border-radius width bordered side-width pading-login"
+            />
+          </div>
+        </div>
+      </form>
     </div>
-    
-    <table class="table  align-middle">
-      <thead>
-        <tr>
-          <th scope="col">#Factura</th>
-          <th scope="col">Razon Social</th>
-          <th scope="col">Emision/Vencimiento</th>
-          <th scope="col">Verificacion</th>
-          <th scope="col">Total</th>
-          <th scope="col">Estado Factura</th>
-          <th scope="col" class="text-center">Detalles</th>
-        </tr>
-      </thead>
-      <tbody class=" ">
-        <tr>
-          <td>001</td>
-          <td class="d-none d-lg-table-cell">xxxx</td>
-          <td class="d-none d-lg-table-cell">01/03/05</td>
-          <td class="d-none d-lg-table-cell">Verificado</td>
-          <td class="d-none d-lg-table-cell">12000</td>
-          <td class="d-none d-lg-table-cell">Pagada</td>
-          <td class="text-center">
-            
-          <td class="text-center">
-            <button type="button" class="btn p-0 border-0">
-              <i class="fa-solid fa-rectangle-list"></i>
-            </button>
-          </td>
-        </tr>
-        
-        
-        
-      </tbody>
-    </table>
-    
+    <h2>Control administrativo</h2>
   </div>
-</section>
-
+  <div id="last-text">
+    <h5>En un solo lugar todo lo que necesitas.</h5>
+    <h6>
+      Descubre todas las funcionalidades, integraciones y complementos que
+      pensamos para optimizar tus procesos operativos y financieros. Accede a
+      nuestro sistema ERP desde cualquier dispositivo.
+    </h6>
+  </div>
+</div>
 <app-footer></app-footer>

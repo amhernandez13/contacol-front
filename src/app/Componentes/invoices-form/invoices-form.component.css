@@ -34,6 +34,10 @@ textarea {
     margin: 0;
 }
 
+.required {
+  color: red;
+}
+
 /* Estilo del campo de observaciones */
 #observaciones {
   grid-column: 3 / span 2;
@@ -133,14 +137,14 @@ h2 {
 
 /* Estilo de los botones cuando están deshabilitados */
 .load-buttons-container button:disabled {
-  background-color: #d3d3d3; /* Color de fondo más claro */
-  color: #808080; /* Color del texto más claro */
-  cursor: not-allowed; /* Cambia el cursor para indicar que no es clicable */
-  opacity: 0.6; /* Hace el botón más opaco */
+  background-color: #d3d3d3;
+  color: #808080;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .load-buttons-container button:disabled:hover {
-  background-color: #d3d3d3; /* Mantén el color cuando esté deshabilitado y se pase el mouse por encima */
+  background-color: #d3d3d3;
 }
 
 
