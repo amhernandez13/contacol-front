@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class InvoiceService {
   private http = inject(HttpClient);
-  API_URL = 'https://equipo-25.onrender.com/invoice'; // URL base de la API
+  API_URL = 'https://equipo-25.onrender.com/invoice';
 
   constructor() {}
 
@@ -18,7 +18,7 @@ export class InvoiceService {
 
   // Crear una factura sin PDF adjunto (solo JSON)
   createInvoice(invoiceData: any): Observable<any> {
-    return this.http.post(this.API_URL, invoiceData); // Enviar el JSON directamente
+    return this.http.post(this.API_URL, invoiceData);
   }
 
   // Obtener todas las facturas
@@ -33,10 +33,10 @@ export class InvoiceService {
 
   // Método para actualizar una factura existente (PUT)
   updateInvoice(invoiceData: any, id: number): Observable<any> {
-    return this.http.put(`${this.API_URL}/${id}`, invoiceData); // Corregir la URL usando API_URL
+    return this.http.put(`${this.API_URL}/${id}`, invoiceData);
   }
 
-  // Comentado: otra opción para actualizar facturas
+  // otra opción para actualizar facturas
   /* putInvoicesById(id: string, data: {}) {
     let promise = new Promise((resolve, reject) => {
       this.http

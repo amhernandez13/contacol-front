@@ -1,15 +1,24 @@
 <body>
   <div id="screenMiddle">
-    <h2>Registro de usuarios</h2>
     <form [formGroup]="userRegister" (ngSubmit)="onSubmit()">
       <div id="formColor">
         <div class="formDivider">
           <label for="name">Nombre:</label>
-          <input id="name" formControlName="name" type="text" />
+          <input
+            id="name"
+            formControlName="name"
+            type="text"
+            placeholder="Ingrese nombre de usuario"
+          />
         </div>
         <div class="formDivider">
-          <label for="email">Correo electrónico:</label>
-          <input type="email" formControlName="email" id="email" />
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            formControlName="email"
+            id="email"
+            placeholder="Ingrese email"
+          />
         </div>
 
         <div class="formDivider">
@@ -19,6 +28,7 @@
               [type]="showPassword ? 'text' : 'password'"
               formControlName="password"
               id="password"
+              placeholder="Ingrese contraseña"
             />
             <i
               class="bi"
@@ -29,12 +39,13 @@
         </div>
 
         <div class="formDivider">
-          <label for="confirmPassword">Confirmar contraseña:</label>
+          <label for="confirmPassword">Verificar contraseña:</label>
           <div class="password-container">
             <input
               [type]="showPassword ? 'text' : 'password'"
               formControlName="confirmPassword"
               id="confirmPassword"
+              placeholder="Ingrese contraseña"
             />
             <i
               class="bi"

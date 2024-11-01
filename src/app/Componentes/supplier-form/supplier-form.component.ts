@@ -93,12 +93,10 @@ export class SupplierFormComponent implements OnInit {
           newSupplier
         ).subscribe(
           (res: any) => {
-            console.log('Proveedor actualizado: ', res);
             this.toastrService.success('¡Proveedor actualizado con éxito!');
             this.closeForm();
           },
           (error: any) => {
-            console.error('Error actualizando proveedor: ', error);
             this.toastrService.error('Error actualizando proveedor');
           }
         );
@@ -106,12 +104,10 @@ export class SupplierFormComponent implements OnInit {
         // Crear nuevo proveedor POST
         this.SuppliersService.createSupplier(newSupplier).subscribe(
           (res: any) => {
-            console.log('Proveedor creado: ', res);
             this.toastrService.success('¡Proveedor agregado con éxito!');
             this.closeForm();
           },
           (error) => {
-            console.error('Error creando proveedor: ', error);
             this.toastrService.error('Error creando proveedor');
           }
         );

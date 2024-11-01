@@ -52,7 +52,6 @@ export class UserListComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        console.error('Error al obtener los usuarios:', err);
         this.error = 'Hubo un problema al cargar los usuarios.';
         this.loading = false;
       },
@@ -78,7 +77,6 @@ export class UserListComponent implements OnInit {
         user.state = newState;
       },
       error: (error) => {
-        console.error('Error al cambiar el estado del usuario', error);
         this.toastrService.error(
           'Hubo un problema al cambiar el estado del usuario.'
         );

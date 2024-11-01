@@ -6,13 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UsersService {
-  API_URL = 'https://equipo-25.onrender.com/users'; // URL del backend
+  API_URL = 'https://equipo-25.onrender.com/users';
 
   constructor(private http: HttpClient) {}
 
   // Método para crear un nuevo usuario
   createUser(userData: any): Observable<any> {
-    return this.http.post(this.API_URL, userData); // Enviar los datos como JSON
+    return this.http.post(this.API_URL, userData);
   }
 
   // Método para obtener todos los usuarios

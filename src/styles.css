@@ -6,3 +6,7 @@
   --teriary: #797c7e;
   --white: #eaeaea;
 }
+
+* {
+  font-family: 'Roboto', sans-serif;
+}

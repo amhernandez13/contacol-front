@@ -95,7 +95,6 @@ export class UserRegisterFormComponent implements OnInit {
             this.userEdited.emit(); // Emitimos evento de usuario editado
           },
           error: (error) => {
-            console.error('Error al actualizar el usuario', error);
             this.toastrService.error(
               'Ocurrió un error durante la actualización.'
             );
@@ -109,21 +108,34 @@ export class UserRegisterFormComponent implements OnInit {
             this.userRegistered.emit(); // Emitimos evento de usuario registrado
           },
           error: (error) => {
-            console.error('Error al registrar el usuario', error);
             this.toastrService.error('Ocurrió un error durante el registro.');
           },
         });
       }
-    } else if (this.userRegister.errors?.['passwordsMismatch']) {
-      this.toastrService.warning('Las contraseñas no coinciden');
-    } else if (
-      this.userRegister.get('password')?.errors?.['passwordStrength']
-    ) {
-      this.toastrService.warning(
-        'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, un número y un carácter especial.'
-      );
     } else {
-      this.toastrService.warning('Faltan campos por llenar.');
+      // Agrega una verificación detallada en consola para los campos faltantes
+      const invalidFields = Object.keys(this.userRegister.controls).filter(
+        (key) => {
+          const control = this.userRegister.get(key);
+          return control && control.invalid;
+        }
+      );
+      invalidFields.map((field) => ({
+        field,
+        errors: this.userRegister.get(field)?.errors,
+      }));
+
+      if (this.userRegister.errors?.['passwordsMismatch']) {
+        this.toastrService.warning('Las contraseñas no coinciden');
+      } else if (
+        this.userRegister.get('password')?.errors?.['passwordStrength']
+      ) {
+        this.toastrService.warning(
+          'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, un número y un carácter especial.'
+        );
+      } else {
+        this.toastrService.warning('Faltan campos por llenar.');
+      }
     }
   }
 }

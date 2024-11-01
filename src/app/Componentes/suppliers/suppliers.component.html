@@ -5,7 +5,6 @@
 </div>
 <div class="container" [class.container-disabled]="showForm">
   <div class="header">
-    <h2>LISTA DE PROVEEDORES</h2>
     <input
       type="text"
       placeholder="Buscar proveedor"
@@ -13,43 +12,43 @@
       [(ngModel)]="searchQuery"
       (input)="filterSuppliers()"
     />
-    <div></div>
-    <!-- esto es una div vacia para que ocupe el espacio de la tercera columna en el CSS grid -->
     <button class="add-button" (click)="toggleForm()">Agregar Proveedor</button>
   </div>
 
-  <table class="providers-table">
-    <thead>
-      <tr>
-        <th>TERCERO</th>
-        <th>NIT</th>
-        <th>TELÉFONO</th>
-        <th>E-MAIL</th>
-        <th>CIUDAD/MUNICIPIO</th>
-        <th>DEPARTAMENTO</th>
-        <th>ACCIONES</th>
-      </tr>
-    </thead>
+  <div class="table-responsive">
+    <table class="providers-table">
+      <thead>
+        <tr>
+          <th>Tercero</th>
+          <th>NIT</th>
+          <th>Teléfono</th>
+          <th>e-mail</th>
+          <th>Ciudad/Municipio</th>
+          <th>Departamento</th>
+          <th>Editar</th>
+        </tr>
+      </thead>
 
-    <tbody>
-      <tr *ngFor="let element of filteredSuppliers; let i = index">
-        <td>{{ element.thirdParty }}</td>
-        <td>{{ element.nit }}</td>
-        <td>{{ element.phone }}</td>
-        <td>{{ element.email }}</td>
-        <td>{{ element.city }}</td>
-        <td>{{ element.department }}</td>
-        <td>
-          <button class="edit-button" (click)="openForm(element)">
-            <i class="bi bi-pencil-square"></i>
-          </button>
-          <button class="delete-button" (click)="confirmDelete(element)">
-            <i class="bi bi-trash3-fill"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      <tbody>
+        <tr *ngFor="let element of filteredSuppliers; let i = index">
+          <td>{{ element.thirdParty }}</td>
+          <td>{{ element.nit }}</td>
+          <td>{{ element.phone }}</td>
+          <td>{{ element.email }}</td>
+          <td>{{ element.city }}</td>
+          <td>{{ element.department }}</td>
+          <td>
+            <button class="edit-button" (click)="openForm(element)">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button class="delete-button" (click)="confirmDelete(element)">
+              <i class="bi bi-trash3-fill"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <!-- Popup de formulario -->
   <div *ngIf="showForm">
@@ -68,8 +67,10 @@
     <p>
       ¿Estás seguro de eliminar al proveedor {{ supplierToDelete?.thirdParty }}?
     </p>
-    <button (click)="deleteSupplier()">Sí</button>
-    <button (click)="cancelDelete()">No</button>
+    <div class="button-group">
+      <button class="confirm-button" (click)="deleteSupplier()">Sí</button>
+      <button class="cancel-button" (click)="cancelDelete()">No</button>
+    </div>
   </div>
 </div>
 <div class="go-back-container">

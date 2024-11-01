@@ -50,7 +50,6 @@ export class LoginService {
       );
       return JSON.parse(jsonPayload);
     } catch (error) {
-      console.error('Error decodificando el token', error);
       return null;
     }
   }

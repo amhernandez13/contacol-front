@@ -24,7 +24,7 @@ export class StorageService {
   // Función para subir el archivo con el nombre original
   uploadFile(file: File): Observable<any> {
     const formData = new FormData();
-    formData.append('file', file); // Enviamos el archivo
+    formData.append('file', file);
 
     // Añadimos el nombre original del archivo
     formData.append('filename', file.name);

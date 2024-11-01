@@ -15,10 +15,10 @@
 }
 
 .header {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr 1fr;
-  gap: 10px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 16px;
   margin-bottom: 20px;
 }
 
@@ -28,9 +28,11 @@ h2 {
 }
 
 .search-input {
-  padding: 10px;
-  font-size: 1rem;
-  width: 100%;
+  flex: 1;
+  height: 40px;
+  padding: 8px;
+  font-size: 16px;
+  margin-right: 16px;
 }
 
 .add-button {
@@ -43,6 +45,11 @@ h2 {
   font-size: 1rem;
 }
 
+/* Contenedor responsive para la tabla */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
 
 /* Tabla que se ajusta al 100% del contenedor */
 .providers-table {
@@ -142,31 +149,52 @@ h2 {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 20px;
+  padding: 30px 20px;
   border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1001;
 }
 
 .confirm-dialog p {
   margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.1rem;
 }
 
-.confirm-dialog button {
-  margin-right: 10px;
+.confirm-dialog .button-group {
+  display: flex;
+  justify-content: center;
+}
+
+.confirm-dialog .confirm-button,
+.confirm-dialog .cancel-button {
   padding: 10px 20px;
+  border-radius: 20px;
   border: none;
   cursor: pointer;
+  font-size: 1rem;
+  margin: 0 5px;
 }
 
-.confirm-dialog button:first-child {
-  background-color: red;
+.confirm-dialog .confirm-button {
+  background-color: #022c5e;
   color: white;
 }
 
-.confirm-dialog button:last-child {
-  background-color: gray;
-  color: white;
+.confirm-dialog .confirm-button:hover {
+  background-color: #011d3e;
+}
+
+.confirm-dialog .cancel-button {
+  background-color: white;
+  color: #022c5e;
+  border: 2px solid #022c5e;
+}
+
+.confirm-dialog .cancel-button:hover {
+  background-color: #f0f0f0;
 }
 
 /* Botón para volver atrás */
@@ -188,19 +216,51 @@ h2 {
 }
 
 /* Media query para pantallas pequeñas */
+@media (max-width: 1040px) {
+  /* Ajustes para hacer la tabla scrollable */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .providers-table {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .providers-table th,
+  .providers-table td {
+    white-space: nowrap;
+  }
+}
+
 @media (max-width: 500px) {
+  /* Ajustar la dirección del flex y estirar elementos */
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 10px;
+  }
+
+  .search-input {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .add-button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px;
+  }
+
   /* Ajustar el tamaño de la fuente y el padding en pantallas pequeñas */
   .providers-table th,
   .providers-table td {
     font-size: 0.8rem;
     padding: 5px;
-  }
-
-  /* Forzar el contenido de la tabla a ajustarse */
-  .providers-table {
-    font-size: 0.9rem;
-    word-wrap: break-word;
-    table-layout: auto;
   }
 
   /* El ancho de la columna de acciones se mantiene, pero más compacto */
@@ -218,9 +278,5 @@ h2 {
   /* Mantener la misma estructura del resto del layout */
   .container {
     padding: 10px;
-  }
-
-  .search-input {
-    width: 100%;
   }
 }
