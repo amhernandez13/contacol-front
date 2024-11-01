@@ -11,12 +11,12 @@ export class StorageService {
 
   constructor() {}
 
-  // Método para obtener el almacenamiento (si lo necesitas)
+  // Método para obtener el almacenamiento
   getStorage(): Observable<any> {
     return this.http.get('https://equipo-25.onrender.com/storage');
   }
 
-  // Método para obtener un archivo específico por ID (si lo necesitas)
+  // Método para obtener un archivo específico por ID
   getStorageById(id: string): Observable<any> {
     return this.http.get('https://equipo-25.onrender.com/storage/' + id);
   }
@@ -25,9 +25,6 @@ export class StorageService {
   uploadFile(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file); // Enviamos el archivo
-
-    // Log para verificar qué archivo se está enviando
-    console.log('Archivo a subir:', file);
 
     // Añadimos el nombre original del archivo
     formData.append('filename', file.name);

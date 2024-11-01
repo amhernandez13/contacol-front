@@ -13,6 +13,8 @@
   padding: 20px;
   padding-top: 10px;
   position: relative;
+  width: 100%;
+  height: auto;
 }
 
 /* Estilo general de los inputs */
@@ -24,14 +26,13 @@ textarea {
   border: 2px solid black;
   border-radius: 8px;
   box-sizing: border-box;
-  
 }
 
-/*Ocultar las flechas de los campos de tipo numer */
+/* Ocultar las flechas de los campos de tipo numer */
 .form-item input[type=number]::-webkit-inner-spin-button,
 .form-item input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .required {
@@ -72,6 +73,7 @@ h2 {
   display: flex;
   justify-content: flex-end;
   margin-right: 20px;
+  position: relative;
 }
 
 .load-buttons-container button {
@@ -109,6 +111,7 @@ h2 {
   justify-content: flex-end;
   gap: 10px;
   grid-column: span 4;
+  margin-bottom: 20px;
 }
 
 .cancel-btn {
@@ -147,34 +150,60 @@ h2 {
   background-color: #d3d3d3;
 }
 
-
 /* Estilos responsive */
-@media (max-width: 768px) {
+@media (max-width: 825px) {
   #invoiceForm {
     grid-template-columns: 1fr;
     grid-template-areas:
       "comprobante"
-      "razonSocial"
-      "impuestos"
-      "tipoComprobante"
-      "monto"
       "fechaEmision"
-      "departamento"
-      "reteFuente"
-      "formaPago"
-      "estado"
       "fechaVencimiento"
-      "municipio"
-      "reteIVA"
-      "medioPago"
-      "valorPagado"
-      "reteICA"
       "pago"
+      "tercero"
+      "departamento"
+      "municipio"
+      "proveedor"
+      "impuestos"
+      "reteFuente"
+      "reteIVA"
+      "reteICA"
+      "tipoComprobante"
+      "formaPago"
+      "medioPago"
+      "estado"
+      "monto"
       "descripcion"
+      "valorPagado"
       "observaciones";
+    height: auto;
+    overflow-y: auto;
   }
 
   .form-submit {
     justify-content: center;
+  }
+
+  .load-buttons-container {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .file-names {
+    justify-content: center;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .load-buttons-container button {
+    padding: 10px;
+    font-size: 0.875rem;
+  }
+
+  .cancel-btn,
+  .accept-btn {
+    padding: 10px 20px;
+    font-size: 0.875rem;
   }
 }

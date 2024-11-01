@@ -146,7 +146,9 @@
       <input type="number" id="reteIVA" formControlName="rte_iva" />
     </div>
     <div class="form-item" style="grid-area: medioPago">
-      <label for="medioPago">Medio de Pago</label>
+      <label for="medioPago"
+        >Medio de Pago <span class="required">*</span></label
+      >
       <select id="medioPago" formControlName="payment_method">
         <option value="Banco HR">Banco HR</option>
         <option value="JMA Cjm">JMA Cjm</option>
@@ -185,7 +187,7 @@
     </div>
     <!-- Lista desplegable de proveedores -->
     <div class="form-item" style="grid-area: proveedor">
-      <label for="proveedor">Proveedor</label>
+      <label for="proveedor">Proveedor <span class="required">*</span></label>
       <select id="proveedor" formControlName="supplier">
         <option *ngFor="let supplier of suppliers" [value]="supplier._id">
           {{ supplier.thirdParty }} - {{ supplier.city }}
