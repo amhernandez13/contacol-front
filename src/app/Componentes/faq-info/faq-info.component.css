@@ -1,20 +1,21 @@
 .faq-container {
   display: flex;
-  flex-direction: column; /* Organiza los elementos en columna */
-  justify-content: center; /* Centra verticalmente */
-  align-items: center; /* Centra horizontalmente */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
 }
 
 .faq-title {
   width: 40%;
   text-align: center;
-  margin-top: 40px; /* Margen con Header */
+  margin-top: 40px; /* Margen top con Header */
 }
 
 .faq-title h1 {
   color: #022c5e;
-  text-decoration: underline 2.2px; /* Grosor de línea */
-  text-underline-offset: 6.5px; /* Distancia línea del texto */
+  text-decoration: underline 2.2px;
+  text-underline-offset: 6.5px;
 }
 
 .faq-title span {
@@ -28,12 +29,12 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: auto;
-  margin-top: 70px; /* Margen con Title */
-  margin-bottom: 40px; /* Margen con Footer */
+  margin-top: 70px; /* Margen top con Title */
+  margin-bottom: 40px; /* Margen bot con Footer */
   padding-left: 5%;
   padding-right: 5%;
-  gap: 40px; /* Espacio entre los elementos de la grilla */
-  width: 100%; /* Asegura que ocupe el ancho completo */
+  gap: 40px;
+  width: 100%;
 }
 
 .faq-question-item {
@@ -42,5 +43,11 @@
 .faq-question-item h5 {
   color: #022c5e;
 
-  margin: 0 0 18px; /* Espacio abajo del título */
+  margin: 0 0 18px;
+}
+
+@media (max-width: 670px) {
+  .faq-questions-grill {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

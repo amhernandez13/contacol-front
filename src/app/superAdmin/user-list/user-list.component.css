@@ -1,12 +1,14 @@
 /* Contenedor de la tabla de usuarios */
 #tableContainer {
-  background-color: #f6f7f9;
+  background-color: #c6c6c6;
   padding: 20px;
   width: 100%;
   max-width: 1000px;
-  margin: 0 auto 20px;
 }
 
+#tableContainer {
+  margin: 1% 50% 5% 50%;
+}
 /* Contenedor principal de la página */
 #screenMiddle {
   display: flex;
@@ -65,8 +67,10 @@ img {
 .user-table, .table-responsive {
   width: 100%;
   max-width: 1000px;
-  margin: 20px auto;
+  margin: 0px auto;
   border-collapse: collapse;
+  border: 3px solid white;
+  border-radius: 15px;
 }
 
 .user-table {
@@ -75,7 +79,7 @@ img {
 
 .user-table th, .user-table td {
   padding: 10px;
-  border: 1px solid #666;
+  border: 2px solid #c6c6c6;
   text-align: left;
 }
 
@@ -89,6 +93,10 @@ img {
   text-align: center;
   white-space: nowrap;
   width: 50px;
+}
+
+tbody {
+  background-color: white;
 }
 
 /* Ajustes para pantallas pequeñas */

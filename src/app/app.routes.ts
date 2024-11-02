@@ -8,24 +8,24 @@ import { roleGuard } from './guards/role.guard';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'faq', component: FaqInfoComponent }, // Ruta de login por defecto
+  { path: 'faq', component: FaqInfoComponent },
   {
     path: 'home',
     component: HomeComponent,
     canActivate: [roleGuard],
-    data: { role: ['admin'] }, // Solo admin puede acceder a home
+    data: { role: ['admin'] },
   },
   {
     path: 'storage',
     component: StorageComponent,
     canActivate: [roleGuard],
-    data: { role: ['admin', 'accountant'] }, // Tanto admin como accountant pueden acceder a storage
+    data: { role: ['admin', 'accountant'] },
   },
   {
     path: 'user-list',
     component: UserListComponent,
     canActivate: [roleGuard],
-    data: { role: ['superAdmin'] }, // Solo superAdmin puede acceder a user-list
+    data: { role: ['superAdmin'] },
   },
   { path: '**', redirectTo: '' }, // Ruta comodín redirige al login
 ];

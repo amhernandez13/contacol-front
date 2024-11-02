@@ -64,7 +64,7 @@ export class SuppliersComponent implements OnInit {
         .deleteSupplierById(this.supplierToDelete._id)
         .subscribe(
           (res: any) => {
-            this.toastrService.success('Proveedor eliminado con éxito');
+            this.toastrService.success('¡Eliminación exitosa!');
             this.getAllSuppliers();
             this.showConfirmDelete = false;
           },

@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
   FormControl,
@@ -15,7 +16,7 @@ import { HederComponent } from '../header/heder.component';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, HederComponent, FooterComponent],
+  imports: [CommonModule, ReactiveFormsModule, HederComponent, FooterComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -29,18 +30,28 @@ export class LoginComponent {
     password: new FormControl('', Validators.required),
   });
 
+  isLoading: boolean = false;
+
+  isPasswordVisible: boolean = false; // Variable para controlar visibilidad
+
+  togglePasswordVisibility(): void {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
+
   handleLoginSubmit() {
     if (this.loginCredentialsData.valid) {
       const email = this.loginCredentialsData.value.email;
       const password = this.loginCredentialsData.value.password;
 
       if (typeof email === 'string' && typeof password === 'string') {
+        this.isLoading = true;
         const credentials: LoginCredentials = { email, password };
 
         this.loginService.login(credentials).subscribe(
           (res: any) => {
             if (res.state === 'Successful') {
               localStorage.setItem('token', res.data.token);
+              this.isLoading = false;
 
               const decodedToken: any = this.loginService.decodeToken(
                 res.data.token
@@ -65,16 +76,19 @@ export class LoginComponent {
                     this.toastrService.error('Rol no válido');
                 }
               } else {
+                this.isLoading = false;
                 // Si el state es false, no permitir acceso
                 this.toastrService.warning(
                   'Su cuenta está deshabilitada. Contacte al administrador.'
                 );
               }
             } else {
+              this.isLoading = false;
               this.toastrService.error(res.mesage || 'Credenciales inválidas');
             }
           },
           (error) => {
+            this.isLoading = false;
             this.toastrService.error('Credenciales incorrectas');
           }
         );

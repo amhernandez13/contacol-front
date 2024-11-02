@@ -178,6 +178,11 @@ h2 {
     overflow-y: auto;
   }
 
+  .form-item {
+    display: flex;
+    flex-direction: column;
+  }
+
   .form-submit {
     justify-content: center;
   }
@@ -191,18 +196,5 @@ h2 {
   .file-names {
     justify-content: center;
     margin-right: 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .load-buttons-container button {
-    padding: 10px;
-    font-size: 0.875rem;
-  }
-
-  .cancel-btn,
-  .accept-btn {
-    padding: 10px 20px;
-    font-size: 0.875rem;
   }
 }

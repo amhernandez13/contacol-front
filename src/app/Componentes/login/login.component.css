@@ -13,9 +13,9 @@
   margin: auto;
   display: grid;
   padding-top: 50px;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto auto auto;
-  grid-template-areas: 
+  grid-template-areas:
     "primerh2 loginform ."
     ". loginform ."
     ". loginform segundoh2";
@@ -33,6 +33,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 400px;
 }
 
 .login-grid h2:last-of-type {
@@ -52,7 +53,7 @@
   width: 100%;
   padding: 10px;
   margin-top: 10px;
-  background-color: #022C5E;
+  background-color: #022c5e;
   color: white;
   border: none;
   border-radius: 5px;
@@ -60,10 +61,11 @@
 }
 
 #login-form input[type="submit"]:hover {
-  background-color: #03488F;
+  background-color: #03488f;
 }
 
-.login-grid h5, .login-grid h6 {
+.login-grid h5,
+.login-grid h6 {
   grid-column: 1 / -1;
   text-align: center;
 }
@@ -83,7 +85,52 @@ form {
   max-width: 1400px;
   margin: auto;
   margin-top: 20px;
-  color: #022C5E;
+  color: #022c5e;
   padding: 40px;
   border-radius: 35px;
+}
+
+.password-div {
+  display: grid;
+  grid-template-columns: repeat(10 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas:
+    "input-password input-password input-password input-password input-password input-password input-password input-password input-password ."
+    "input-password input-password input-password input-password input-password input-password input-password input-password input-password eye"
+    "input-password input-password input-password input-password input-password input-password input-password input-password input-password .";
+}
+
+.input-password {
+  grid-area: input-password;
+}
+
+.password-eye {
+  grid-area: eye;
+  transform: translatex(40%);
+}
+
+.spinner {
+  margin: 10px 15px 20px 0px;
+}
+
+@media screen and (max-width: 840px) {
+  #login-form {
+    width: 100%;
+  }
+  .login-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+      "primerh2"
+      "loginform"
+      "loginform"
+      "segundoh2";
+    margin: 0 20% 0 20%;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .login-grid {
+    margin: 0 12% 0 12%;
+  }
 }

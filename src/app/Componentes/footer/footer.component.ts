@@ -12,6 +12,7 @@ export class FooterComponent {
 
   // Método para navegar a la ruta FAQ
   goToFAQ() {
-    this.router.navigate(['/faq']);
+    const url = this.router.serializeUrl(this.router.createUrlTree(['/faq']));
+    window.open(url, '_blank');
   }
 }
