@@ -23,17 +23,15 @@ import { InvoiceService } from '../../services/invoice.service';
 export class HomeComponent {
   currentComponent: string = 'table'; // Para mostrar la tabla por defecto
   invoices: any[] = []; // Array para almacenar las facturas
-  isLoading = false; // Controla la visibilidad del loader
+  isLoading = false;
 
   constructor(private invoiceService: InvoiceService, private router: Router) {}
 
   ngOnInit(): void {
-    this.isLoading = true; // Mostrar loader mientras se cargan las facturas
+    this.isLoading = true;
 
     this.invoiceService.getInvoices().subscribe(
       (response) => {
-        console.log('Respuesta del backend:', response);
-
         // Accedemos al array de facturas y lo filtramos
         if (response.data && Array.isArray(response.data)) {
           this.invoices = response.data
@@ -50,15 +48,11 @@ export class HomeComponent {
               );
             });
         } else {
-          console.error(
-            'No se encontró un array de facturas en la propiedad data.'
-          );
         }
 
-        this.isLoading = false; // Ocultar el loader cuando los datos se han cargado
+        this.isLoading = false;
       },
       (error) => {
-        console.error('Error al cargar las facturas:', error);
         this.isLoading = false;
       }
     );

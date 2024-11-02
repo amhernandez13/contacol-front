@@ -31,11 +31,11 @@ export class InvoicesComponent {
   selectedInvoice: any = null; // Factura seleccionada para editar
   startDate: string | null = null;
   endDate: string | null = null;
-  isLoading = false; // Controla la visibilidad del loader
+  isLoading = false;
 
   // Obtener todas las facturas
   getallinvoices() {
-    this.isLoading = true; // Mostrar el loader
+    this.isLoading = true;
     this.invoice_service.getInvoices().subscribe(
       (answer: any) => {
         this.alldata = (answer.data || []).sort((a: any, b: any) => {
@@ -47,14 +47,14 @@ export class InvoicesComponent {
         this.isLoading = false;
       },
       (error) => {
-        this.isLoading = false; // oculta loader si error
+        this.isLoading = false;
       }
     );
   }
 
   // Método para filtrar las facturas
   filterInvoices() {
-    this.isLoading = true; // Mostrar el loader antes de filtrar
+    this.isLoading = true;
     setTimeout(() => {
       const query = this.searchQuery.toLowerCase();
 

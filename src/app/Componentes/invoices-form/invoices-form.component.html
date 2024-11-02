@@ -15,7 +15,6 @@
   >
     Cargar comprobante
     <i class="bi bi-receipt-cutoff"></i>
-    <!-- Loader de comprobante -->
     <span
       *ngIf="isUploadingComprobante"
       class="spinner-border spinner-border-sm ms-2"
@@ -30,7 +29,6 @@
     (change)="onComprobanteFileSelected($event)"
     accept=".pdf"
   />
-  <!-- Botón de cargar factura -->
   <button
     type="button"
     class="load-invoice-btn"
@@ -49,7 +47,6 @@
   />
 </div>
 
-<!-- Mostrar el nombre del archivo seleccionado -->
 <div
   *ngIf="selectedInvoiceFileName || selectedComprobanteFileName"
   class="file-names"
@@ -61,6 +58,7 @@
     Comprobante seleccionado: {{ selectedComprobanteFileName }}
   </p>
 </div>
+
 <div id="invoiceFormContainer">
   <form id="invoiceForm" [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
     <!-- Primera columna -->
@@ -201,7 +199,6 @@
       </button>
       <button type="submit" class="accept-btn" [disabled]="isLoading">
         Aceptar
-        <!-- Loader en el botón de enviar -->
         <span
           *ngIf="isLoading"
           class="spinner-border spinner-border-sm ms-2"

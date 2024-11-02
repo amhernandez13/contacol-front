@@ -3,45 +3,76 @@ import { StorageService } from '../../services/storage.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HederComponent } from '../header/heder.component';
 import { FooterComponent } from '../footer/footer.component';
+import { InvoicesFormComponent } from '../invoices-form/invoices-form.component';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-storage',
   standalone: true,
-  imports: [DatePipe, HederComponent, FooterComponent, CommonModule],
+  imports: [
+    DatePipe,
+    HederComponent,
+    FooterComponent,
+    CommonModule,
+    InvoicesFormComponent,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
   templateUrl: './storage.component.html',
   styleUrls: ['./storage.component.css'],
 })
 export class StorageComponent implements OnInit {
   storage = inject(StorageService);
-  alls: any[] = [];
-  isLoading = false; // Controla la visibilidad del loader
+  alls: any[] = []; // Lista completa de comprobantes
+  filteredAlls: any[] = []; // Lista filtrada de comprobantes
+  searchTerm: string = '';
+  startDate: string | null = null;
+  endDate: string | null = null;
+  isLoading = false;
+  private router = inject(Router);
 
-  // Método para obtener el almacenamiento
+  ngOnInit() {
+    this.getstorage();
+  }
+
   getstorage() {
-    this.isLoading = true; // Mostrar el loader antes de cargar los datos
-    console.log('Cargando datos de almacenamiento...');
-
+    this.isLoading = true;
     this.storage.getStorage().subscribe(
       (answer: any) => {
-        console.log('Respuesta del servicio de almacenamiento:', answer);
         if (answer) {
           this.alls = answer;
-          console.log('Datos cargados correctamente:', this.alls);
+          this.filteredAlls = this.alls; // Inicialmente, mostrar todos los comprobantes
         } else {
-          console.log('No se encontraron datos');
         }
-        this.isLoading = false; // Ocultar el loader después de obtener los datos
+        this.isLoading = false;
       },
       (error) => {
-        console.error('Error al cargar los datos:', error);
         this.isLoading = false;
       }
     );
   }
 
-  // Inicialización del componente
-  ngOnInit() {
-    console.log('Inicializando el componente...');
-    this.getstorage();
+  // Método de filtrado de comprobantes
+  filterInvoices() {
+    const searchTermLower = this.searchTerm.toLowerCase().trim();
+    const start = this.startDate ? new Date(this.startDate) : null;
+    const end = this.endDate ? new Date(this.endDate) : null;
+
+    this.filteredAlls = this.alls.filter((element) => {
+      const matchesSearch = element.invoiceName
+        ?.toLowerCase()
+        .includes(searchTermLower);
+      const uploadDate = new Date(element.uploadDate);
+      const matchesDate =
+        (!start || uploadDate >= start) && (!end || uploadDate <= end);
+
+      return matchesSearch && matchesDate;
+    });
+  }
+
+  reloadPage(): void {
+    this.router.navigate(['/home']);
   }
 }

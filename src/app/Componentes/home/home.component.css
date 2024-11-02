@@ -1,102 +1,140 @@
+/* General */
+* {
+  box-sizing: border-box;
+}
+
 #function-container {
-    display: flex;
-    justify-content: space-around;
-    max-width: 1500px;
-    margin: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 1500px;
+  margin: 20px auto;
+  gap: 15px;
+}
+
+.function-selector {
+  cursor: pointer;
+  color: black;
+  transition: color 0.3s ease;
+  text-align: center;
+  flex: 1 1 30%;
+  min-width: 250px;
+  max-width: 400px;
+}
+
+.function-selector h2 i {
+  font-size: 80px;
+}
+
+.function-selector:hover {
+  color: #0d6efd;
+}
+
+.function-selector.active {
+  color: black;
+}
+
+.function-selector.disabled {
+  color: gray;
+}
+
+/* Tabla */
+#table-container {
+  padding: 0 20px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto 70px auto;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #c6c6c6;
+}
+
+th {
+  background-color: #c6c6c6;
+  color: #022c5e;
+}
+
+td {
+  background-color: white;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+td.icon-center,
+td.date-center {
+  text-align: center;
+  vertical-align: middle;
+}
+
+td.icon-center i {
+  font-size: 22px;
+  color: black;
+}
+
+/* Icono deshabilitado */
+.disabled-icon {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Loader */
+.loader-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #function-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
-  
+
   .function-selector {
-    cursor: pointer;
-    color: black;
-    transition: color 0.3s ease;
+    max-width: 100%;
   }
-  
-  /* Estilo cuando el cursor está por encima */
-  .function-selector:hover {
-    cursor: pointer;
-  }
-  
-  /* Estilo cuando el selector está activo */
-  .function-selector.active {
-    color: black;
-  }
-  
-  /* Estilo para selectores deshabilitados */
-  .function-selector.disabled {
-    color: gray;
-  }
-  
-  /* Estilo para h2 e íconos */
-  h2 {
-    display: flex;
-    align-items: center;
-  }
-  
-  h2 i {
-    font-size: 100px;
-  }
-  
-  /* Estilos para la tabla */
-  #table-container {
-    padding: 0 20px;
-  }
-  
+
   table {
-    width: 100%;
-    max-width: 1500px;
-    margin: 0 auto 70px auto;
-    border-collapse: collapse;
+    font-size: 14px;
   }
-  
-  /* Bordes y estilo de las celdas */
-  th, td {
-    padding: 10px;
-    text-align: left;
-    border: 5px solid #c6c6c6;
+
+  h2 i {
+    font-size: 50px;
   }
-  
-  /* Color del encabezado de la tabla */
-  th {
-    background-color: #c6c6c6;
-    color: #022C5E;
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1em;
   }
-  
-  td {
-    background-color: white;
+
+  table {
+    font-size: 12px;
   }
-  
-  /* Efecto hover para las filas */
-  tr:hover {
-    background-color: #f5f5f5;
-  }
-  
-  /* Estilo del icono en la columna de detalle */
-  i.bi-file-text {
-    cursor: pointer;
-  }
-  
-  /* Centrar el contenido de las celdas específicas */
-  td.icon-center, td.date-center {
-    text-align: center;
-    vertical-align: middle;
-  }
-  
+
   td.icon-center i {
-    font-size: 22px;
+    font-size: 20px;
   }
-  
-  /* Estilos para el loader */
-  .loader-overlay {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    width: 100%;
-    height: 100%;
-  }
-  
+}

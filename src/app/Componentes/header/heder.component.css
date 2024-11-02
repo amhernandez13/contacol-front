@@ -1,3 +1,4 @@
+/* Estilo para la imagen del logo */
 img {
     height: 140px;
     margin-left: 16px;
@@ -5,8 +6,10 @@ img {
     margin-bottom: -15px;
     cursor: pointer;
     object-fit: contain;
+    transition: height 0.3s ease;
   }
   
+  /* Botón de logout */
   .logout-btn {
     background: none;
     border: none;
@@ -15,9 +18,42 @@ img {
     cursor: pointer;
     margin-left: auto;
     padding-right: 80px;
+    transition: font-size 0.3s ease, padding-right 0.3s ease;
   }
   
   .logout-btn:hover {
     text-decoration: underline;
   }
+  
+  /* Media Query para Pantallas Medianas (Tablet) */
+  @media (max-width: 768px) {
+    img {
+      height: 100px;
+      margin-left: 10px;
+    }
+  
+    .logout-btn {
+      font-size: 18px;
+      padding-right: 40px;
+    }
+  }
+  
+  /* Media Query para Pantallas Pequeñas (Móviles) */
+  @media (max-width: 480px) {
+    .navbar-brand {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    img {
+      height: 80px;
+      margin: 0;
+    }
+  
+    .logout-btn {
+      font-size: 16px;
+      padding-right: 20px;
+    }
+  }
+  
   

@@ -39,7 +39,6 @@ textarea {
   color: red;
 }
 
-/* Estilo del campo de observaciones */
 #observaciones {
   grid-column: 3 / span 2;
   grid-area: observaciones;

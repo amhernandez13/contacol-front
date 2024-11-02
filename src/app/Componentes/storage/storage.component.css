@@ -1,68 +1,95 @@
-/* Contenedor principal */
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
+/* Contenedor principal */
 .container {
   width: 100%;
   margin: 0 auto;
   padding: 20px;
   border-radius: 10px;
-}
-
-.user-controls {
   display: flex;
-  flex-direction: row-reverse;
-  gap: 10px;
-  align-content: space-around;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
 }
 
-.Almacen {
-  right: 100px;
-}
-
-.search-bar {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.logout-button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* Cabecera */
-.header {
+.small-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #e0e0e0;
-  padding: 15px;
-  border-radius: 5px;
+  padding: 10px 20px;
+  flex-wrap: wrap;
+  max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.logo {
-  text-align: left;
+.go-back {
+  padding: 5px 20px;
+  background-color: #022c5e;
+  border-radius: 20px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
-.user-controls {
+.header-icon {
   display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.icon-img {
+  width: 40px;
+  height: 40px;
+}
+
+.Almacen {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.search-bar-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   gap: 10px;
 }
 
+.search-bar,
+.date-input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  font-size: 14px;
+  flex-grow: 1;
+  min-width: 80px;
+}
+
+.search-bar {
+  max-width: 250px;
+}
+
+.date-input {
+  max-width: 150px;
+  text-align: center;
+}
+
+/* Comprobante items */
 .comprobante-item {
-  display: inline-block;
   background-color: #fff;
   border-radius: 5px;
   padding: 20px;
   text-align: center;
-  width: 20%;
+  width: 45%;
+  max-width: 200px;
+  margin: 10px;
 }
 
 .comprobante-icon {
@@ -78,72 +105,51 @@
   margin-top: 10px;
 }
 
-/* Loader de Bootstrap */
-.loader-overlay {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  width: 100%;
-  height: 100%;
+/* Responsive */
+@media (max-width: 768px) {
+  .small-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header-icon {
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .search-bar-container {
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .comprobante-item {
+    width: 90%;
+    max-width: 100%;
+  }
 }
 
-/* Pie de página */
-.footer {
-  background-color: #e0e0e0;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 20px;
-  text-align: center;
-}
+@media (max-width: 480px) {
+  .search-bar {
+    width: 100%;
+  }
 
-.help-button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-}
+  .date-input {
+    width: 100%;
+  }
 
-.small-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  max-width: 1400px;
-  margin: auto;
-}
+  .Almacen {
+    font-size: 1em;
+  }
 
-.header-icon {
-  display: flex;
-  align-items: center;
-}
+  .header-icon svg {
+    width: 40px;
+    height: 40px;
+  }
 
-.icon-img {
-  width: 40px;
-  height: 40px;
-  margin-right: 10px;
-}
-
-.search-bar-container {
-  position: relative;
-}
-
-.search-bar {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  width: 250px;
-  font-size: 14px;
-}
-
-.search-bar::placeholder {
-  padding-left: 20px;
+  .comprobante-icon {
+    width: 50px;
+    height: 50px;
+  }
 }
